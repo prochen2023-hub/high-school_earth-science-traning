@@ -1,0 +1,11 @@
+v4.1 QA CHECK
+================
+1. curriculum.js sections: 23 (expected 23)
+2. Focus deep-content counts: {'2-2': 6, '2-3': 4, '5-1': 5, '5-2': 7, '5-3': 6}
+3. app.js syntax: PASS (checked separately)
+4. curriculum.js syntax: PASS
+5. Inline event handler function scan: PASS
+6. Teacher-standard blocks present: True
+7. Official-source markers present: USGS=True, NOAA=True, NASA=True, CWA=True
+8. Crude self-drawn world SVG removed: True
+9. External official resources require internet; core custom explanations remain local.
