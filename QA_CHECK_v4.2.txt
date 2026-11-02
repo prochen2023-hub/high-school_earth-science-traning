@@ -1,0 +1,65 @@
+高中一年級｜地科秘笈 v4.2 QA
+PASS 58/58
+
+PASS | 課程小節數=23 | 23
+PASS | 23節都有圖像導讀 | 23 scenes
+PASS | 23節都有專屬互動 | 23 labs
+PASS | v4.2 標題與版本
+PASS | 無 PLACEHOLDER/TODO
+PASS | 關鍵內容：全球地震
+PASS | 關鍵內容：海溝
+PASS | 關鍵內容：11 km
+PASS | 關鍵內容：琉球
+PASS | 關鍵內容：馬尼拉
+PASS | 關鍵內容：地磁
+PASS | 關鍵內容：熱剩磁
+PASS | 關鍵內容：震源
+PASS | 關鍵內容：震央
+PASS | 關鍵內容：表面波
+PASS | 關鍵內容：北極星
+PASS | 關鍵內容：永晝
+PASS | 關鍵內容：永夜
+PASS | 關鍵內容：同步自轉
+PASS | 關鍵內容：八大行星
+PASS | 關鍵內容：冥王星
+PASS | 關鍵內容：LEO
+PASS | 關鍵內容：GEO
+PASS | 關鍵內容：SpaceX
+PASS | 關鍵內容：極光
+PASS | 關鍵內容：光年
+PASS | 1-1 有圖形內容 | 1344 chars
+PASS | 1-2 有圖形內容 | 1400 chars
+PASS | 1-3 有圖形內容 | 1144 chars
+PASS | 2-1 有圖形內容 | 1075 chars
+PASS | 2-2 有圖形內容 | 1552 chars
+PASS | 2-3 有圖形內容 | 1317 chars
+PASS | 3-1 有圖形內容 | 1370 chars
+PASS | 3-2 有圖形內容 | 1332 chars
+PASS | 3-3 有圖形內容 | 920 chars
+PASS | 3-4 有圖形內容 | 1307 chars
+PASS | 3-5 有圖形內容 | 1312 chars
+PASS | 4-1 有圖形內容 | 1118 chars
+PASS | 4-2 有圖形內容 | 1684 chars
+PASS | 4-3 有圖形內容 | 1701 chars
+PASS | 5-1 有圖形內容 | 1270 chars
+PASS | 5-2 有圖形內容 | 1736 chars
+PASS | 5-3 有圖形內容 | 614 chars
+PASS | 6-1 有圖形內容 | 851 chars
+PASS | 6-2 有圖形內容 | 1210 chars
+PASS | 6-3 有圖形內容 | 1068 chars
+PASS | 6-4 有圖形內容 | 971 chars
+PASS | 7-1 有圖形內容 | 834 chars
+PASS | 7-2 有圖形內容 | 1067 chars
+PASS | app.js Node語法
+PASS | curriculum.js Node語法
+PASS | visuals.js Node語法
+PASS | 55個互動分頁可產生內容 | {
+  "labs": 23,
+  "totalTabs": 55,
+  "bad": []
+}
+PASS | 官方來源：usgs.gov
+PASS | 官方來源：noaa.gov
+PASS | 官方來源：cwa.gov.tw
+PASS | 官方來源：nasa.gov
+PASS | 官方來源：spacex.com
