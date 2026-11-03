@@ -80,6 +80,14 @@ const TEACHER_GUIDE={
   exam:'排序題先背「水金地火木土天海」；尺度題先問「誰包含誰」；光年題先翻成「我們看到多久以前的光」。'
  }
 };
+Object.assign(TEACHER_GUIDE,{
+ '2-1':{standard:'地震波不是名詞表，而是兩種用途：定位地震＋探測地球內部。',must:['分清震源、震央、震源深度與淺／中／深源分類。','P波較快、可通過固液；S波較慢且不能直接通過液體。','P−S時差先估距離，多站才定位震央。','由波速改變、不連續面與S波陰影理解地殼、地函、外核、內核。','分清成分分層與岩石圈／軟流圈力學分層。'],traps:['速報是地震已發生後的快速偵測，不是預測。','S波不穿液體不代表液態外核沒有P波。','岩石圈不等於地殼。'],exam:'先找「到時、深度、波速轉折、是否能穿液體」四個線索。'},
+ '2-2':{standard:'三大岩類用形成過程判斷；岩石循環用過程動詞串起來。',must:['火成岩：冷卻速度控制晶體大小。','沉積岩：風化、搬運、沉積、壓密膠結；顆粒大小反映搬運能量。','變質岩：固態下受熱受壓，可能形成片理或再結晶。','岩石循環不是單一路線。'],traps:['變質不等於熔融。','沉積岩不一定有化石。','顏色不能單獨決定岩類。'],exam:'先圈出題目中的「冷卻、沉積、熱壓、熔融」等動詞，再判岩類。'},
+ '2-3':{standard:'把大陸漂移、海底擴張、板塊構造當成證據逐步累積的科學史。',must:['漂移證據包含輪廓、化石、岩層與古氣候。','中洋脊附近海床較年輕，向兩側變老。','磁條帶對稱反映地磁倒轉＋海底擴張。','板塊屬於岩石圈。'],traps:['中洋脊不會造成地磁倒轉。','韋格納提出漂移，不等於完成現代板塊構造學說。','海床不會無限變老，因隱沒回收。'],exam:'看到年齡或磁條帶先找中洋脊；看到全球地震火山帶先找板塊邊界。'},
+ '2-4':{standard:'三種邊界先看箭頭方向，再由地形、震源深度與火山驗證。',must:['張裂：中洋脊／裂谷、新岩石圈、淺震。','聚合：隱沒或碰撞造山；隱沒可見海溝、斜向震源、火山弧。','錯動：水平錯移、不大量生滅岩石圈、淺震。','火山分布與岩漿性質可連回板塊環境。'],traps:['海洋岩石圈隱沒不是因海水重。','陸陸碰撞不一定有典型火山弧。','錯動邊界一樣能有大地震。'],exam:'海溝＋深震源方向＋火山弧是一組；箭頭方向先於地名。'},
+ '2-5':{standard:'臺灣是整章綜合題：兩套隱沒方向＋中段碰撞造山＋岩石與震源分布。',must:['東北側菲律賓海板塊向北隱沒。','南側歐亞板塊海洋部分向東隱沒。','中段弧陸碰撞造成地殼縮短增厚與造山。','震源深度比單看震央更能判隱沒方向。','岩石分布可反映不同構造帶與造山歷史。'],traps:['不能用一句「菲律賓海板塊鑽到歐亞板塊下」概括全臺灣。','平面圖未必看得出上下板塊。'],exam:'固定順序：定位東西南北→找海溝與山脈→看震源深度→判板塊方向→最後對岩石。'}
+});
+
 function teacherStandardHTML(s){const g=TEACHER_GUIDE[s.id];if(!g)return '';return `<details class="chunk teacherStandard"><summary>🎓 老師幫你收斂：段考到底要會什麼</summary><div class="teacherBody"><p><b>${esc(g.standard)}</b></p><div class="standardGrid"><div><h4>必會</h4><ul>${g.must.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><h4>最容易失分</h4><ul>${g.traps.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="examCue"><b>考題判讀：</b>${esc(g.exam)}</div></div></details>`;}
 function officialCard(title,desc,url,label='開啟官方資源'){return `<div class="officialCard"><div><b>${esc(title)}</b><p>${esc(desc)}</p></div><a class="primary officialLink" href="${url}" target="_blank" rel="noopener noreferrer">${label} ↗</a></div>`;}
 const done=()=>new Set(JSON.parse(localStorage.getItem('geo_done')||'[]'));
@@ -109,7 +117,7 @@ function showPage(p){
 }
 
 function renderHome(){
- const picks=['2-2','3-5','4-2','5-2'].map(id=>S.find(x=>x.id===id));
+ const picks=['2-1','2-4','2-5','5-2'].map(id=>S.find(x=>x.id===id));
  document.getElementById('lifeGrid').innerHTML=picks.map(x=>`<div class="card lifeCard"><div class="lifeEmoji">${x.emoji}</div><b>${esc(x.hook)}</b><span class="mini">${esc(x.one)}</span><button class="secondary" onclick="${on(`openLesson('${x.id}')`)}">看看原理 →</button></div>`).join('');
  renderSkillShelf();
 }
@@ -149,6 +157,30 @@ function makeToday(){
 }
 function answerInline(btn,i){let box=btn.closest('.inlineQuiz'),a=Number(box.dataset.answer),why=box.dataset.why,cs=box.querySelectorAll('.choice');cs.forEach((x,j)=>{x.disabled=true;if(j===a)x.classList.add('ok')});if(i!==a)btn.classList.add('bad');let f=box.querySelector('.feedback');f.classList.remove('hidden');f.innerHTML=i===a?`🌟 對，就是這個關係。${esc(why)}<br><b>快練成了！</b>`:`👀 還差一小步。提示：${esc(why)}<br>不用重讀整頁，回去看那條因果鏈就好。`;if(i===a)addStar();}
 
+
+function chapter3MasterHTML(s){
+ const d=window.CH3_MASTER?.[s.id]; if(!d)return '';
+ const pageCards=d.pages.map(x=>`<article class="bookPageCard"><button class="bookZoom" onclick="openBookImage('assets/textbook/p${x.p}.jpg','${esc('課本 p.'+x.p+'｜'+x.title)}')"><img src="assets/textbook/p${x.p}.jpg" alt="課本第 ${x.p} 頁" loading="lazy"><span>🔍 點圖放大</span></button><div class="bookPageText"><div class="focusTag">${esc(x.tag)}</div><h4>p.${x.p}｜${esc(x.title)}</h4><p>${esc(x.focus)}</p></div></article>`).join('');
+ const story=d.story.map((x,i)=>`<article class="masterStory"><div class="storyNo">${String(i+1).padStart(2,'0')}</div><div><h4>${esc(x.q)}</h4><p>${esc(x.a)}</p><div class="memoryHook">🧠 ${esc(x.memory)}</div></div></article>`).join('');
+ const compare=`<div class="masterTableWrap"><table class="masterTable"><thead><tr>${d.compare.headers.map(x=>`<th>${esc(x)}</th>`).join('')}</tr></thead><tbody>${d.compare.rows.map(r=>`<tr>${r.map(x=>`<td>${esc(x)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+ return `<div class="masterLesson">
+   <section class="masterHero"><div><div class="eyebrow">${esc(d.label)}</div><h2>這次真的把課本拆開來教</h2><p>${esc(d.intro)}</p></div><div class="masterStamp">課本原圖<br><b>已使用</b></div></section>
+   <section class="masterGoals"><h3>🎯 走完這節，你真的要會這些</h3><div>${d.goals.map((g,i)=>`<span><b>${i+1}</b>${esc(g)}</span>`).join('')}</div></section>
+   <section class="masterSection"><div class="masterHeading"><div><span>STEP 1</span><h3>先從課本的圖看懂，不先讀整頁文字</h3></div><p>下面就是你拍給我的課本頁面。每頁只抓一個視覺重點。</p></div><div class="bookGrid">${pageCards}</div></section>
+   <section class="masterSection"><div class="masterHeading"><div><span>STEP 2</span><h3>補教名師式：每個名詞都先回答一個問題</h3></div><p>先有疑問，再給機制，最後才留下口訣。</p></div><div class="masterStoryGrid">${story}</div></section>
+   <section class="masterSection"><div class="masterHeading"><div><span>STEP 3</span><h3>一眼比較表：相似概念放一起，才不會混</h3></div></div>${compare}</section>
+   <section class="masterSection examMaster"><div class="masterHeading"><div><span>STEP 4</span><h3>段考看到這種圖，第一眼先看哪裡？</h3></div></div><div class="examMoves">${d.exam.map((x,i)=>`<div><b>${i+1}</b><p>${esc(x)}</p></div>`).join('')}</div></section>
+   <section class="masterRescue"><div class="rescuePulse">30 秒救命</div><p>${esc(d.rescue)}</p></section>
+ </div>`;
+}
+function openBookImage(src,caption){
+ let old=document.getElementById('bookLightbox'); if(old)old.remove();
+ let el=document.createElement('div'); el.id='bookLightbox'; el.className='bookLightbox';
+ el.innerHTML=`<button class="bookClose" aria-label="關閉" onclick="closeBookImage()">✕</button><figure><img src="${src}" alt="${esc(caption)}"><figcaption>${esc(caption)}</figcaption></figure>`;
+ el.addEventListener('click',e=>{if(e.target===el)closeBookImage();}); document.body.appendChild(el); document.body.style.overflow='hidden';
+}
+function closeBookImage(){let e=document.getElementById('bookLightbox');if(e)e.remove();document.body.style.overflow='';}
+
 function coachLine(s){
  const lines=['先不用背，這一節只抓一件事。','先看現象，再補名字；你不用一次懂完。','把圖動一次，比重讀三遍有效。','快練成了：先能用自己的話說，就已經跨過最難的一步。'];
  return lines[S.indexOf(s)%lines.length];
@@ -157,8 +189,9 @@ function openLesson(id){
  let s=S.find(x=>x.id===id);if(!s)return;currentLessonId=id;let ch=C.find(x=>x.id===s.ch);
  document.getElementById('mainApp').classList.add('hidden');document.getElementById('lessonApp').classList.remove('hidden');
  document.getElementById('lessonView').innerHTML=`<div class="lessonTop"><button class="secondary" onclick="showPage('chapters')">← 回章節</button><div><div class="eyebrow">${ch.num}｜${esc(ch.title)}｜${s.id}</div><h1 class="lessonTitle">${s.emoji} ${esc(s.title)}</h1><div class="hook">${esc(s.hook)}</div><div class="coach">💬 ${coachLine(s)}</div></div></div>
- <div class="modebar"><button class="mode active" onclick="lessonMode(this,'easy')">👀 看圖先懂</button><button class="mode" onclick="lessonMode(this,'sim')">🕹️ 動手驗證</button><button class="mode" onclick="lessonMode(this,'textbook')">📘 高中正式</button><button class="mode" onclick="lessonMode(this,'quiz')">🎯 3題收工</button></div>
- <div id="mode-easy" class="lessonMode">${window.GEO_VISUALS?.render(s)||''}<div class="chunk bigOne"><div class="mini">圖看完，只留這一句</div><div class="bigSentence">${esc(s.one)}</div><button class="microSpeak" onclick="${on(`speak(${JSON.stringify(s.one)})`)}">🔊 聽重點</button></div>${chainHTML(s)}<div class="chunk"><div class="chunkHead"><h3>把大圖拆成三個小畫面</h3><button class="microSpeak" onclick="${on(`speak(${JSON.stringify(s.concepts.map(x=>x[0]+'。'+x[1]).join(' '))})`)}">🔊 聽解釋</button></div><div class="concepts visualConcepts">${s.concepts.map((c,i)=>`<div class="concept">${window.GEO_VISUALS?.mini(s.id,i)||''}<b>${esc(c[0])}</b><p>${esc(c[1])}</p></div>`).join('')}</div></div>${teachFriendHTML(s)}${teacherStandardHTML(s)}${deepDiveHTML(s)}${rescueHTML(s)}</div>
+ <div class="modebar">${window.CH3_MASTER?.[s.id]?`<button class="mode active" onclick="lessonMode(this,'master')">📚 完整圖解</button><button class="mode" onclick="lessonMode(this,'easy')">👀 看圖先懂</button>`:`<button class="mode active" onclick="lessonMode(this,'easy')">👀 看圖先懂</button>`}<button class="mode" onclick="lessonMode(this,'sim')">🕹️ 動手驗證</button><button class="mode" onclick="lessonMode(this,'textbook')">📘 高中正式</button><button class="mode" onclick="lessonMode(this,'quiz')">🎯 3題收工</button></div>
+ ${window.CH3_MASTER?.[s.id]?`<div id="mode-master" class="lessonMode">${chapter3MasterHTML(s)}</div>`:''}
+ <div id="mode-easy" class="lessonMode ${window.CH3_MASTER?.[s.id]?'hidden':''}">${window.GEO_VISUALS?.render(s)||''}<div class="chunk bigOne"><div class="mini">圖看完，只留這一句</div><div class="bigSentence">${esc(s.one)}</div><button class="microSpeak" onclick="${on(`speak(${JSON.stringify(s.one)})`)}">🔊 聽重點</button></div>${chainHTML(s)}<div class="chunk"><div class="chunkHead"><h3>把大圖拆成三個小畫面</h3><button class="microSpeak" onclick="${on(`speak(${JSON.stringify(s.concepts.map(x=>x[0]+'。'+x[1]).join(' '))})`)}">🔊 聽解釋</button></div><div class="concepts visualConcepts">${s.concepts.map((c,i)=>`<div class="concept">${window.GEO_VISUALS?.mini(s.id,i)||''}<b>${esc(c[0])}</b><p>${esc(c[1])}</p></div>`).join('')}</div></div>${teachFriendHTML(s)}${teacherStandardHTML(s)}${deepDiveHTML(s)}${rescueHTML(s)}</div>
  <div id="mode-sim" class="lessonMode hidden">${sectionLabHTML(s)}</div>
  <div id="mode-textbook" class="lessonMode hidden"><div class="chunk"><div class="chunkHead"><h3>📘 高中正式名詞</h3><button class="microSpeak" onclick="${on(`speak(${JSON.stringify('正式名詞：'+s.terms.join('、'))})`)}">🔊 聽名詞</button></div><div class="termRow">${s.terms.map(x=>`<span class="term">${esc(x)}</span>`).join('')}</div></div>${teacherStandardHTML(s)}<div class="chunk trap"><div class="chunkHead"><h3>⚠️ 最容易搞混</h3><button class="microSpeak" onclick="${on(`speak(${JSON.stringify(s.traps.join(' '))})`)}">🔊 考試容易錯</button></div><ul>${s.traps.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div class="chunk"><h3>🧠 解題五步</h3><div class="solveSteps"><span>① 看現象</span><span>② 找誰在動</span><span>③ 找力量／能量</span><span>④ 找留下的證據</span><span>⑤ 才套正式名詞</span></div></div></div>
  <div id="mode-quiz" class="lessonMode hidden"><div class="chunk"><h3>🎯 3題就收工</h3><p class="muted">不用刷題海。三題都能說出為什麼，就可以往下。</p>${quizHTML(s.questions)}</div></div>

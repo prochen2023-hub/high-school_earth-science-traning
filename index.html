@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#06111b">
-<title>高中一年級｜地科秘笈 v4.3</title>
+<title>高中一年級｜地科秘笈 v4.6</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header><div class="top"><div class="brand">🌏 高一 <b>地科秘笈</b> <span class="mini">v4.3</span></div><button class="btn" onclick="toggleLow()">🧠 少字模式</button><button class="btn" onclick="speakVisible()">🔊 聽這頁</button><button class="btn" onclick="showPage('range')">🎯 段考範圍</button><span class="chip" id="starCount">⭐ 0</span></div></header>
+<header><div class="top"><div class="brand">🌏 高一 <b>地科秘笈</b> <span class="mini">v4.6</span></div><button class="btn" onclick="toggleLow()">🧠 少字模式</button><button class="btn" onclick="speakVisible()">🔊 聽這頁</button><button class="btn" onclick="showPage('range')">🎯 段考範圍</button><span class="chip" id="starCount">⭐ 0</span></div></header>
 
 <main id="mainApp">
 <section class="hero">
- <div class="card"><div class="eyebrow">圖像先行；真實資料用真實圖，機制才用教學動畫</div><h1>先看懂世界，<br><span>再把高中名詞裝上去。</span></h1><p class="lead">地震、颱風、月相、早天黑、海水漲退、衛星定位——你不是從零開始。這個網站只把「中間沒講清楚的那一步」補完整。</p><div class="scopechips"><span class="scopechip">👀 先看現象</span><span class="scopechip">🕹️ 親手操作</span><span class="scopechip">🧩 串成故事</span><span class="scopechip">📘 最後命名</span><span class="scopechip">😎 教同學一招</span></div></div>
+ <div class="card"><div class="eyebrow">v4.6｜第三章 p.66–99 已逐頁重組；課本原圖直接進教學</div><h1>先看懂世界，<br><span>再把高中名詞裝上去。</span></h1><p class="lead">這次不再把課本換成另一堆文字。第三章直接使用你拍的課本原圖，逐頁放大、抓線索、補因果、做比較，再進互動與段考題型。</p><div class="scopechips"><span class="scopechip">👀 先看現象</span><span class="scopechip">🕹️ 親手操作</span><span class="scopechip">🧩 串成故事</span><span class="scopechip">📘 最後命名</span><span class="scopechip">😎 教同學一招</span></div></div>
  <div class="card scopebox"><div class="mini">目前複習範圍</div><div class="scopebig" id="scopeName"></div><div id="scopeSummary" class="muted"></div><div class="meter"><i id="scopeMeter"></i></div><div class="mini" id="scopeProgress"></div><div class="encourage">快練成了。每次只救回一個卡住的地方就好。</div><button class="primary" onclick="makeToday()">開始今天 8 分鐘</button><button class="secondary" onclick="showPage('range')">修改段考範圍</button></div>
 </section>
 
@@ -43,6 +43,7 @@
 
 <main id="lessonApp" class="hidden"><section id="lessonView"></section></main>
 <script src="curriculum.js"></script>
+<script src="chapter3_master.js"></script>
 <script src="visuals.js"></script>
 <script src="app.js"></script>
 </body>
