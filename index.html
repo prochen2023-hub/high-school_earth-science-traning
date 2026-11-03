@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#06111b">
-<title>高中一年級｜地科秘笈 v4.3</title>
+<title>高中一年級｜地科秘笈 v4.4</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<header><div class="top"><div class="brand">🌏 高一 <b>地科秘笈</b> <span class="mini">v4.3</span></div><button class="btn" onclick="toggleLow()">🧠 少字模式</button><button class="btn" onclick="speakVisible()">🔊 聽這頁</button><button class="btn" onclick="showPage('range')">🎯 段考範圍</button><span class="chip" id="starCount">⭐ 0</span></div></header>
+<header><div class="top"><div class="brand">🌏 高一 <b>地科秘笈</b> <span class="mini">v4.4</span></div><button class="btn" onclick="toggleLow()">🧠 少字模式</button><button class="btn" onclick="speakVisible()">🔊 聽這頁</button><button class="btn" onclick="showPage('range')">🎯 段考範圍</button><span class="chip" id="starCount">⭐ 0</span></div></header>
 
 <main id="mainApp">
 <section class="hero">
@@ -32,9 +32,9 @@
  <div class="sectionTitle"><h2>😎 我已解鎖的高手招式</h2><span class="muted">完成一節，就多一招可以教同學</span></div><div id="skillShelf" class="skillShelf"></div>
 </section>
 
-<section id="page-chapters" class="page"><div class="sectionTitle"><h2>正式課本章節</h2><span class="muted">7章／23小節｜每節先看圖，再操作，再補高中名詞</span></div><div id="chapterGrid" class="chapterGrid"></div></section>
+<section id="page-chapters" class="page"><div class="sectionTitle"><h2>正式課本章節</h2><span class="muted">7章／24小節｜每節先看圖，再操作，再補高中名詞</span></div><div id="chapterGrid" class="chapterGrid"></div></section>
 
-<section id="page-range" class="page"><div class="sectionTitle"><h2>段考範圍控制</h2><span class="muted">預設可改</span></div><div class="rangePanel"><div class="card"><h3>快速預設</h3><div class="presetGrid"><button class="preset" onclick="applyPreset('exam1')"><b>一段</b><br><span class="mini">第1–2章</span></button><button class="preset" onclick="applyPreset('exam2')"><b>二段</b><br><span class="mini">第3–4章</span></button><button class="preset" onclick="applyPreset('exam3')"><b>三段／期末</b><br><span class="mini">第5–7章</span></button></div><h3>老師今天教到哪？</h3><input id="teachSlider" class="progressSlider" type="range" min="0" max="22" value="5" oninput="updateTeachProgress(this.value)"><div id="teachLabel" class="muted"></div><label class="check" style="margin-top:10px"><input id="onlyTaught" type="checkbox" onchange="saveOnlyTaught()"><span><b>今日任務只抽已教範圍</b><br><span class="mini">避免跑到老師還沒教的章節</span></span></label></div><div class="card"><h3>自訂本次考試範圍</h3><div id="rangeChecks" class="checkGrid"></div><div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="primary" onclick="saveCustomScope()">套用自訂範圍</button><button class="secondary" onclick="selectAllScope(false)">全部取消</button><button class="secondary" onclick="selectAllScope(true)">全部選取</button></div></div></div></section>
+<section id="page-range" class="page"><div class="sectionTitle"><h2>段考範圍控制</h2><span class="muted">預設可改</span></div><div class="rangePanel"><div class="card"><h3>快速預設</h3><div class="presetGrid"><button class="preset" onclick="applyPreset('exam1')"><b>一段</b><br><span class="mini">第1–2章</span></button><button class="preset" onclick="applyPreset('exam2')"><b>二段</b><br><span class="mini">第3–4章</span></button><button class="preset" onclick="applyPreset('exam3')"><b>三段／期末</b><br><span class="mini">第5–7章</span></button></div><h3>老師今天教到哪？</h3><input id="teachSlider" class="progressSlider" type="range" min="0" max="23" value="5" oninput="updateTeachProgress(this.value)"><div id="teachLabel" class="muted"></div><label class="check" style="margin-top:10px"><input id="onlyTaught" type="checkbox" onchange="saveOnlyTaught()"><span><b>今日任務只抽已教範圍</b><br><span class="mini">避免跑到老師還沒教的章節</span></span></label></div><div class="card"><h3>自訂本次考試範圍</h3><div id="rangeChecks" class="checkGrid"></div><div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap"><button class="primary" onclick="saveCustomScope()">套用自訂範圍</button><button class="secondary" onclick="selectAllScope(false)">全部取消</button><button class="secondary" onclick="selectAllScope(true)">全部選取</button></div></div></div></section>
 
 <section id="page-challenge" class="page"><div class="sectionTitle"><h2>ABCD 四級闖關</h2><span class="muted">全部可預覽，不上鎖</span></div><div class="challengeGrid"><div class="level"><b>A</b><h3>一句概念</h3><p>先確認最基本因果。</p><button class="secondary" onclick="startChallenge('A')">5題開始</button></div><div class="level"><b>B</b><h3>關係判讀</h3><p>把概念換成方向和圖。</p><button class="secondary" onclick="startChallenge('B')">5題開始</button></div><div class="level"><b>C</b><h3>生活應用</h3><p>換成生活或新聞情境。</p><button class="secondary" onclick="startChallenge('C')">5題開始</button></div><div class="level"><b>D</b><h3>段考素養</h3><p>資訊變多，但核心不變。</p><button class="secondary" onclick="startChallenge('D')">5題開始</button></div></div><div id="challengeArea"></div></section>
 

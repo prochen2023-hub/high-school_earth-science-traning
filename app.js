@@ -46,6 +46,8 @@ const LABS={
 };
 
 
+LABS['2-R']={title:'🪨 岩石變身工廠',sub:'別背三張表。先追蹤一顆岩石經歷了什麼，名稱自然就出來。',tabs:[['factory','三大岩類'],['cycle','岩石循環'],['id','一眼判讀']]};
+
 const TEACHER_GUIDE={
  '2-2':{
   standard:'課綱核心：大陸漂移、海底擴張、板塊構造三套想法如何由證據逐步建立；能辨識張裂、聚合、錯動邊界，並用地質構造與震源分布解釋臺灣。',
@@ -193,6 +195,10 @@ function initLab(id,mode){
 }
 
 function labBody(id,m){
+ if(id==='2-R'&&m==='factory')return `<div class="rockFactory"><div class="rockLane"><div class="rockSource">🔥 岩漿</div><div class="rockArrow">冷卻結晶 ↓</div><div class="rockCard">🪨 <b>火成岩</b><small>地下慢冷：晶體常較粗<br>地表快冷：晶體常較細</small></div></div><div class="rockLane"><div class="rockSource">🏔️ 岩石碎屑</div><div class="rockArrow">風化→搬運→沉積→壓密膠結 ↓</div><div class="rockCard">📚 <b>沉積岩</b><small>常見層理；有機會保存化石</small></div></div><div class="rockLane"><div class="rockSource">♨️ 原有岩石</div><div class="rockArrow">高溫＋高壓，但不熔融 ↓</div><div class="rockCard">💎 <b>變質岩</b><small>礦物與組織重新排列，可能形成葉理</small></div></div></div><div class="labNote"><b>30秒救命口訣：</b>「<b>熔體冷＝火成；碎屑壓＝沉積；沒熔卻被熱壓改＝變質。</b>」先記過程，不先背岩名。</div>`;
+ if(id==='2-R'&&m==='cycle')return `<div class="rockCycle"><button onclick="rockCycleStep(0)">🔥 岩漿</button><span>→ 冷卻 →</span><button onclick="rockCycleStep(1)">🪨 火成岩</button><span>→ 風化沉積 →</span><button onclick="rockCycleStep(2)">📚 沉積岩</button><span>→ 變質 →</span><button onclick="rockCycleStep(3)">💎 變質岩</button><span>→ 熔融 →</span><button onclick="rockCycleStep(4)">🔥 岩漿</button></div><div class="labControls"><div class="controlCard"><p id="rockCycleText">點任一站。岩石循環沒有唯一固定起點，也可以走捷徑：任何岩石都可能風化成沉積物，也可能受熱受壓而變質。</p></div><div class="controlCard"><b>老師最愛騙</b><p>「變質」≠「熔融」。只要真的熔掉，就先成為岩漿；之後再冷卻才形成新的火成岩。</p></div></div>`;
+ if(id==='2-R')return `<div class="rockIdGrid"><div><b>🔍 看見大晶體</b><p>先想：有沒有可能在地下慢慢冷卻？不要只靠顏色判岩石。</p></div><div><b>📚 看見層理／化石</b><p>優先想到沉積過程：一層一層累積，可能保存古環境。</p></div><div><b>〰️ 看見葉理／礦物定向</b><p>優先想到變質作用：壓力與溫度讓礦物重新排列。</p></div></div><div class="labNote"><b>考場順序：</b>先看構造與組織 → 再問形成過程 → 最後才選岩石名稱。</div>`;
+
  if(id==='1-1'&&m==='form')return `<div class="labStage spaceStage"><div id="formObj" class="formObj">☁️</div><div id="formLabel" class="stageLabel">星雲：氣體＋塵埃</div></div><div class="labControls"><div class="controlCard"><b>把時間往後拖</b><input type="range" min="0" max="4" step="1" value="0" oninput="earthForm(this.value)"><p id="formText">先看到很多微小物質，不急著背「吸積」。</p></div><div class="controlCard"><b>你只要抓住</b><p>小東西碰撞聚集 → 越來越大 → 原始地球形成。</p></div></div>`;
  if(id==='1-1')return `<div class="labStage diffStage"><div class="protoEarth"><i class="heavy">重</i><i class="light">輕</i></div></div><div class="labControls"><div class="controlCard"><b>地球熔得夠熱時</b><input type="range" min="0" max="100" value="0" oninput="differentiate(this.value)"><p id="diffText">拖動看看：密度大的物質較容易往中心移。</p></div><div class="controlCard"><p>這就是「分異」：不是把元素分成好壞，而是密度差讓內部重新排列。</p></div></div>`;
  if(id==='1-2'&&m==='ocean')return `<div class="labStage earlyEarth"><div id="steam" class="steam">☁️☁️☁️</div><div id="oceanFill" class="oceanFill"></div><div class="hotEarth">🌍</div></div><div class="labControls"><div class="controlCard"><b>讓地表慢慢冷卻</b><input type="range" min="0" max="100" value="10" oninput="coolEarth(this.value)"><p id="coolText">很熱：水多以水氣存在。</p></div><div class="controlCard"><p>冷卻到能穩定存在液態水 → 水氣凝結、降水、長期累積成海洋。</p></div></div>`;
@@ -342,3 +348,5 @@ function quakeDepth43(v){v=Number(v);let frac=Math.min(v,700)/700,y=125+frac*265
 function psDistance43(d){d=Number(d);let vp=6,vs=3.5,tp=d/vp,ts=d/vs,dt=ts-tp;let g=document.getElementById('psGuide43');if(g){let x=70+d/500*630;g.setAttribute('x1',x);g.setAttribute('x2',x)}let t=document.getElementById('psText43');if(t)t.innerHTML=`概念模型：距離 <b>${d} km</b>，P 約 ${tp.toFixed(1)} s、S 約 ${ts.toFixed(1)} s，S−P 約 <b>${dt.toFixed(1)} s</b>。距離拉遠時，兩者差距跟著變大。`;}
 function triStep43(n){['c1-43','c2-43','c3-43'].forEach((id,i)=>{let e=document.getElementById(id);if(e)e.style.display=i<n?'block':'none'});let ep=document.getElementById('epi43');if(ep)ep.style.display=n>=3?'block':'none';let tx=['','一站只給距離：震央可能在整個圓周上。','兩站的圓通常有兩個交點：還不能唯一決定。','第三站加入後，共同交會區指出震央位置。'][n]||'先加入測站。';let t=document.getElementById('triText43');if(t)t.textContent=tx;}
 function warning43(d){d=Number(d);let vp=6,vs=3.5,process=5,lead=Math.max(0,d/vs-d/vp-process),t=document.getElementById('warning43Text');if(t)t.innerHTML=`以簡化波速估算，${d} km 處 P/S 理想到時差約 <b>${(d/vs-d/vp).toFixed(1)} 秒</b>；若偵測與處理花約 ${process} 秒，概念上剩 <b>${lead.toFixed(1)} 秒</b>。${lead<3?'離得太近時，預警時間可能非常短。':'距離增加可能多出一些反應時間。'}`;let p=document.getElementById('p43'),q=document.getElementById('s43');if(p)p.style.left=Math.min(82,20+d*.2)+'%';if(q)q.style.left=Math.min(72,15+d*.15)+'%';}
+
+function rockCycleStep(n){let t=document.getElementById('rockCycleText');if(!t)return;let a=['岩漿冷卻結晶，形成火成岩。','火成岩若暴露地表，可風化、侵蝕、搬運成沉積物。','沉積物經壓密與膠結形成沉積岩；再受高溫高壓可變質。','變質岩若溫度高到真正熔融，就成為岩漿，不再只是變質。','循環重新開始，但自然界沒有規定一定從哪一站起跑。'];t.textContent=a[n];}
