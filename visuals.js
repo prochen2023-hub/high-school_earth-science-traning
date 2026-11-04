@@ -1,80 +1,220 @@
-(function(){
- const E=s=>String(s??'').replace(/[&<>\"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','\"':'&quot;'}[m]));
- const source=(name,url)=>`<a class="visualSource" href="${url}" target="_blank" rel="noopener noreferrer">資料／延伸：${E(name)} ↗</a>`;
- const img=(url,alt,credit,fallback)=>`<div class="officialVisual"><img src="${url}" alt="${E(alt)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.style.display='none';this.parentElement.classList.add('failed')"><div class="officialFallback">${fallback||'官方圖片載入失敗時，仍可使用下方教學圖與文字。'}</div><div class="sourceCap">${E(credit)}</div></div>`;
- const svg=(body,view='0 0 900 420')=>`<svg class="conceptHeroSvg" viewBox="${view}" role="img" aria-label="地科概念圖" xmlns="http://www.w3.org/2000/svg"><defs><linearGradient id="sea" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#3dc9ff"/><stop offset="1" stop-color="#075985"/></linearGradient><linearGradient id="earth" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#14532d"/></linearGradient><linearGradient id="hot" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fde047"/><stop offset="1" stop-color="#dc2626"/></linearGradient><filter id="glow"><feGaussianBlur stdDeviation="5" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="currentColor"/></marker></defs>${body}</svg>`;
- const callouts=(arr)=>`<div class="visualCallouts">${arr.map((x,i)=>`<div class="visualCallout"><span>${i+1}</span><div><b>${E(x[0])}</b><p>${E(x[1])}</p></div></div>`).join('')}</div>`;
- const card=(title,subtitle,visual,points,extra='')=>`<section class="visualPrimer"><div class="visualTitle"><div class="eyebrow">👀 先看圖，不先背字</div><h2>${E(title)}</h2><p>${E(subtitle)}</p></div><div class="visualCanvas">${visual}</div>${callouts(points)}${extra}</section>`;
-
- const scenes={
- '1-1':()=>card('地球不是突然出現：它是「聚起來 → 熱起來 → 分層」','先把45億年前想成一場很慢、很大的組裝工程。',svg(`
- <rect width="900" height="420" fill="#020617"/><g fill="#cbd5e1" opacity=".75">${Array.from({length:55},(_,i)=>`<circle cx="${(i*137)%900}" cy="${(i*73)%330}" r="${1+(i%3)}"/>`).join('')}</g>
- <g transform="translate(90 205)"><circle r="55" fill="#64748b" opacity=".55"/><circle cx="-80" cy="-60" r="9" fill="#94a3b8"/><circle cx="80" cy="40" r="14" fill="#94a3b8"/><text y="100" text-anchor="middle" fill="white" font-size="24">塵埃與小天體聚集</text></g>
- <path d="M220 210 H350" stroke="#fbbf24" stroke-width="8" marker-end="url(#arrow)" color="#fbbf24"/>
- <g transform="translate(450 205)"><circle r="82" fill="url(#hot)" filter="url(#glow)"/><path d="M-20 -75 q25 35 0 65" stroke="#fff7ed" stroke-width="7" fill="none" opacity=".7"/><text y="120" text-anchor="middle" fill="white" font-size="24">撞擊＋重力壓縮 → 高溫</text></g>
- <path d="M555 210 H665" stroke="#fbbf24" stroke-width="8" marker-end="url(#arrow)" color="#fbbf24"/>
- <g transform="translate(760 205)"><circle r="95" fill="#8b5e34"/><circle r="68" fill="#f97316"/><circle r="40" fill="#fde047"/><circle r="20" fill="#e5e7eb"/><text y="125" text-anchor="middle" fill="white" font-size="24">密度分異 → 核・函・殼</text></g>`),[['先聚集','微小物質碰撞、吸積，原始地球逐漸長大。'],['再加熱','撞擊、壓縮與放射性元素衰變使早期地球很熱。'],['最後分異','熔融程度夠高時，較密物質向內、較輕物質偏外。']]),
- '1-2':()=>card('早期地球怎麼有海、有氧氣？','不是「一場雨就有海」，也不是「植物一出現就有今天的大氣」。',svg(`
- <rect width="900" height="420" fill="#071827"/><g transform="translate(190 205)"><circle r="105" fill="#7c2d12"/><path d="M-85 5 q85-90 170 0" stroke="#fb923c" stroke-width="25" fill="none"/><g fill="#dbeafe" opacity=".8"><circle cx="-60" cy="-145" r="18"/><circle cx="0" cy="-155" r="24"/><circle cx="55" cy="-140" r="16"/></g><text y="145" text-anchor="middle" fill="white" font-size="22">熱：水多以水氣存在</text></g>
- <path d="M315 205 H440" stroke="#38bdf8" stroke-width="8" marker-end="url(#arrow)" color="#38bdf8"/>
- <g transform="translate(540 205)"><circle r="105" fill="#166534"/><path d="M-95 15 q95-80 190 0 v70 h-190z" fill="url(#sea)"/><g stroke="#93c5fd" stroke-width="6"><path d="M-55-130 l-12 35"/><path d="M0-145 l-10 40"/><path d="M55-130 l-12 35"/></g><text y="145" text-anchor="middle" fill="white" font-size="22">冷卻 → 凝結降水 → 海洋</text></g>
- <path d="M655 205 H745" stroke="#86efac" stroke-width="8" marker-end="url(#arrow)" color="#86efac"/>
- <g transform="translate(815 205)"><circle r="64" fill="#0ea5e9"/><circle cx="-25" cy="5" r="16" fill="#22c55e"/><circle cx="22" cy="-16" r="12" fill="#22c55e"/><text y="95" text-anchor="middle" fill="white" font-size="20">生命活動逐步增加 O₂</text></g>`),[['海洋形成','地表冷到液態水能長期存在，水氣凝結與降水累積。'],['氧氣不是一步到位','光合作用產氧，還要先與海洋、岩石等反應，之後大氣氧才顯著累積。'],['把事件排成時間故事','先理解環境演化，再補「原始大氣、氧化事件」等名稱。']]),
- '1-3':()=>card('地球歷史像一本被撕散的書','先用「上下、切穿、化石」排順序，再用放射性時鐘估數字年齡。',svg(`
- <rect width="900" height="420" fill="#0f172a"/><g transform="translate(80 60)"><rect width="430" height="80" fill="#9a6b3f"/><rect y="80" width="430" height="80" fill="#c08457"/><rect y="160" width="430" height="80" fill="#7c5a45"/><rect y="240" width="430" height="80" fill="#d4a373"/><path d="M290 -15 L335 335" stroke="#ef4444" stroke-width="30"/><text x="22" y="50" fill="white" font-size="24">C</text><text x="22" y="130" fill="white" font-size="24">B</text><text x="22" y="210" fill="white" font-size="24">A</text><text x="345" y="55" fill="#fee2e2" font-size="20">岩脈 D 切穿 → D 較晚</text><text x="155" y="292" fill="#111827" font-size="28">🐚 化石</text></g>
- <g transform="translate(675 210)"><circle r="112" fill="#111827" stroke="#60a5fa" stroke-width="10"/><path d="M0 0 L0 -80" stroke="#f8fafc" stroke-width="8"/><path d="M0 0 L65 30" stroke="#fbbf24" stroke-width="8"/><text y="155" text-anchor="middle" fill="white" font-size="23">放射性半衰期＝天然時鐘</text></g>`),[['相對定年','未翻轉地層通常下老上新；切穿別人的構造通常較晚。'],['化石提供線索','標準化石有利年代對比，指相化石幫忙判斷古環境。'],['絕對定年','放射性母元素按統計規律衰變，可估算數字年齡。']]),
- '2-1':()=>card('沒鑽到地心，怎麼知道裡面是液態？','答案不是「猜」，而是看地震波哪些能穿、哪些會折。',svg(`
- <rect width="900" height="420" fill="#020617"/><g transform="translate(310 210)"><circle r="175" fill="#713f12"/><circle r="145" fill="#f59e0b"/><circle r="90" fill="#ef4444"/><circle r="45" fill="#fde047"/><path d="M-165 5 Q0 -105 165 5" stroke="#60a5fa" stroke-width="8" fill="none"/><path d="M-165 35 Q-25 100 5 80" stroke="#fb7185" stroke-width="8" fill="none" stroke-dasharray="10 8"/><text x="-130" y="-135" fill="white" font-size="20">地殼</text><text x="-85" y="-85" fill="white" font-size="20">地函</text><text x="-55" y="25" fill="white" font-size="20">液態外核</text><text x="-28" y="8" fill="#111827" font-size="18">內核</text></g><g transform="translate(610 70)" fill="white" font-size="23"><text y="0">P 波：可穿固體＋液體，但會折射</text><text y="48">S 波：液體不能傳剪切 → 被外核擋住</text><text y="110" fill="#93c5fd">波的「缺席」本身就是證據</text></g>`),[['P波','壓縮/伸張方向與傳播方向大致平行，固液都可傳。'],['S波','剪切振動需要材料有剪切剛性，因此液態外核不傳 S 波。'],['陰影區','地震波路徑與缺失區域，幫科學家反推地球分層。']],source('中央氣象署｜地球內部構造','https://scweb.cwa.gov.tw/zh-tw/guidance/faqdetail/2')),
- '2-2':()=>card('岩石不是三個抽屜，而是一場變身循環','先找形成過程，再看外觀；題目換照片也不怕。',svg(`<rect width="900" height="420" fill="#0f172a"/><circle cx="450" cy="205" r="70" fill="#ef4444"/><text x="450" y="215" text-anchor="middle" fill="white" font-size="28">🔥 岩漿</text><g fill="#334155" stroke="#94a3b8" stroke-width="3"><rect x="70" y="75" width="220" height="100" rx="22"/><rect x="610" y="75" width="220" height="100" rx="22"/><rect x="340" y="300" width="220" height="90" rx="22"/></g><g fill="white" font-size="25" text-anchor="middle"><text x="180" y="120">🌋 火成岩</text><text x="720" y="120">🏜️ 沉積岩</text><text x="450" y="345">♨️ 變質岩</text></g><g stroke="#fbbf24" stroke-width="7" fill="none" marker-end="url(#arrow)"><path d="M390 180 Q310 125 290 125"/><path d="M510 180 Q590 125 610 125"/><path d="M420 270 L400 300"/><path d="M480 300 L475 275"/></g>`),[['火成','岩漿冷卻結晶；慢冷粗、快冷細。'],['沉積','風化侵蝕搬運後沉積，再壓密膠結。'],['變質','原岩受熱受壓改變，但沒有熔融。']]),
- '2-4':()=>card('板塊邊界只要先看箭頭，難度直接少一半','拉開、撞上、擦過，各自留下不同地形與地震火山證據。',svg(`<rect width="900" height="420" fill="#071827"/><g fill="white" font-size="25" text-anchor="middle"><text x="150" y="55">↔️ 張裂</text><text x="450" y="55">➡️⬅️ 聚合</text><text x="750" y="55">⇅ 錯動</text></g><path d="M40 230 H125 M260 230 H175" stroke="#38bdf8" stroke-width="12"/><path d="M150 280 L150 130" stroke="#fb923c" stroke-width="14"/><path d="M330 190 L470 190 L570 340" stroke="#60a5fa" stroke-width="25" fill="none"/><path d="M570 150 Q650 185 680 105" stroke="#fb923c" stroke-width="10" fill="none"/><path d="M710 120 L790 300 M790 120 L710 300" stroke="#e2e8f0" stroke-width="15"/><text x="150" y="365" fill="white" font-size="22" text-anchor="middle">中洋脊／裂谷</text><text x="500" y="365" fill="white" font-size="22" text-anchor="middle">海溝＋火山弧／造山</text><text x="750" y="365" fill="white" font-size="22" text-anchor="middle">轉形斷層＋淺震</text>`),[['拉開＝生','張裂處可形成新的岩石圈。'],['撞上＝海鑽陸皺','海洋岩石圈可隱沒；大陸碰撞常增厚造山。'],['擦過＝錯','不大量生滅岩石圈，但可累積應力發生強震。']]),
- '2-3':()=>{const visuals=`<div class="realDataGrid four">${img('https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/thumbnails/image/PowellCenter_OpportunitiesInEarthquakeMonitoring.jpg','USGS全球地震分布圖','USGS｜Global distribution of earthquakes（Public Domain）','全球地震圖未載入：請到下方USGS原始圖；本站不以假位置取代。')}${img('https://d9-wret.s3.us-west-2.amazonaws.com/assets/palladium/production/s3fs-public/thumbnails/image/1%20plate%20tectonics.jpg','USGS全球板塊分布圖','USGS｜Tectonic Plates from This Dynamic Planet（Public Domain）','全球板塊圖未載入：請使用下方USGS官方連結。')}${img('https://sos.noaa.gov/img/education/data-lens/week9map.png','全球海床年齡圖','NOAA Science On a Sphere｜Age of the Seafloor','海床年齡圖未載入：核心規律仍是中洋脊附近較年輕，向兩側通常逐漸變老。')}${img('https://edu.cwa.gov.tw/PopularScience/images/02_SubjectMaterial/02_earthquake/02_earthquake_49/02_earthquake_49_04.png','臺灣板塊運動示意圖','中央氣象署｜臺灣板塊運動示意','臺灣官方圖未載入時，請看互動頁「臺灣琉球×馬尼拉」。')}</div>`;return card('先把三種「真實證據」疊在腦中：地震、板塊、海床年齡','全球位置不能憑想像畫。先看官方圖找規律，再切換到剖面動畫回答「為什麼」。',visuals,[['地震不是亂灑','全球地震大量集中成帶，尤其環太平洋、洋中脊與地中海—喜馬拉雅一帶。'],['板塊邊界對得上','把地震帶與板塊圖比對，很多密集帶正落在張裂、聚合或錯動邊界。'],['海床年齡補上時間','中洋脊附近較年輕、向兩側變老，讓「海底擴張」不只是形狀猜想。']],`<div class="sourceRow">${source('USGS｜全球地震分布','https://www.usgs.gov/media/images/world-map-showing-global-distribution-earthquakes')}${source('USGS｜全球板塊圖','https://www.usgs.gov/media/images/tectonic-plates-dynamic-planet')}${source('NOAA｜Age of the Seafloor','https://sos.noaa.gov/education/data-lens/sea-floor-age/')}${source('中央氣象署｜臺灣板塊','https://edu.cwa.gov.tw/PopularScience/ec/ec_12.html')}</div>`);},
- '2-5':()=>card('臺灣就是板塊課的期末大題要先找到「哪裡裂、哪裡最先到、哪裡搖最強」','震源、震央、規模、震度是不同問題；把位置畫出來就不容易混。',svg(`
- <rect width="900" height="420" fill="#0f172a"/><path d="M0 120 Q170 80 340 120 T680 120 T900 120 V0 H0Z" fill="#3f6212"/><rect y="120" width="900" height="300" fill="#7c5a45"/><path d="M170 380 L420 140" stroke="#334155" stroke-width="18"/><circle cx="285" cy="270" r="18" fill="#f97316" filter="url(#glow)"/><circle cx="420" cy="118" r="13" fill="#fde047"/><path d="M285 270 V118" stroke="#f8fafc" stroke-dasharray="9 9" stroke-width="4"/><g fill="none" stroke="#60a5fa" stroke-width="5" opacity=".9"><circle cx="285" cy="270" r="45"/><circle cx="285" cy="270" r="85"/><circle cx="285" cy="270" r="125"/></g><text x="100" y="350" fill="white" font-size="26">震源：地下開始破裂</text><text x="440" y="110" fill="white" font-size="26">震央：震源正上方地表</text><g transform="translate(620 180)"><rect width="210" height="135" rx="18" fill="#172554"/><text x="20" y="38" fill="white" font-size="21">規模：這次地震多大</text><text x="20" y="78" fill="white" font-size="21">震度：這個地方搖多大</text><text x="20" y="116" fill="#93c5fd" font-size="18">同一地震，各地震度可不同</text></g>`),[['震源 vs 震央','一個在地下破裂起點，一個是它正上方地表點。'],['規模 vs 震度','規模描述地震本身；震度跟距離、地盤、建物等有關。'],['速報不是預測','地震已發生後，先利用較快到達的P波與快速通訊爭取秒數。']],source('中央氣象署｜地震百問','https://scweb.cwa.gov.tw/zh-tw/guidance/faqdetail/57')),
- '3-1':()=>card('大氣不是一根「越高越冷」的柱子','先看溫度曲線在哪裡轉彎，再認對流層、平流層、中氣層、熱氣層。',svg(`
- <rect width="900" height="420" fill="#061827"/><g transform="translate(80 25)"><rect width="310" height="340" fill="#0ea5e9" opacity=".32"/><rect y="260" width="310" height="80" fill="#38bdf8" opacity=".6"/><rect y="180" width="310" height="80" fill="#6366f1" opacity=".5"/><rect y="100" width="310" height="80" fill="#7c3aed" opacity=".45"/><rect y="0" width="310" height="100" fill="#be185d" opacity=".35"/><g fill="white" font-size="21"><text x="18" y="315">對流層：雲、雨、颱風</text><text x="18" y="235">平流層：臭氧吸收UV</text><text x="18" y="155">中氣層：多數流星燒蝕</text><text x="18" y="55">熱氣層：極光常見高度</text></g></g><g transform="translate(485 40)"><path d="M70 330 C5 270 130 225 70 165 C10 105 145 70 100 5" stroke="#fbbf24" stroke-width="8" fill="none"/><line x1="170" y1="330" x2="170" y2="5" stroke="#94a3b8"/><g fill="white" font-size="19"><text x="190" y="330">0 km</text><text x="190" y="255">~12 km</text><text x="190" y="180">~50 km</text><text x="190" y="105">~85 km</text><text x="190" y="30">100 km+</text></g><text x="0" y="385" fill="white" font-size="24">黃色線＝溫度隨高度不是單調變化</text></g>`),[['對流層','大部分天氣與水氣集中在這裡，通常隨高度降溫。'],['平流層','臭氧吸收紫外線，使部分區段溫度隨高度上升。'],['氣壓','高度越高，上方空氣柱越少，氣壓快速下降。']],source('NOAA JetStream｜Layers of the Atmosphere','https://www.noaa.gov/jetstream/atmosphere/layers-of-atmosphere')),
- '3-2':()=>card('雲不是「水氣看得見」：是水氣變成小水滴/冰晶','關鍵動作是「空氣上升 → 膨脹冷卻 → 到露點 → 凝結」。',svg(`
- <rect width="900" height="420" fill="#a7d8f0"/><path d="M0 360 Q180 300 350 360 T700 340 T900 360 V420 H0Z" fill="#166534"/><path d="M450 360 L620 120 L790 360Z" fill="#64748b"/><circle cx="220" cy="335" r="48" fill="#f59e0b" opacity=".75"/><g fill="#f8fafc"><circle cx="570" cy="120" r="42"/><circle cx="620" cy="105" r="58"/><circle cx="680" cy="125" r="46"/></g><path d="M250 320 Q350 250 470 220 Q540 190 585 145" fill="none" stroke="#ef4444" stroke-width="9" marker-end="url(#arrow)" color="#ef4444"/><text x="95" y="75" fill="#0f172a" font-size="25">暖濕空氣被抬升</text><text x="335" y="205" fill="#0f172a" font-size="23">膨脹、冷卻</text><text x="590" y="65" fill="#0f172a" font-size="23">達露點 → 凝結成雲</text><g transform="translate(70 110)"><rect width="210" height="105" rx="20" fill="#e0f2fe"/><circle cx="60" cy="52" r="25" fill="#94a3b8"/><g fill="#38bdf8"><circle cx="35" cy="90" r="6"/><circle cx="65" cy="92" r="6"/><circle cx="95" cy="88" r="6"/></g><text x="115" y="55" fill="#0f172a" font-size="18">冷杯外水珠</text><text x="115" y="80" fill="#0f172a" font-size="16">來自空氣水氣</text></g>`),[['水氣看不見','真正的水蒸氣是氣體；白雲是微小液滴/冰晶散射光。'],['露點','空氣冷到飽和，凝結才容易發生。'],['抬升方式很多','山地、鋒面、對流都能把空氣抬高。']],source('NWS｜Cloud Formation','https://www.weather.gov/jkl/education')),
- '3-3':()=>card('風不是「高壓直接吹去低壓」就結束','先被氣壓梯度力推，再因地球自轉偏轉；近地面還要加摩擦。',svg(`
- <rect width="900" height="420" fill="#10243a"/><circle cx="210" cy="210" r="95" fill="#1e40af" opacity=".55"/><circle cx="690" cy="210" r="95" fill="#7f1d1d" opacity=".55"/><text x="175" y="225" fill="white" font-size="58">H</text><text x="655" y="225" fill="white" font-size="58">L</text><path d="M315 210 H565" stroke="#f8fafc" stroke-width="10" marker-end="url(#arrow)" color="#f8fafc"/><path d="M340 260 Q470 320 610 240" stroke="#fbbf24" stroke-width="10" fill="none" marker-end="url(#arrow)" color="#fbbf24"/><text x="350" y="180" fill="white" font-size="22">① 氣壓梯度力</text><text x="380" y="350" fill="#fde68a" font-size="22">② 北半球運動中相對偏右（科氏）</text><text x="345" y="395" fill="#cbd5e1" font-size="20">③ 近地面摩擦讓風變慢、較斜穿等壓線</text>`),[['氣壓差是起點','沒有水平氣壓差，就沒有主要的氣壓梯度驅動。'],['科氏效應改方向','不負責「創造風」，而是讓運動中的空氣相對偏轉。'],['摩擦只在近地面重要','越靠近地表，粗糙度越會削弱風速、改變風向。']]),
- '3-4':()=>card('天氣圖不是滿版符號：固定四步就能讀','找高低壓 → 看等壓線 → 找鋒面 → 對照雲雨與自己位置。',svg(`
- <rect width="900" height="420" fill="#dbeafe"/><g fill="none" stroke="#64748b" stroke-width="3"><ellipse cx="230" cy="190" rx="150" ry="100"/><ellipse cx="230" cy="190" rx="115" ry="75"/><ellipse cx="230" cy="190" rx="80" ry="50"/><ellipse cx="650" cy="220" rx="150" ry="105"/><ellipse cx="650" cy="220" rx="110" ry="75"/></g><text x="205" y="215" fill="#1d4ed8" font-size="64" font-weight="700">H</text><text x="625" y="245" fill="#dc2626" font-size="64" font-weight="700">L</text><path d="M500 75 Q590 125 675 95" stroke="#2563eb" stroke-width="8" fill="none"/><g fill="#2563eb">${[0,1,2,3,4].map(i=>`<path d="M${515+i*38} ${77+i*7} l18 20 h-36z"/>`).join('')}</g><path d="M555 325 Q690 300 800 345" stroke="#ef4444" stroke-width="8" fill="none"/><g fill="#ef4444">${[0,1,2,3,4].map(i=>`<circle cx="${575+i*48}" cy="${320+i*3}" r="11"/>`).join('')}</g><g fill="#475569" font-size="22"><text x="40" y="45">等壓線越密 → 同距離氣壓變化越大 → 風通常較強</text><text x="500" y="55">▲ 冷鋒　● 暖鋒</text></g>`),[['H/L','先找到系統中心，別一開始就追每一條線。'],['等壓線疏密','越密代表水平氣壓梯度較大，風通常較強。'],['鋒面與雲雨','把鋒面位置和衛星雲圖、雷達回波一起看，才能連到實際天氣。']],source('NOAA｜Weather systems and patterns','https://www.noaa.gov/education/resource-collections/weather-atmosphere/weather-systems-patterns')),
- '3-5':()=>card('颱風是一台吃「暖海＋水氣」的熱機','從俯視看旋轉，從剖面看眼牆上升與高空外流，才知道哪裡最危險。',svg(`
- <rect width="900" height="420" fill="#082f49"/><g transform="translate(235 210)"><g fill="none" stroke="#e0f2fe" stroke-width="18" opacity=".85"><path d="M-150 0 Q-80-130 35-70 Q150-10 85 105 Q10 170-95 95"/><path d="M-105 5 Q-45-80 30-45 Q95 5 55 70 Q10 110-55 65"/></g><circle r="28" fill="#0c4a6e"/><text x="-90" y="190" fill="white" font-size="23">俯視：眼區較平靜，眼牆風雨最強</text></g><g transform="translate(500 0)"><rect y="315" width="400" height="105" fill="url(#sea)"/><path d="M190 315 Q130 235 175 155 Q205 95 210 40" stroke="#f8fafc" stroke-width="28" fill="none" opacity=".75"/><path d="M255 315 Q330 245 280 160 Q250 110 245 45" stroke="#f8fafc" stroke-width="28" fill="none" opacity=".75"/><path d="M205 70 Q120 45 55 80" stroke="#93c5fd" stroke-width="8" fill="none" marker-end="url(#arrow)" color="#93c5fd"/><path d="M245 70 Q325 40 380 80" stroke="#93c5fd" stroke-width="8" fill="none" marker-end="url(#arrow)" color="#93c5fd"/><text x="145" y="355" fill="white" font-size="23">暖海蒸發供水氣</text><text x="130" y="130" fill="#0f172a" font-size="20">眼牆強烈上升</text><text x="110" y="30" fill="white" font-size="21">高空外流</text></g>`),[['能量來源','暖海提供水氣，水氣凝結釋放潛熱，維持深對流。'],['最強不在眼中心','眼牆附近通常有最強風與強降雨。'],['災害不只風','豪雨、暴潮、巨浪、崩塌與土石流都可能是主要損失來源。']]),
- '4-1':()=>card('海洋不是一整缸同溫、同鹹','畫出深度剖面，混合層、溫躍層、深水層就不是名詞。',svg(`
- <rect width="900" height="420" fill="url(#sea)"/><g transform="translate(60 25)"><rect width="300" height="80" fill="#38bdf8" opacity=".55"/><rect y="80" width="300" height="170" fill="#0ea5e9" opacity=".5"/><rect y="250" width="300" height="130" fill="#075985" opacity=".7"/><g fill="white" font-size="23"><text x="25" y="48">混合層</text><text x="25" y="170">溫躍層</text><text x="25" y="325">深水層</text></g></g><g transform="translate(430 30)"><line x1="70" y1="0" x2="70" y2="350" stroke="#e2e8f0"/><line x1="70" y1="350" x2="390" y2="350" stroke="#e2e8f0"/><path d="M330 10 C315 80 205 140 155 230 C125 285 115 330 115 350" stroke="#fbbf24" stroke-width="8" fill="none"/><path d="M180 10 C170 130 170 220 210 350" stroke="#a7f3d0" stroke-width="7" fill="none"/><text x="245" y="50" fill="#fde68a" font-size="22">溫度</text><text x="245" y="90" fill="#bbf7d0" font-size="22">鹽度（示意）</text><text x="95" y="390" fill="white" font-size="21">橫軸＝值　縱軸＝深度</text></g>`),[['混合層','風浪攪拌＋太陽加熱影響強，表層較均勻。'],['溫躍層','溫度隨深度快速下降的區域。'],['密度由多因素決定','一般冷、鹹海水較密；真實海洋還有季節與區域差異。']]),
- '4-2':()=>card('浪、潮、流：三個字都跟海水有關，但「動的東西」不同','把三種運動畫在同一張圖，最容易一次分開。',svg(`
- <rect width="900" height="420" fill="#082f49"/><g transform="translate(20 45)"><rect width="260" height="300" rx="18" fill="#0c4a6e"/><path d="M10 130 Q45 80 80 130 T150 130 T220 130 T260 130" stroke="#67e8f9" stroke-width="10" fill="none"/><circle cx="95" cy="105" r="10" fill="#fde047"/><path d="M95 105 c35 0 35 55 0 55 c-35 0-35-55 0-55" fill="none" stroke="#fde047" stroke-width="4"/><text x="30" y="245" fill="white" font-size="26">波浪</text><text x="30" y="280" fill="#bae6fd" font-size="18">能量前進，水粒子多在附近繞動</text></g><g transform="translate(320 45)"><rect width="260" height="300" rx="18" fill="#0c4a6e"/><circle cx="130" cy="150" r="65" fill="#2563eb"/><circle cx="215" cy="78" r="24" fill="#e2e8f0"/><ellipse cx="130" cy="150" rx="96" ry="68" fill="none" stroke="#67e8f9" stroke-width="6"/><text x="30" y="245" fill="white" font-size="26">潮汐</text><text x="30" y="280" fill="#bae6fd" font-size="18">日月引力＋地球自轉，海面週期升降</text></g><g transform="translate(620 45)"><rect width="260" height="300" rx="18" fill="#0c4a6e"/><path d="M35 185 Q130 65 225 185" stroke="#fbbf24" stroke-width="12" fill="none" marker-end="url(#arrow)" color="#fbbf24"/><path d="M225 200 Q130 315 35 200" stroke="#38bdf8" stroke-width="12" fill="none" marker-end="url(#arrow)" color="#38bdf8"/><text x="30" y="245" fill="white" font-size="26">洋流</text><text x="30" y="280" fill="#bae6fd" font-size="18">水體長距離移動；表層常受盛行風驅動</text></g>`),[['波浪','重點是能量傳遞，不是同一團水一路衝到岸。'],['潮汐','重點是週期性海面升降，大潮/小潮看日月幾何。'],['洋流','表層洋流常由風、科氏效應與海陸邊界共同塑形。']],source('NOAA Ocean Service｜Tides vs Currents','https://oceanservice.noaa.gov/facts/tidescurrents.html')),
- '4-3':()=>card('聖嬰不是一塊海水自己變熱：是海洋與大氣「一起改變」','正常年和聖嬰年並排看：信風、暖水、溫躍層、湧升與降雨都會連動。',svg(`
- <rect width="900" height="420" fill="#0f172a"/><g transform="translate(25 45)"><rect width="400" height="300" rx="18" fill="#0c4a6e"/><text x="20" y="35" fill="white" font-size="25">正常</text><path d="M350 70 H90" stroke="#e2e8f0" stroke-width="7" marker-end="url(#arrow)" color="#e2e8f0"/><text x="140" y="60" fill="white" font-size="18">信風較穩定 ←</text><path d="M40 235 Q210 170 360 235 V285 H40Z" fill="#2563eb"/><path d="M170 210 Q280 185 370 210 V285 H170Z" fill="#f97316" opacity=".75"/><path d="M65 265 V190" stroke="#67e8f9" stroke-width="8" marker-end="url(#arrow)" color="#67e8f9"/><text x="35" y="175" fill="#a5f3fc" font-size="18">東側湧升</text><text x="220" y="260" fill="white" font-size="18">暖水偏西</text></g><g transform="translate(475 45)"><rect width="400" height="300" rx="18" fill="#0c4a6e"/><text x="20" y="35" fill="white" font-size="25">聖嬰</text><path d="M330 70 H180" stroke="#e2e8f0" stroke-width="5" marker-end="url(#arrow)" color="#e2e8f0"/><text x="150" y="60" fill="white" font-size="18">信風減弱</text><path d="M40 235 Q210 180 360 225 V285 H40Z" fill="#2563eb"/><path d="M55 205 Q220 160 370 205 V285 H55Z" fill="#f97316" opacity=".75"/><path d="M65 265 V220" stroke="#67e8f9" stroke-width="4" marker-end="url(#arrow)" color="#67e8f9" opacity=".45"/><text x="28" y="195" fill="#a5f3fc" font-size="18">湧升受抑</text><text x="140" y="260" fill="white" font-size="18">暖水向中東太平洋擴展</text></g>`),[['正常狀態','信風把暖表水推向西太平洋，東太平洋較容易有冷水湧升。'],['聖嬰狀態','信風減弱，暖水向中東太平洋擴展，湧升減弱。'],['這是耦合系統','海溫改變會影響氣壓/風；風又回頭改變海洋。']],source('NOAA PMEL｜El Niño Animations & Graphics','https://pmel.noaa.gov/elnino/animations-graphics/')),
- '5-1':()=>card('衛星不是「飄」在太空：它一直在掉，只是一直掉不到地面','把LEO、MEO、GEO放在同一張「破尺度」圖上，才知道不同任務為什麼選不同高度。',svg(`
- <rect width="900" height="420" fill="#020617"/><g transform="translate(220 210)"><circle r="95" fill="url(#earth)"/><circle r="138" fill="none" stroke="#60a5fa" stroke-width="4"/><circle r="195" fill="none" stroke="#a78bfa" stroke-width="4"/><circle r="270" fill="none" stroke="#fbbf24" stroke-width="4"/><circle cx="135" cy="0" r="10" fill="#e2e8f0"/><circle cx="0" cy="-195" r="10" fill="#e2e8f0"/><circle cx="270" cy="0" r="10" fill="#e2e8f0"/><text x="105" y="-15" fill="#bfdbfe" font-size="20">LEO</text><text x="15" y="-205" fill="#ddd6fe" font-size="20">MEO</text><text x="280" y="10" fill="#fde68a" font-size="20">GEO</text></g><g transform="translate(545 85)" fill="white" font-size="22"><text y="0">LEO：近地、繞得快 → 遙測、ISS、Starlink</text><text y="55">MEO：導航常見 → GPS 約 20,200 km</text><text y="110">GEO：約 35,786 km、赤道上空 → 看起來固定</text><text y="185" fill="#93c5fd">高度不是「越高越好」，是任務取捨。</text><text y="240" fill="#cbd5e1">遙測：可見光、紅外線、微波等波段看地球。</text></g>`),[['軌道仍有重力','衛星以足夠水平速度持續自由落體，所以繞地球而不是掉下來。'],['高度決定任務特性','越高通常覆蓋廣但延遲、解析/訊號等取捨不同。'],['遙測不是只有拍照','不同波段能看雲頂溫度、植生、水體、地表等資訊。']],source('NASA Space Place｜What Is an Orbit?','https://spaceplace.nasa.gov/menu/explore/explore/')),
- '5-2':()=>card('站在臺灣抬頭：北極星、四季日照、月球其實都能畫成「觀察者幾何」','這節不靠背句子；每件事先問：我站在哪？地軸朝哪？誰在繞誰？',svg(`
- <rect width="900" height="420" fill="#030712"/><g transform="translate(35 60)"><rect width="260" height="300" rx="20" fill="#071b34"/><path d="M15 250 Q130 215 245 250" stroke="#14532d" stroke-width="35" fill="none"/><line x1="50" y1="250" x2="190" y2="110" stroke="#fde047" stroke-width="4"/><circle cx="190" cy="110" r="9" fill="#fff7ed" filter="url(#glow)"/><text x="80" y="80" fill="#fde68a" font-size="21">北極星</text><text x="40" y="285" fill="white" font-size="18">臺灣約 23–25°N → 仰角約二十多度</text></g><g transform="translate(325 60)"><rect width="260" height="300" rx="20" fill="#071b34"/><circle cx="130" cy="150" r="78" fill="url(#earth)"/><line x1="103" y1="245" x2="158" y2="55" stroke="#f8fafc" stroke-width="6"/><path d="M40 150 H220" stroke="#fbbf24" stroke-width="16" opacity=".75"/><text x="48" y="35" fill="white" font-size="20">地軸傾斜＋公轉</text><text x="35" y="285" fill="white" font-size="18">改變太陽高度與白晝長度 → 四季</text></g><g transform="translate(615 60)"><rect width="250" height="300" rx="20" fill="#071b34"/><circle cx="115" cy="155" r="48" fill="#2563eb"/><circle cx="205" cy="155" r="25" fill="#d1d5db"/><line x1="205" y1="155" x2="180" y2="155" stroke="#ef4444" stroke-width="7"/><path d="M115 155 m-95 0 a95 95 0 1 0 190 0 a95 95 0 1 0 -190 0" fill="none" stroke="#64748b" stroke-width="3"/><text x="35" y="35" fill="white" font-size="20">月球同步自轉</text><text x="28" y="285" fill="white" font-size="18">繞地球一圈，也自轉約一圈 → 同面朝地球</text></g>`),[['北極星','北極星靠近北天極；在北半球，仰角近似觀測地緯度。'],['四季/永晝永夜','地軸傾斜讓不同緯度的日照角與日長隨季節改變。'],['月球同面','不是因為月球不自轉；恰恰是因為自轉與公轉同步。']],source('NASA｜Moon Phases & Tidal Locking','https://science.nasa.gov/moon/moon-phases/')),
- '5-3':()=>{const solar=img('https://science.nasa.gov/wp-content/uploads/2023/06/solar-system-model.jpg','NASA太陽系示意圖','NASA/JPL-Caltech｜Solar System Model','NASA圖片暫時無法載入；下方仍有可操作的行星順序與距離互動。');return card('太陽系先「看全景」，再拆成公轉、自轉、距離與分類','圖不是等比例距離，但比只有「水金地火…」八個字更能建立空間感。',solar,[['現行是八大行星','水、金、地、火、木、土、天王、海王；冥王星屬矮行星。'],['公轉與自轉同時發生','公轉是繞太陽，自轉是繞自己的軸；不同行星週期差很大。'],['宇宙地址','地球 → 太陽系 → 銀河系 → 本星系群 → 更大宇宙尺度。']],`<div class="sourceRow">${source('NASA｜About the Planets','https://science.nasa.gov/solar-system/planets/')}${source('NASA｜Solar System Facts','https://science.nasa.gov/solar-system/solar-system-facts/')}</div>`);},
- '6-1':()=>card('「今天很冷」和「氣候變暖」可以同時成立','把時間軸拉開：天氣看短期狀態，氣候看多年統計分布。',svg(`
- <rect width="900" height="420" fill="#0f172a"/><g transform="translate(70 80)"><path d="M0 125 C35 20 70 205 105 80 S175 190 210 75 S280 210 315 70" stroke="#60a5fa" stroke-width="6" fill="none"/><text x="0" y="250" fill="white" font-size="23">幾天～幾週：天氣起伏很大</text></g><g transform="translate(480 80)"><path d="M0 150 C55 125 80 165 130 130 S220 110 315 70" stroke="#fb7185" stroke-width="8" fill="none"/><path d="M0 95 C55 70 80 110 130 75 S220 55 315 15" stroke="#64748b" stroke-width="3" fill="none" stroke-dasharray="8 7"/><text x="0" y="250" fill="white" font-size="23">數十年：看平均、分布與趨勢</text></g><text x="70" y="35" fill="#bfdbfe" font-size="24">不要拿單一天氣去否定長期氣候，也不要拿長期趨勢預測某一天一定怎樣。</text>`),[['天氣','某時某地的大氣狀態。'],['氣候','長期統計特徵：平均、變異、極端機率等。'],['古氣候代理','樹輪、冰芯、珊瑚、沉積物等能把觀測往過去延伸。']]),
- '6-2':()=>card('小小平均升溫，為什麼能帶來大影響？','因為海洋、冰雪與水循環會回應，還可能形成回饋。',svg(`
- <rect width="900" height="420" fill="#082f49"/><g transform="translate(55 45)"><rect width="350" height="310" rx="20" fill="#0c4a6e"/><circle cx="90" cy="85" r="50" fill="#fde047"/><path d="M40 235 Q150 205 300 235 V310 H40Z" fill="#0284c7"/><path d="M100 225 L170 115 L240 225Z" fill="#e2e8f0"/><path d="M60 75 L160 135" stroke="#f8fafc" stroke-width="8"/><path d="M160 135 L55 115" stroke="#f8fafc" stroke-width="8" marker-end="url(#arrow)" color="#f8fafc"/><text x="30" y="290" fill="white" font-size="20">冰多 → 反照率高 → 反射多</text></g><g transform="translate(495 45)"><rect width="350" height="310" rx="20" fill="#0c4a6e"/><path d="M20 210 H330 V310 H20Z" fill="#0284c7"/><path d="M20 190 H330" stroke="#67e8f9" stroke-width="7"/><path d="M80 240 V150" stroke="#fb7185" stroke-width="8" marker-end="url(#arrow)" color="#fb7185"/><path d="M250 235 L215 165 L285 165Z" fill="#e2e8f0"/><text x="40" y="285" fill="white" font-size="19">海水熱膨脹 ＋ 陸地冰融水</text><text x="40" y="60" fill="#fda4af" font-size="22">兩條路都能抬高海平面</text></g>`),[['冰雪反照率回饋','冰減少 → 暗色地表吸收更多太陽能 → 可進一步增暖。'],['海平面兩大來源','海水熱膨脹，以及陸地冰融化加入海洋。'],['區域衝擊不同','全球平均不代表每地降雨、海平面或風險完全一樣。']]),
- '6-3':()=>card('溫室效應不是「把熱蓋住」這麼簡單','太陽短波進來；地表放出長波紅外線；溫室氣體吸收/再放射部分長波，改變能量平衡。',svg(`
- <rect width="900" height="420" fill="#020617"/><circle cx="115" cy="100" r="60" fill="#fde047" filter="url(#glow)"/><circle cx="530" cy="240" r="125" fill="url(#earth)"/><path d="M175 110 L410 190" stroke="#fbbf24" stroke-width="10" marker-end="url(#arrow)" color="#fbbf24"/><path d="M500 115 L475 20" stroke="#fb7185" stroke-width="9" marker-end="url(#arrow)" color="#fb7185"/><path d="M560 120 Q650 60 720 120" stroke="#fb7185" stroke-width="8" fill="none" marker-end="url(#arrow)" color="#fb7185"/><path d="M720 120 Q655 205 590 165" stroke="#fda4af" stroke-width="8" fill="none" marker-end="url(#arrow)" color="#fda4af"/><g transform="translate(690 205)" fill="white" font-size="21"><text y="0">CO₂ / CH₄ / H₂O 等</text><text y="38">吸收特定長波波段</text><text y="76">並向各方向再放射</text></g><text x="70" y="385" fill="#cbd5e1" font-size="22">自然溫室效應讓地球適居；人為增加溫室氣體會造成額外能量不平衡。</text>`),[['天然溫室效應','本來就存在，不是壞東西。'],['人為增強','燃燒化石燃料與土地利用等提高溫室氣體濃度。'],['歸因要交叉證據','溫度、海洋熱含量、光譜/輻射、來源指紋、模式比較等要能一起對上。']]),
- '6-4':()=>card('減緩 vs 調適：一張城市圖就分得開','左邊處理「造成變遷的原因」，右邊處理「已經/可能發生的衝擊」。',svg(`
- <rect width="900" height="420" fill="#0f172a"/><g transform="translate(40 45)"><rect width="380" height="320" rx="20" fill="#123524"/><text x="25" y="40" fill="white" font-size="28">減緩 Mitigation</text><g font-size="42"><text x="55" y="120">☀️</text><text x="155" y="120">🚆</text><text x="255" y="120">🌳</text><text x="55" y="220">🏭↓</text></g><text x="30" y="285" fill="#bbf7d0" font-size="21">降低排放／增加碳匯 → 處理原因</text></g><g transform="translate(480 45)"><rect width="380" height="320" rx="20" fill="#172554"/><text x="25" y="40" fill="white" font-size="28">調適 Adaptation</text><g font-size="42"><text x="55" y="120">🌊🧱</text><text x="190" y="120">🌳🏙️</text><text x="55" y="220">🚨</text><text x="190" y="220">💧</text></g><text x="30" y="285" fill="#bfdbfe" font-size="21">降低暴露/脆弱 → 處理衝擊</text></g>`),[['減緩','能源效率、低碳能源、減排、碳匯等。'],['調適','防洪、熱風險管理、預警、水資源調度等。'],['兩者通常都需要','不是二選一；時間尺度與公平性也要考慮。']]),
- '7-1':()=>card('永續不是「環保分數越高就贏」','任何方案都要同時放進環境、社會、經濟與未來世代。',svg(`
- <rect width="900" height="420" fill="#0f172a"/><path d="M450 55 L145 340 H755Z" fill="none" stroke="#e2e8f0" stroke-width="6"/><circle cx="450" cy="90" r="75" fill="#166534" opacity=".85"/><circle cx="190" cy="315" r="75" fill="#1d4ed8" opacity=".85"/><circle cx="710" cy="315" r="75" fill="#a16207" opacity=".85"/><circle cx="450" cy="235" r="82" fill="#f8fafc" opacity=".92"/><g text-anchor="middle" font-size="25"><text x="450" y="97" fill="white">環境</text><text x="190" y="322" fill="white">社會</text><text x="710" y="322" fill="white">經濟</text><text x="450" y="227" fill="#0f172a">可接受的取捨</text><text x="450" y="257" fill="#0f172a" font-size="18">還要把未來世代算進來</text></g>`),[['不是只有環保','環境、社會、經濟可能互相拉扯。'],['世代公平','不能只把成本推給未來的人。'],['決策重點是透明取捨','指標、假設、受益者與承擔者都要說清楚。']]),
- '7-2':()=>card('資源不是從商店「憑空出現」：把一個產品的一生畫完','開採 → 製造 → 運輸 → 使用 → 維修/再用 → 回收/廢棄，才看得見真正代價。',svg(`
- <rect width="900" height="420" fill="#0f172a"/><g transform="translate(45 155)" font-size="46"><text x="0">⛏️</text><text x="145">🏭</text><text x="290">🚚</text><text x="435">📱</text><text x="580">🔧</text><text x="725">♻️</text></g><g stroke="#94a3b8" stroke-width="6" marker-end="url(#arrow)" color="#94a3b8">${[0,1,2,3,4].map(i=>`<path d="M${105+i*145} 180 H${170+i*145}"/>`).join('')}</g><g fill="white" font-size="19" text-anchor="middle"><text x="70" y="255">原料開採</text><text x="215" y="255">製造</text><text x="360" y="255">運輸</text><text x="505" y="255">使用</text><text x="650" y="255">延壽/維修</text><text x="795" y="255">回收/處置</text></g><path d="M800 285 Q450 390 85 285" stroke="#22c55e" stroke-width="7" fill="none" marker-end="url(#arrow)" color="#22c55e"/><text x="330" y="385" fill="#bbf7d0" font-size="22">循環經濟：盡量讓材料回到系統，而不是一次用完</text>`),[['再生不等於無限','若使用速度高於補充速度，仍可能枯竭或破壞生態。'],['效率與延壽很重要','同樣服務用更少材料/能源，通常比只換新產品更有效。'],['能源方案要多指標','排放、穩定性、土地、成本、資源與風險都要比較。']])
- };
-
- const miniMap={
- '1-1':['☄️','🔥','🧲'],'1-2':['☁️','🌊','🫧'],'1-3':['🪨','🐚','⏱️'],
- '2-1':['〰️','✖️','🌍'],'2-2':['🌐','↔️','🌋'],'2-3':['💥','📍','📡'],
- '3-1':['☁️','🧴','🌡️'],'3-2':['💧','🎈','☁️'],'3-3':['H→L','↪️','🌬️'],'3-4':['H/L','〰️','▲●'],'3-5':['🌊','🌀','🌧️'],
- '4-1':['🧂','🌡️','⬇️'],'4-2':['🌊','🌙','↺'],'4-3':['🌡️','💨','⬆️'],
- '5-1':['📡','🛰️','🚀'],'5-2':['⭐','☀️','🌙'],'5-3':['🌌','🪐','📏'],
- '6-1':['⏱️','📊','🧊'],'6-2':['🧊','🌊','↗️'],'6-3':['☀️','CO₂','🌡️'],'6-4':['⬇️CO₂','🛡️','🏙️'],
- '7-1':['🌱','👥','💰'],'7-2':['⛏️','🔧','♻️']
- };
- function mini(id,i){let a=miniMap[id]||['🔎','🧩','💡'];return `<div class="conceptMini"><span>${a[i%a.length]}</span></div>`;}
- function render(s){let fn=scenes[s.id];return fn?fn():'';}
- window.GEO_VISUALS={render,mini};
-})();
+/* 原創可離線執行 SVG 實驗室。線條/比例為教學示意，不是即時觀測或地質實測圖。 */
+const NS='http://www.w3.org/2000/svg';
+const esc=(s)=>String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const txt=(x,y,t,c='#dcefff',size=14,weight=800,anchor='start')=>`<text x="${x}" y="${y}" fill="${c}" font-size="${size}" font-weight="${weight}" text-anchor="${anchor}" font-family="system-ui,Microsoft JhengHei">${esc(t)}</text>`;
+const defs=`<defs><linearGradient id="land" x2="0" y2="1"><stop offset="0" stop-color="#b1d381"/><stop offset=".25" stop-color="#96bc69"/><stop offset=".26" stop-color="#b98b5f"/><stop offset="1" stop-color="#614431"/></linearGradient><linearGradient id="ocean" x2="0" y2="1"><stop stop-color="#2389c1"/><stop offset="1" stop-color="#0f426b"/></linearGradient><linearGradient id="slab" x2="0" y2="1"><stop stop-color="#6ba4cc"/><stop offset=".25" stop-color="#365c81"/><stop offset="1" stop-color="#1b344f"/></linearGradient><linearGradient id="mantle" x2="0" y2="1"><stop stop-color="#ae6341"/><stop offset="1" stop-color="#603d39"/></linearGradient><radialGradient id="core"><stop offset="0" stop-color="#fff9ad"/><stop offset=".55" stop-color="#f8d460"/><stop offset="1" stop-color="#d57638"/></radialGradient><filter id="shiny" x="-15%" y="-15%" width="130%" height="130%"><feGaussianBlur stdDeviation="5"/></filter><filter id="rockgrain"><feTurbulence baseFrequency=".09" numOctaves="3" seed="4" result="noise"/><feColorMatrix in="noise" type="saturate" values="0"/><feBlend in="SourceGraphic" mode="multiply"/></filter><marker id="arr" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#7ce3ff"/></marker><marker id="warmarr" markerWidth="12" markerHeight="10" refX="10" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#ffba72"/></marker></defs>`;
+const stage=(inner,h=350)=>`<svg viewBox="0 0 760 ${h}" role="img" aria-label="可操作地科圖像"><rect width="760" height="${h}" rx="14" fill="#10324e"/>${defs}${inner}</svg>`;
+const rect=(x,y,w,h,fill,rx=0)=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${rx}" fill="${fill}"/>`;
+const ln=(x1,y1,x2,y2,col='#7fe0fa',sw=3,dash='')=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${col}" stroke-width="${sw}" ${dash?'stroke-dasharray="'+dash+'"':''}/>`;
+const circle=(x,y,r,fill,stroke='none',sw=1)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${fill}" stroke="${stroke}" stroke-width="${sw}"/>`;
+const controlRange=(id,label,value,min,max,step=1)=>`<div class="lab-control"><label for="${id}">${label}　<output id="${id}Out">${value}</output></label><input id="${id}" type="range" min="${min}" max="${max}" step="${step}" value="${value}"></div>`;
+const optionTabs=(xs,chosen,attr='data-mode')=>`<div class="lab-tabs">${xs.map(([k,n])=>`<button ${attr}="${k}" class="${k===chosen?'active':''}">${n}</button>`).join('')}</div>`;
+const labRenders={};
+function mountLab(id,host){
+  const render=(labRenders[id]||labRenders.seismo);
+  const center=()=>{const v=host.querySelector('.lab-viewport');if(v&&window.innerWidth<=700&&!v.dataset.centered){v.scrollLeft=Math.max(0,(v.scrollWidth-v.clientWidth)/2);v.dataset.centered='true'}};
+  const obs=new MutationObserver(()=>center());obs.observe(host,{childList:true});
+  render(host);center();
+}
+// === 1 Earthquake detection lab ===
+labRenders.seismo=(host)=>{
+ let tab='focus',depth=18,distance=160,phase=30,ringCount=0;
+ const rerender=()=>{
+  const tabs=optionTabs([['focus','① 震源與深度'],['wave','② P/S 波動'],['travel','③ P−S 時差'],['locate','④ 三站定位']],tab);
+  let picture='',ctrl='',desc='';
+  if(tab==='focus'){
+   const fy=75+depth/700*218,fx=380;
+   picture=stage(rect(0,0,760,70,'#104d74')+rect(0,70,760,280,'url(#mantle)')+
+    `<path d="M0 70 Q145 42 280 75 Q470 90 595 64 Q660 48 760 72 L760 102 L0 102Z" fill="#95b977"/><path d="M0 102 Q240 119 450 105 Q570 112 760 98" stroke="#dbb080" fill="none" stroke-width="12" opacity=".4"/>`+
+    [35,70,108].map(r=>`<circle cx="${fx}" cy="${fy}" r="${r}" fill="none" stroke="#ffc179" stroke-width="2" stroke-dasharray="6 7" opacity=".65"/>`).join('')+
+    ln(fx,70,fx,fy,'#ffdf85',3,'7 5')+circle(fx,fy,10,'#ffce73','#fff3bd',3)+circle(fx,70,9,'#4de1f4','#fff',2)+
+    ln(fx+11,70,505,53,'#b7faff',2)+txt(516,55,'震央','#a9efff',16)+ln(fx+11,fy,495,fy+22,'#ffddb0',2)+txt(505,Math.min(fy+32,326),'震源','#ffda91',16)+txt(24,42,'地表','#d3f0f6',15)+txt(24,140,'岩石圈／地函（示意）','#dfbca0',14)+(depth>70?txt(425,(fy+70)/2,'深度垂直量','#ffefcb',13):'')+
+    rect(24,286,245,42,'#0b2237',10)+txt(39,313,`震源深度 ${depth} 公里 · ${depth<=30?'極淺層':depth<=70?'淺層':depth<=300?'中層':'深層'}`,'#fff0d8',15));
+   ctrl=controlRange('depthSlider','震源深度（km）',depth,0,700);desc='上方地表藍點是震央、地下發光點是震源；這裡使用垂直距離定義深度，圖示不按實際比例。';
+  }else if(tab==='wave'){
+   let pp=[],ss=[];for(let i=0;i<17;i++){const x=65+i*39;const shift=12*Math.sin(i*.82-phase*.12), sy=255+23*Math.sin(i*.72-phase*.15);pp.push(circle(x+shift,130,7,'#88ecff','#c3f8ff',1));ss.push(circle(x,sy,7,'#ffd39a','#fff2dc',1));}
+   picture=stage(txt(35,40,'P 波：粒子前後推擠（振動方向 ∥ 傳播方向）','#adebff',17)+ln(55,87,700,87,'#52daff',3)+`<path d="M685 79L706 87L685 95Z" fill="#52daff"/>`+pp.join('')+txt(35,212,'S 波：粒子上下搖動（振動方向 ⟂ 傳播方向）','#ffdba9',17)+ln(55,294,700,294,'#ffd5a2',3)+ss.join('')+txt(570,330,'波向右傳 →','#a7dff3',13));
+   ctrl=controlRange('phaseSlider','向右拖動，觀察振動',phase,0,100);desc='模型刻意把粒子位移放大，方便觀察。注意：粒子只在附近振動，並不是跟著波一路旅行。';
+  }else if(tab==='travel'){
+   const pt=distance/8,st=distance/4.5,dt=st-pt;const maxT=130;
+   const X=d=>65+d/600*650,Y=t=>290-t/maxT*210;
+   const path=v=>Array.from({length:61},(_,i)=>{let d=i*10;return `${i?'L':'M'}${X(d)},${Y(d/v)}`}).join(' ');
+   picture=stage(rect(48,38,675,260,'#123853',12)+
+    Array.from({length:5},(_,i)=>ln(65,80+i*53,715,80+i*53,'#255474',1)).join('')+
+    ln(65,290,715,290,'#9ac2d9',2)+ln(65,65,65,290,'#9ac2d9',2)+
+    `<path d="${path(8)}" stroke="#66dfff" stroke-width="4" fill="none"/><path d="${path(4.5)}" stroke="#ffbe86" stroke-width="4" fill="none"/>`+
+    ln(X(distance),Y(pt),X(distance),Y(st),'#ffe48f',4)+ln(X(distance),Y(st),X(distance),290,'#fff6ce',1,'5 4')+
+    circle(X(distance),Y(pt),7,'#67e0ff')+circle(X(distance),Y(st),7,'#ffba80')+
+    txt(78,33,'到時（秒）','#b7d7e9',13)+txt(593,323,'測站距離（km）','#b7d7e9',13)+txt(560,72,'P 藍線 · S 橘線','#fff2df',14)+txt(120,95,'Δt = S 到時 − P 到時','#fff0c5',14));
+   ctrl=controlRange('distanceSlider','測站距離（km）',distance,30,600,10)+`<div class="lab-stat"><small>P 波到達</small><b>${pt.toFixed(1)} 秒</b></div><div class="lab-stat"><small>S 波到達</small><b>${st.toFixed(1)} 秒</b></div><div class="lab-stat"><small>P−S 時差</small><b>${dt.toFixed(1)} 秒</b></div>`;
+   desc='此處採均勻介質示範速度 P=8、S=4.5 km/s；真實地球波速隨深度變化，正式地震定位使用走時模型。';
+  }else{
+   const sts=[{x:130,y:92,k:'A'},{x:608,y:110,k:'B'},{x:396,y:286,k:'C'}],ep={x:340,y:154};
+   const circles=sts.map((s,i)=>{const r=Math.hypot(s.x-ep.x,s.y-ep.y);return (ringCount>i?circle(s.x,s.y,r,'none',['#59d7ff','#ffe09f','#b3f8ca'][i],2):'')+circle(s.x,s.y,8,['#59d7ff','#ffe09f','#b3f8ca'][i]) +txt(s.x+12,s.y-8,s.k,'#effaff',16)}).join('');
+   picture=stage(`<rect width="760" height="350" rx="14" fill="#123a55"/>`+Array.from({length:15},(_,i)=>ln(24+i*50,16,24+i*50,334,'#2a5470',1)).join('')+Array.from({length:7},(_,i)=>ln(18,22+i*50,742,22+i*50,'#2a5470',1)).join('')+circles+(ringCount===3?circle(ep.x,ep.y,10,'#ff8c72','#fff',3)+txt(ep.x+18,ep.y-12,'三圈交會：震央','#fff1df',18):txt(260,35,'按下「多看一站」讓圓圈逐步出現','#bfefff',16)));
+   ctrl=`<button class="lab-btn" id="revealStation">${ringCount===3?'重新開始':`多看一站（已顯示 ${ringCount}/3）`}</button><div class="lab-stat"><small>定位提示</small><b>${ringCount<2?'一個圓只有距離':ringCount===2?'兩圓仍可能有兩點':'三站交會定點'}</b></div>`;
+   desc='各圓半徑代表「測站到震央的估計距離」。這是理想二維示意；實際定位考慮站點分布、速度模型和誤差。';
+  }
+  host.innerHTML=tabs+`<div class="lab-viewport">${picture}</div><div class="lab-controls">${ctrl}</div><div class="lab-note">🔎 ${desc}</div>`;
+  host.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{tab=b.dataset.mode;rerender()});
+  const d=host.querySelector('#depthSlider');if(d)d.oninput=e=>{depth=+e.target.value;rerender()};
+  const t=host.querySelector('#distanceSlider');if(t)t.oninput=e=>{distance=+e.target.value;rerender()};
+  const p=host.querySelector('#phaseSlider');if(p)p.oninput=e=>{phase=+e.target.value;rerender()};
+  const r=host.querySelector('#revealStation');if(r)r.onclick=()=>{ringCount=ringCount===3?0:ringCount+1;rerender()};
+ };rerender();
+};
+// === 2 Earth interior ===
+labRenders.earth=(host)=>{
+ let tab='chem',depth=2900;
+ function draw(){
+  const R=135,cx=265,cy=172;
+  let s=rect(0,0,760,355,'#102b46')+`<circle cx="265" cy="172" r="147" fill="#ffa35b" opacity=".22" filter="url(#shiny)"/>`+
+  circle(cx,cy,138,'#8ecba8')+circle(cx,cy,135,'#d9a074')+circle(cx,cy,76,'#f48352')+circle(cx,cy,29,'url(#core)')+
+  `<path d="M265 172L265 34 A138 138 0 0 1 403 172Z" fill="#08243b" opacity=".72"/>`+
+  `<path d="M265 172L265 35 A137 137 0 0 0 128 172" fill="none" stroke="#8ddce6" stroke-width="7"/>`+
+  `<path d="M265 172L265 97 A75 75 0 0 0 190 172" fill="none" stroke="#ffc58b" stroke-width="3"/>`+
+  circle(265,172,30,'url(#core)')+
+  ln(383,102,512,62,'#7fe5e3',2)+circle(383,102,5,'#7fe5e3')+txt(527,68,tab==='chem'?'地殼':'岩石圈','#d9faff',17)+ln(347,172,512,144,'#dfb98c',2)+circle(347,172,5,'#dfb98c')+txt(527,150,tab==='chem'?'地函':'軟流圈等地函','#fff0d6',16)+ln(309,198,512,229,'#ff9a6f',2)+circle(309,198,5,'#ff9a6f')+txt(527,235,'外核・液態','#ffdabd',16)+ln(280,183,512,296,'#f8d75e',2)+circle(280,183,5,'#f8d75e')+txt(527,302,'內核・固態','#fff1b0',16)+
+  txt(34,330,'切面為概念圖，尺寸刻意放大地殼厚度方便理解','#aecedf',12);
+  if(tab==='mech'){s+=`<path d="M265 34 A138 138 0 0 1 403 172" fill="none" stroke="#60d8e9" stroke-width="9"/><path d="M265 58 A114 114 0 0 1 379 172" fill="none" stroke="#f6d579" stroke-width="24" opacity=".62"/>`}
+  let segment=depth<35?'地殼（大陸平均厚度示意）':depth<2900?'地函':depth<5150?'外核・液態':'內核・固態';
+  let details=`<div class="lab-inline"><b>現在查詢 ${depth} km：</b>${segment}。波速在某些深度會突變，反映材料或物態變化；重點不是看顏色背答案，而是透過波的傳播找證據。</div>`;
+  host.innerHTML=optionTabs([['chem','依成分分層'],['mech','依力學性質分層'],['speed','地震波速曲線'],['crust','海洋／大陸地殼']],tab)+
+  `<div class="lab-viewport">${tab==='speed'?speedSvg():tab==='crust'?crustSvg():stage(s)}</div><div class="lab-controls">${tab==='speed'||tab==='crust'?'':controlRange('depthEarth','從地表往下看（km）',depth,0,6371,1)}</div>`+
+  (tab==='speed'?`<div class="lab-inline">🔍 看見 S 波在約 2900 km 後不再穿過外核；P 波速明顯下降。圖是幫助理解的趨勢示意，非正式實測曲線。</div>`:tab==='crust'?`<div class="lab-inline">🔍 記住「大陸厚、平均較輕；海洋薄、平均較密」。莫氏面是兩種地殼的底界。</div>`:details)+
+  `<div class="lab-note">資料概念：莫氏不連續面（地殼／地函）；古氏不連續面約 2900 km（地函／外核）；內核界面約 5150 km。</div>`;
+  host.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{tab=b.dataset.mode;draw()});let x=host.querySelector('#depthEarth');if(x)x.oninput=e=>{depth=+e.target.value;draw()};
+ }
+ function speedSvg(){const P='M74 300 L85 248 L140 210 L168 192 L270 150 L365 125 L390 116 L394 220 L470 193 L530 168 L532 154 L590 128 L690 95';const S='M74 300 L85 265 L138 237 L165 228 L268 203 L366 190 L390 181';return stage(rect(40,30,684,295,'#10354f',12)+Array.from({length:6},(_,i)=>ln(60,56+i*49,704,56+i*49,'#325a75',1)).join('')+`<path d="${P}" fill="none" stroke="#73dfff" stroke-width="4"/><path d="${S}" fill="none" stroke="#ffb279" stroke-width="4"/>`+ln(394,42,394,316,'#fff1ba',2,'5 5')+ln(532,42,532,316,'#fff1ba',2,'5 5')+txt(344,45,'2900 km','#ffeca5',12)+txt(507,45,'5150 km','#ffeca5',12)+txt(94,70,'P 波（藍）','#73dfff',15)+txt(94,92,'S 波（橘）','#ffb279',15)+txt(405,268,'S 無法穿過液態外核','#fff0db',14)+txt(250,338,'深度由左至右增加 →','#bfd9e7',12));}
+ function crustSvg(){return stage(rect(10,35,330,74,'url(#ocean)',14)+rect(10,109,330,31,'#718ea1')+rect(10,140,330,175,'url(#mantle)')+rect(395,35,355,74,'#a9d88c',14)+rect(395,109,355,112,'url(#land)')+rect(395,221,355,94,'url(#mantle)')+ln(10,140,340,140,'#ffefae',3)+ln(395,221,750,221,'#ffefae',3)+txt(95,25,'海洋地殼','#8bdeff',19)+txt(500,25,'大陸地殼','#bceba7',19)+txt(80,165,'較薄 · 以玄武質為代表','#fff0d0',15)+txt(448,246,'較厚 · 常見花崗質岩石','#fff0d0',15)+txt(52,291,'莫氏不連續面','#fff8be',14)+txt(422,288,'莫氏不連續面','#fff8be',14));}
+ draw();
+};
+// === 3 Rock lab: distinguish rocks and cycle ===
+const rockSamples=[
+{name:'花崗岩',type:'火成岩・深成岩',color:'#c4b8aa',pattern:'grain',why:'地下緩慢冷卻；石英、長石等礦物晶體較粗。',hint:'大顆粒、花斑狀'},
+{name:'玄武岩',type:'火成岩・火山岩',color:'#43515b',pattern:'speck',why:'岩漿快速冷卻，通常深色、細粒，有時有氣孔。',hint:'暗色、細粒'},
+{name:'安山岩',type:'火成岩・火山岩',color:'#84898b',pattern:'speck',why:'中性火山岩，臺灣火山弧岩石常見。',hint:'灰色、部分可見斑晶'},
+{name:'砂岩',type:'沉積岩',color:'#c4aa72',pattern:'layers',why:'砂粒沉積後壓密膠結，常可辨認顆粒與層理。',hint:'粒粒、層層'},
+{name:'板岩',type:'變質岩・片理',color:'#53646b',pattern:'slate',why:'泥質沉積岩經低度變質，發育板劈理。',hint:'薄片狀劈理'},
+{name:'片麻岩',type:'變質岩・片理',color:'#9c9794',pattern:'gneiss',why:'較高程度的變質作用常可形成深淺相間的條帶。',hint:'深淺條帶'}
+];
+function specimen(r,i){
+ const x=18+(i%3)*244,y=30+Math.floor(i/3)*158;
+ let layer='';if(r.pattern==='layers')layer=Array.from({length:7},(_,j)=>`<path d="M${x+27} ${y+45+j*12}Q${x+100} ${y+40+j*11} ${x+188} ${y+43+j*12}" stroke="#76512e" stroke-width="4" opacity=".55" fill="none"/>`).join('');
+ if(r.pattern==='gneiss')layer=Array.from({length:7},(_,j)=>`<path d="M${x+27} ${y+39+j*13}Q${x+90} ${y+48+j*10} ${x+192} ${y+38+j*12}" stroke="${j%2?'#e0d9d1':'#42464d'}" stroke-width="9" opacity=".76" fill="none"/>`).join('');
+ if(r.pattern==='slate')layer=Array.from({length:13},(_,j)=>ln(x+32,y+32+j*6,x+195,y+28+j*6,'#b0bcc0',2)).join('');
+ return rect(x,y,225,150,'#0b263d',13)+`<path d="M${x+28} ${y+40} L${x+95} ${y+20} L${x+186} ${y+31} L${x+201} ${y+98} L${x+147} ${y+126} L${x+38} ${y+115} Z" fill="${r.color}" stroke="#b7c8d1" stroke-width="2" filter="url(#rockgrain)"/>`+layer+txt(x+115,y+141,r.name,'#e6f8ff',15,850,'middle');
+}
+labRenders.rocks=(host)=>{
+ let tab='samples',idx=0,rockState='火成岩',cycleMessage='先選下方一個地質作用，看看這塊火成岩的下一站。';
+ function draw(){let art='',controls='',note='';
+ if(tab==='samples'){
+  art=stage(rockSamples.map(specimen).join(''),355); controls=`<div class="lab-control" style="flex:2"><label>選一塊岩石，看判別線索</label><select id="rockChoice">${rockSamples.map((r,i)=>`<option value="${i}" ${i===idx?'selected':''}>${r.name}</option>`).join('')}</select></div><div class="lab-stat"><small>你應先找</small><b>${rockSamples[idx].hint}</b></div>`;note=`${rockSamples[idx].name}｜${rockSamples[idx].type}。${rockSamples[idx].why} 這些是教學紋理示意，並非實際標本照片。`;
+ }else if(tab==='cycle'){
+  const nodes=[[136,170,'岩漿','#f6a36f'],[363,81,'火成岩','#9ac1ce'],[610,170,'沉積岩','#e0c392'],[363,273,'變質岩','#bb9fcf']];
+  art=stage(`<path d="M203 125Q255 82 294 85M432 90Q505 95 552 134M553 218Q482 264 427 273M290 277Q210 249 193 212" fill="none" stroke="#6da5bd" stroke-width="4" stroke-dasharray="8 7"/>`+
+    nodes.map(([x,y,t,col])=>circle(x,y,t===rockState?70:57,t===rockState?'#f6e6b2':col,t===rockState?'#ffffff':'#9cb8cd',t===rockState?5:2)+
+      circle(x-11,y-18,t===rockState?32:24,'#ffffff24')+txt(x,y+6,t,t===rockState?'#3e3827':'#092940',20,950,'middle')+
+      (t===rockState?txt(x,y-84,'★ 目前所在','#ffeab6',16,900,'middle'):'')).join('')+
+    txt(26,336,'試試其他路線：不是只能「火成 → 沉積 → 變質」單向循環。','#ccebf4',13));
+  controls=`<div class="lab-control" style="flex:2"><label>目前：${rockState}　｜　你想施加什麼作用？</label><div style="display:flex;gap:7px;flex-wrap:wrap"><button class="lab-btn" data-process="冷卻">❄ 冷卻</button><button class="lab-btn" data-process="風化沉積">🌧 風化沉積</button><button class="lab-btn" data-process="高溫高壓">♨ 高溫高壓</button><button class="lab-btn" data-process="熔融">🔥 熔融</button><button class="lab-btn" data-process="reset">↻ 重來</button></div></div>`;
+  note=cycleMessage+' 岩石循環中，各箭頭對應真實地質作用；「風化沉積」包含風化、侵蝕、搬運、沉積與壓密膠結。';
+ }else{
+  art=stage(`<rect width="760" height="355" fill="#11314b"/>`+[[50,'礫石','>2 mm','#ba9571'],[230,'砂粒','0.0625–2 mm','#d0b074'],[410,'粉砂','更細','#afa47a'],[590,'黏土','最細','#7f8981']].map(([x,n,s,c],i)=>rect(x,85,140,168,c,10)+Array.from({length:18+i*10},(_,j)=>circle(x+12+(j*43)%112,102+((j*37)%124),Math.max(1,8-i*2),['#876445','#e9d3aa','#737e73','#43544b'][i])).join('')+txt(x+70,277,n,'#e9f5ff',17,850,'middle')+txt(x+70,299,s,'#afcfe5',12,700,'middle')).join('')+txt(20,46,'碎屑粒徑由左到右變小','#a6e4fe',19));
+  note='礫岩、砂岩、粉砂岩、頁岩／泥岩（含黏土）常依顆粒大小區分；單用顆粒大小無法直接確定水流速度，還要一起判讀沉積環境。';
+ }
+ host.innerHTML=optionTabs([['samples','① 猜岩石'],['cycle','② 岩石循環'],['grain','③ 沉積粒徑']],tab)+`<div class="lab-viewport">${art}</div><div class="lab-controls">${controls}</div><div class="lab-inline">🔍 ${note}</div>`;
+ host.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{tab=b.dataset.mode;draw()});const c=host.querySelector('#rockChoice');if(c)c.onchange=e=>{idx=+e.target.value;draw()};
+ host.querySelectorAll('[data-process]').forEach(b=>b.onclick=()=>{
+   const act=b.dataset.process,old=rockState;
+   if(act==='reset'){rockState='火成岩';cycleMessage='重來：現在從火成岩出發。'}
+   else if(act==='冷卻'&&rockState==='岩漿'){rockState='火成岩';cycleMessage='岩漿慢慢或快速冷卻固結，形成火成岩！'}
+   else if(act==='風化沉積'&&rockState!=='岩漿'){rockState='沉積岩';cycleMessage=`${old} 風化成沉積物，再經搬運、沉積、壓密膠結，形成沉積岩！`}
+   else if(act==='高溫高壓'&&rockState!=='岩漿'){rockState='變質岩';cycleMessage=`${old} 在尚未完全熔融下受熱壓改造，形成變質岩！`}
+   else if(act==='熔融'&&rockState!=='岩漿'){rockState='岩漿';cycleMessage=`${old} 熔融，變成岩漿！`}
+   else cycleMessage=`現在是${rockState}，這個作用暫不適用；試選另一個地質作用。`;
+   draw();
+ });
+ }draw();
+};
+// === 4 Drift, sea floor spreading, magnetic stripes ===
+labRenders.drift=(host)=>{
+ let tab='stripe',age=4;
+ function draw(){
+ let art='',ctrl='',note='';
+ if(tab==='stripe'){
+   let stripes=''; const w=23+age*5;
+   for(let i=0;i<=8;i++){let col=['#68c1e8','#d3a86a','#68c1e8','#d3a86a','#d3a86a','#68c1e8','#d3a86a','#68c1e8','#d3a86a'][i];let x1=380-(i+1)*w,x2=380+i*w;stripes+=rect(x1,113,w,109,col)+rect(x2,113,w,109,col)}
+   art=stage(rect(0,0,760,103,'#145783')+rect(0,103,760,146,'#36526d')+stripes+`<path d="M355 123Q373 76 380 58Q390 88 405 123 L404 232 L355 232Z" fill="#eb734f"/><path d="M0 235Q210 222 350 232 Q380 242 410 232 Q550 222 760 235 L760 350 L0 350Z" fill="url(#mantle)"/>`+txt(315,47,'中洋脊（新海床）','#bceeff',18)+txt(110,75,'海水','#abdffc',16)+ln(344,272,135,272,'#89dff4',5)+ln(416,272,630,272,'#89dff4',5)+txt(118,302,'← 向西移動','#bcefff',15)+txt(494,302,'向東移動 →','#bcefff',15)+txt(18,337,'條帶寬度是教學示意；真正極性年代長短不同。','#b9d7e9',12));
+   ctrl=controlRange('stripeAge','擴張後時間（情境階段）',age,1,8);note='海底兩側磁條帶幾乎鏡像；從中洋脊向外海床逐漸變老。改變「擴張階段」後，新海底不斷填在中央，舊條帶被帶往兩邊。';
+ }else if(tab==='puzzle'){
+   art=stage(`<path d="M180 58 Q270 47 308 92 Q345 110 303 155 L268 196 Q235 231 262 280 Q218 302 190 261 L163 218 Q130 183 153 140Z" fill="#b8c87f" stroke="#e5e1b3" stroke-width="4"/><path d="M468 45 Q549 48 569 98 Q537 130 514 177 Q487 200 480 256 Q441 275 414 230 Q426 196 403 154 Q427 112 434 80Z" fill="#a8bd78" stroke="#e5e1b3" stroke-width="4"/>`+ln(319,160,409,160,'#f5dc9a',3,'5 6')+txt(153,35,'南美洲','#e8f8ff',18)+txt(458,35,'非洲','#e8f8ff',18)+txt(285,325,'岩層、化石與古氣候可跨洲連線','#c2e6f5',14));
+   note='海岸線像拼圖是直觀起點，但不是唯一證據。古生物化石、地層、古氣候與冰川痕跡的對應，才是更有說服力的證據。圖是抽象形狀示意，不作精確古地理重建。';
+ }else{
+   const dist=180; art=stage(rect(0,0,760,350,'#11364e')+`<path d="M100 215Q200 165 335 205Q380 220 425 205Q560 175 660 215" stroke="#70bcd7" stroke-width="16" fill="none"/>`+circle(380,215,11,'#efaa68')+ln(380,215,635,215,'#ffe39b',3)+txt(350,179,'中洋脊','#a9effa',18)+txt(498,198,'120 km','#ffe0a2',18)+txt(497,246,'300 萬年','#d1dff1',17)+txt(170,70,'單側平均擴張速率','#b8e8ff',19)+txt(205,117,'120 km ÷ 3 百萬年 = 4 cm／年','#fff4da',22)+txt(170,311,'兩側對稱且同速 → 總張開速率約 8 cm／年','#e0f5ff',17));
+   note='題目若問「某一側移動速度」，只取單側距離；若問兩側板塊「相對張開速度」，需合計左右兩側速率。';
+ }
+ host.innerHTML=optionTabs([['stripe','① 磁條帶'],['puzzle','② 大陸證據'],['speed','③ 速度推理']],tab)+`<div class="lab-viewport">${art}</div><div class="lab-controls">${ctrl}</div><div class="lab-inline">🧭 ${note}</div>`;
+ host.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{tab=b.dataset.mode;draw()});let r=host.querySelector('#stripeAge');if(r)r.oninput=e=>{age=+e.target.value;draw()};
+ }draw();
+};
+// === 5 plate boundary cross sections + hotspot ===
+labRenders.plates=(host)=>{
+ let tab='sub';
+ const options=[['div','張裂'],['sub','洋－陸聚合'],['island','洋－洋聚合'],['collide','陸－陸碰撞'],['transform','錯動'],['hotspot','熱點']];
+ function draw(){let art='',note='';
+ const bg=rect(0,0,760,105,'url(#ocean)')+rect(0,250,760,100,'url(#mantle)');
+ const arrow=(x,y,dir=1,col='#80e6ff')=>ln(x,y,x+dir*92,y,col,5)+`<polygon points="${x+dir*106},${y} ${x+dir*91},${y-9} ${x+dir*91},${y+9}" fill="${col}"/>`;
+ const quake=(x,y)=>circle(x,y,5,'#ffe284','#ffecc5',1);
+ if(tab==='div'){
+  art=stage(bg+`<path d="M0 106 L314 106 L343 151 L366 151 L389 106 L760 106 L760 240 L395 240 L368 189 L343 189 L308 240 L0 240Z" fill="url(#slab)"/><path d="M346 265L358 173L381 137L405 265Z" fill="#fa8855"/>`+arrow(310,84,-1)+arrow(445,84,1)+txt(290,38,'張裂：新海洋地殼在中洋脊形成','#b8edff',21)+txt(335,209,'岩漿上湧','#ffd6a0',15)+quake(295,172)+quake(430,164)+txt(20,330,'淺源地震常見','#c9e4ef',14));
+  note='中洋脊張裂、地函減壓熔融產生玄武質岩漿，形成新的海洋地殼；大陸上張裂可形成裂谷。';
+ }else if(tab==='sub'||tab==='island'){
+  const land=tab==='sub';
+  art=stage(rect(0,0,760,103,'url(#ocean)')+rect(0,103,760,247,'url(#mantle)')+`<path d="M0 119L286 119Q313 138 337 146Q405 172 590 350 L515 350Q375 222 317 203 L0 183Z" fill="url(#slab)" stroke="#9fd6ff" stroke-width="4"/>`+
+    `<path d="M343 139Q380 121 432 125Q467 126 502 ${land?105:125}L760 ${land?105:125} L760 217 Q600 184 478 170Z" fill="${land?'url(#land)':'url(#slab)'}"/>`+
+    `<path d="M443 179Q482 200 492 163Q506 135 515 126" stroke="#ff9a66" stroke-width="7" fill="none" stroke-dasharray="10 7"/>`+
+    `<path d="M492 ${land?109:128}L520 52L548 ${land?109:128}" fill="#86644c" stroke="#a87a53" stroke-width="5"/>`+
+    `<path d="M512 84L520 57L530 84" stroke="#ffb36f" stroke-width="6" fill="none"/>`+arrow(197,78,1)+arrow(628,78,-1)+txt(24,40,land?'海洋板塊向大陸下方隱沒':'海洋板塊隱沒形成島弧','#e6f8ff',19)+txt(266,128,'海溝','#b9eafa',14)+txt(545,54,land?'大陸火山弧':'火山島弧','#fff0d9',15)+
+    [[329,157],[363,187],[403,220],[448,264],[492,300]].map(p=>quake(p[0],p[1])).join('')+txt(536,309,'震源由淺向深排列','#ffe7b3',15));
+  note=land?'海洋板塊較冷較密時可向下隱沒；海溝靠近下沉端，水帶入地函楔促進部分熔融，在大陸邊緣形成火山弧。':'洋－洋聚合時也會形成海溝、島弧與傾斜的淺中深源地震帶，如馬里亞納海溝。';
+ }else if(tab==='collide'){
+   art=stage(rect(0,0,760,105,'#264d63')+rect(0,250,760,100,'url(#mantle)')+`<path d="M0 145L245 145L295 115L326 68L365 119L388 73L440 142L760 145L760 250L0 250Z" fill="url(#land)"/><path d="M0 228Q200 203 280 239Q380 275 490 237Q640 205 760 230" stroke="#edd6b7" stroke-width="10" fill="none"/>`+arrow(190,105,1)+arrow(564,105,-1)+txt(224,40,'大陸碰撞 → 地殼變厚，擠皺抬升','#ecffdc',21)+txt(339,146,'褶皺山脈','#f3f5ed',15,800,'middle')+txt(50,325,'喜馬拉雅山屬此類','#ffe2b0',14));
+   note='兩側大陸岩石圈不易像冷老海洋岩石圈一樣大量隱沒，擠壓可令地殼增厚、形成高大山脈與高原。';
+ }else if(tab==='transform'){
+   art=stage(rect(0,0,760,350,'#143b51')+`<path d="M0 38L355 38L355 325L0 325Z" fill="#bb915f"/><path d="M405 38L760 38L760 325L405 325Z" fill="#94734c"/>`+
+     ln(380,30,380,330,'#e6e0ba',6,'13 8')+arrow(175,145,1)+arrow(592,218,-1)+txt(315,26,'平移斷層','#f0f0d5',17)+txt(170,310,'沿邊界水平滑動','#e4faee',18)+quake(380,165)+quake(380,218));
+   note='兩側沿斷層水平相對運動，卡住時可累積應力，突然錯動就造成淺源地震；通常不會產生大量新地殼。';
+ }else{
+   const pts=[[115,110,48],[245,116,34],[355,123,24],[460,129,14]];
+   art=stage(rect(0,0,760,85,'url(#ocean)')+rect(0,85,760,135,'url(#slab)')+rect(0,220,760,130,'url(#mantle)')+`<path d="M390 340Q412 255 445 178" stroke="#ff945b" stroke-width="13" fill="none" stroke-dasharray="22 7"/>`+
+    pts.map(([x,y,r],i)=>`<path d="M${x-r} ${y}L${x} ${y-r}L${x+r} ${y}Z" fill="#b48659" stroke="#ffd7ad" stroke-width="2"/>`+txt(x,y-65,i===0?'最老':i===3?'最新':'','#ffe4a6',15,800,'middle')).join('')+arrow(320,60,-1)+txt(455,53,'熱點近乎固定，板塊移動','#d5f7fc',16)+txt(478,297,'地函上湧（示意）','#ffdca4',15));
+   note='同一板塊經過熱點，上方火山形成後被帶走；火山鏈隨距離與年齡出現系統性變化。並非每座火山都在板塊邊界。';
+ }
+ host.innerHTML=optionTabs(options,tab,'data-mode')+`<div class="lab-viewport">${art}</div><div class="lab-inline">🔎 ${note}</div><div class="lab-note">各剖面都是原創教學示意，特意放大厚度與岩漿位置；不代表真實地形比例或實測震源位置。</div>`;
+ host.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{tab=b.dataset.mode;draw()});
+ }draw();
+};
+// === 6 Taiwan: interaction via mapped regions and rocks ===
+labRenders.taiwan=(host)=>{
+ let tab='north';
+ const info={north:{title:'北部｜琉球隱沒＋沖繩海槽張裂',note:'在臺灣東北外海，菲律賓海板塊向北隱沒，北臺灣也受沖繩海槽張裂與火山作用影響。',col:'#7ae5ff'},middle:{title:'中部｜弧陸碰撞抬升山脈',note:'呂宋島弧與歐亞大陸邊緣碰撞，中央山脈隆升；花東縱谷是重要縫合帶。',col:'#ffd994'},south:{title:'南部｜馬尼拉海溝向東隱沒',note:'歐亞板塊的海洋部分於馬尼拉海溝向東隱沒到菲律賓海板塊之下。',col:'#c7a4ff'},rocks:{title:'岩石分布｜西部沉積、中部變質、東部火山與沉積',note:'中央山脈常見板岩、片岩；西部麓山帶常見沉積岩；海岸山脈有安山岩、火山碎屑岩與沉積岩。分布為概略示意。',col:'#8ee5b4'}};
+ function draw(){
+   const colors={north:'#7ae5ff',middle:'#ffd994',south:'#c7a4ff',rocks:'#8ee5b4'};
+   const taiwanPath='M383 33Q419 50 423 80L418 126Q402 160 413 196Q415 234 395 258Q366 285 343 313Q325 327 319 303Q312 276 315 246Q307 219 312 184Q313 157 328 131Q343 108 349 82Q355 57 383 33Z';
+   const coast=`<path d="${taiwanPath}" fill="#9aba7e" stroke="#daeeaf" stroke-width="4"/>`;
+   const region=tab==='north'?`<ellipse cx="377" cy="98" rx="39" ry="47" fill="#78dcf8" opacity=".65"/>`:tab==='middle'?`<ellipse cx="358" cy="193" rx="39" ry="65" fill="#ffce78" opacity=".65"/>`:tab==='south'?`<ellipse cx="348" cy="266" rx="30" ry="44" fill="#ba93ec" opacity=".65"/>`:
+     `<path d="M330 115L350 68L359 280L337 310Q311 277 318 224Z" fill="#d5b374" opacity=".85"/><path d="M354 70L385 42L395 255L357 288Z" fill="#89bda1" opacity=".85"/><path d="M395 91L422 92L411 228L394 253Z" fill="#ba8f92" opacity=".85"/>`;
+   const labels=tab==='rocks'?txt(175,113,'西部：沉積岩','#ffd49f',16)+txt(179,150,'中部：變質岩','#b1e8bd',16)+txt(457,180,'東部：火成＋沉積','#e4c9d3',15):
+    txt(38,58,info[tab].title,colors[tab],20)+
+    (tab==='north'?txt(480,86,'琉球海溝 →','#85e8ff',15):tab==='south'?txt(465,259,'← 馬尼拉海溝','#d7b9ff',15):txt(466,184,'← 擠壓造山 →','#ffe1a6',15));
+   const arrow=tab==='north'?`<path d="M470 136Q432 92 411 65" fill="none" stroke="#80e2ff" stroke-width="6" marker-end="url(#arr)"/>`:tab==='south'?`<path d="M180 260Q245 270 312 254" fill="none" stroke="#c9a8ff" stroke-width="6" marker-end="url(#arr)"/>`:tab==='middle'?ln(235,191,300,191,'#ffe3a2',5)+ln(500,191,428,191,'#ffe3a2',5):'';
+   const art=stage(rect(0,0,760,350,'#123d59')+`<path d="M0 0H760V350H0Z" fill="url(#ocean)" opacity=".45"/>`+Array.from({length:7},(_,i)=>ln(0,45+i*45,760,45+i*45,'#3e7e9c',1)).join('')+
+       coast+region+`<path d="${taiwanPath}" fill="none" stroke="#e9ffe8" stroke-width="3"/>`+
+       `<path d="M371 52Q367 117 355 177Q349 235 337 289" fill="none" stroke="#e9e3be" stroke-width="4" stroke-dasharray="8 6"/>`+
+       txt(290,34,'臺灣','#e8faff',15)+labels+arrow+
+       txt(28,334,'教學定位示意｜方位與構造概念，非比例尺地質圖','#b4d5e7',12));
+   host.innerHTML=optionTabs([['north','北部'],['middle','中部'],['south','南部'],['rocks','岩石區']],tab)+`<div class="lab-viewport">${art}</div><div class="lab-inline">🧭 ${info[tab].note}</div>`;
+   host.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{tab=b.dataset.mode;draw()});
+ }draw();
+};
