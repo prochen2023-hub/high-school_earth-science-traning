@@ -21,7 +21,7 @@ function go(dest,id){if(typeof guideClose==='function')guideClose();if(examTimer
  view=dest;lessonId=dest==='lesson'?id:null;
  side.classList.remove('open');document.getElementById('menuToggle').setAttribute('aria-expanded','false');
  if(dest==='lesson')renderLesson(unitById(id));else if(dest==='review')renderReview();else if(dest==='challenge')renderChallenge();else if(dest==='exam')renderExamHome();else if(dest==='today')startRound('today');else renderHome();
- refreshNav();window.scrollTo({top:0,behavior:'instant'});document.title=`地科秘笈 v4.9｜${dest==='lesson'?unitById(id).name:'第三章 山川壯麗的大地'}`;
+ refreshNav();window.scrollTo({top:0,behavior:'instant'});document.title=`地科秘笈 v4.10｜${dest==='lesson'?unitById(id).name:'第三章 山川壯麗的大地'}`;
 }
 function sectionTitle(num,title,aside=''){return `<div class="block-heading"><span class="num">${num}</span><h2>${title}</h2>${aside?`<span class="aside">${aside}</span>`:''}</div>`}
 function previewCard(u){return `<button class="unit-card" data-unit="${u.id}"><div class="photo" style="background-image:url('${u.image}')"><span class="number">${u.n}</span><span class="unit-emoji">${u.emoji}</span></div><div class="words"><h3>${u.name}</h3><p>${u.title}</p><div class="foot"><span>▶ 進入完整圖解與實驗</span><span class="status">${completed.has(u.id)?'✓ 已學過':'未完成'}</span></div></div></button>`}
@@ -34,6 +34,7 @@ function renderHome(){
  <div class="flow-board">${[['💥','震源破裂'],['〰️','地震波傳遞'],['🌍','發現地球分層'],['🪨','岩石形成改變'],['🌋','板塊持續運動'],['🇹🇼','解釋臺灣']].map(([e,t])=>`<div class="flow-tile"><span>${e}</span><b>${t}</b></div>`).join('')}</div>
  ${sectionTitle('03','學生可以選自己的進度','每一節都有圖、互動和錯誤觀念整理')}
  <div class="feature-row"><button class="feature" data-view="review"><span class="badge-emoji">⚡</span><span>30 秒救命<br><small>考前一眼串起來</small></span></button><button class="feature" data-view="today"><span class="badge-emoji">⏱</span><span>8 分鐘快速練<br><small>一次只練 5 題</small></span></button><button class="feature" data-view="challenge"><span class="badge-emoji">🎮</span><span>ABCD 四級闖關<br><small>基礎到素養</small></span></button><button class="feature" data-view="exam"><span class="badge-emoji">📝</span><span>段考 A／B 卷<br><small>各 20 題、100 分</small></span></button></div>
+ <div class="update-note"><strong>🎯 你現在看到的是 v4.10</strong>：請找「🔎 開啟圖解與互動 ↗」及每張卡的縮圖；如果仍看到「✓ 用圖理解」，代表瀏覽器或 GitHub Pages 還是舊版。<a href="guides/index.html">直接看 38 張圖解總目錄 →</a></div>
  <p class="tiny section-space">設計原則：第 3 章內容以你提供的課本頁面作為範圍依據；所有教學圖重新渲染，未直接貼課本照片，並參考中央氣象署、USGS 與臺灣地質資料核對科學概念。</p>`;
  bindLinks();
 }
@@ -48,8 +49,8 @@ function renderLesson(u){if(!u)return renderHome();
  ${sectionTitle('2','圖上自己動手，眼睛先懂','可反覆調參數、切換情境')}
  <div class="lab-panel"><div class="lab-header"><div><h3>🔬 ${u.labTitle}</h3><p>${u.labIntro}</p></div><span class="pill dark">SVG 原創 · 離線可動</span></div><div id="lab"></div></div>
  ${sectionTitle('3','把實驗結果接回正式知識','每張卡都能開啟對應圖解')}
- <div class="guide-invite">🔎 <b>請點下面任一張知識卡的「看圖理解」：</b>先看線索、再推原因，最後用一題驗證；一共 ${u.concepts.length} 個圖解入口。</div>
- <div class="three">${u.concepts.map((c,i)=>`<article class="concept-card" role="button" tabindex="0" aria-label="開啟${c.title}的互動圖解" style="--concept-color:${u.accent}"><span class="chip">${c.tag}</span><div class="concept-icon">${({pin:'📍',depth:'📏',wave:'〰️',surface:'🏠',clock:'⏱',rings:'◎',layers:'🌍',boundary:'◍',crust:'🪨',igneous:'🔥',sedimentary:'🏞',metamorphic:'💎',cycle:'🔁',puzzle:'🧩',ridge:'🌊',magnetic:'🧲',plates:'🧭',div:'↔️',sub:'↘️',coll:'⛰️',trans:'⇆',volcano:'🌋',density:'⚖️',tw:'🇹🇼',rockmap:'🗺️'})[c.visual]||'🧩'}</div><span class="micro">${c.key}</span><h3>${c.title}</h3><p>${rich(c.text)}</p><div class="inspect"><span>課本概念 ${i+1}／${u.concepts.length}</span><button type="button" class="inspect-action" aria-label="開啟${c.title}看圖理解互動頁">🔍 看圖理解 ↗</button></div></article>`).join('')}</div>
+ <div class="guide-invite">✅ <b>真正可點的獨立圖解頁：</b>每張卡都有新的圖像預覽，點卡片或「開啟圖解與互動 ↗」即可看到操作、觀察、推理與答案。<a class="guide-list-link" href="guides/index.html">直接瀏覽全章 38 張圖解 ↗</a></div>
+ <div class="three">${u.concepts.map((c,i)=>`<a class="concept-card" href="guides/${u.id}-${String(i+1).padStart(2,'0')}.html" aria-label="開啟${c.title}的獨立圖解課堂" style="--concept-color:${u.accent}"><div class="concept-preview"><img src="assets/previews/${u.id}-${String(i+1).padStart(2,'0')}.webp" alt="${c.title}互動圖像預覽" loading="lazy"></div><span class="chip">${c.tag}</span><div class="concept-icon">${({pin:'📍',depth:'📏',wave:'〰️',surface:'🏠',clock:'⏱',rings:'◎',layers:'🌍',boundary:'◍',crust:'🪨',igneous:'🔥',sedimentary:'🏞',metamorphic:'💎',cycle:'🔁',puzzle:'🧩',ridge:'🌊',magnetic:'🧲',plates:'🧭',div:'↔️',sub:'↘️',coll:'⛰️',trans:'⇆',volcano:'🌋',density:'⚖️',tw:'🇹🇼',rockmap:'🗺️'})[c.visual]||'🧩'}</div><span class="micro">${c.key}</span><h3>${c.title}</h3><p>${rich(c.text)}</p><div class="inspect"><span>課本概念 ${i+1}／${u.concepts.length}</span><span class="inspect-action">🔎 開啟圖解與互動 ↗</span></div></a>`).join('')}</div>
  ${sectionTitle('4','老師最想提醒你的三種陷阱','先拆掉容易答錯的誤解')}
  <div class="trap-grid">${u.traps.map(([a,b])=>`<div class="trap"><div class="bad">✕ 「${a}」</div><div class="good">✔ ${b}</div></div>`).join('')}</div>
  ${sectionTitle('5','圖表題先看哪裡？','考試不會只問定義')}
@@ -59,7 +60,7 @@ function renderLesson(u){if(!u)return renderHome();
  <div class="quiz-card" id="miniQuiz"></div>
  <div class="source-bar"><b>知識核對來源：</b>${u.sources.map(([t,l])=>`<a href="${l}" target="_blank" rel="noopener noreferrer">${t} ↗</a>`).join('')}<span>｜教學圖由本站重新設計</span></div>
  <div class="lesson-end"><p>${completed.has(u.id)?'✅ 你已標記學過這節。':'這節理解了嗎？先勾完成，再前往下一關。'}</p><div class="actions"><button class="action secondary" id="markDone">${completed.has(u.id)?'✓ 已完成':'✓ 我已理解這一節'}</button>${next?`<button class="action" data-unit="${next.id}">下一關：${next.name} →</button>`:`<button class="action" data-view="challenge">打開整章闖關 →</button>`}</div></div>`;
- bindLinks();mountLab(u.lab,document.getElementById('lab'));bindConceptGuideCards(u);
+ bindLinks();mountLab(u.lab,document.getElementById('lab'));
  document.querySelectorAll('[data-hook]').forEach(b=>b.onclick=()=>{
   const ans=+b.dataset.hook;
   document.querySelectorAll('[data-hook]').forEach(bb=>{const i=+bb.dataset.hook;bb.disabled=true;bb.classList.toggle('correct',i===u.answer);bb.classList.toggle('wrong',i===ans&&i!==u.answer)});
@@ -124,4 +125,7 @@ document.getElementById('ttsButton').onclick=()=>{
  if(!text){toastMsg('沒有可朗讀的內容');return}
  const u=new SpeechSynthesisUtterance(text);u.lang='zh-TW';u.rate=.94;u.onend=()=>voiceActive=false;u.onerror=()=>voiceActive=false;speechSynthesis.cancel();speechSynthesis.speak(u);voiceActive=true;toastMsg('開始朗讀這一頁')
 };
-setupConceptGuides();validateConceptGuides();refreshNav();renderHome();bindLinks();
+refreshNav();
+const initialLesson = window.location.hash.match(/^#lesson=(quake|interior|rocks|drift|plate|taiwan)$/);
+if(initialLesson){go('lesson',initialLesson[1])}else{renderHome();bindLinks()}
+window.addEventListener('hashchange',()=>{const m=location.hash.match(/^#lesson=(quake|interior|rocks|drift|plate|taiwan)$/);if(m)go('lesson',m[1]);});
