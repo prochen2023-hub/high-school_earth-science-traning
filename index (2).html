@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#081728">
+<title>地科秘笈 v4.9｜第三章・山川壯麗的大地</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Ctext y='66' font-size='62'%3E🌎%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="site">
+  <header class="topbar">
+    <button class="iconbtn mobile-only" id="menuToggle" aria-label="開啟學習選單">☰</button>
+    <div class="brand" role="banner"><span class="globe">🌎</span><div><strong>地科秘笈</strong><small>高中一年級　・　v4.9</small></div></div>
+    <nav class="toplinks" aria-label="網站導覽">
+      <button data-view="home">⌂ <span>章節首頁</span></button>
+      <button data-view="review">✦ <span>30秒救命</span></button>
+      <button data-view="challenge">◈ <span>闖關挑戰</span></button>
+      <button data-view="exam">▤ <span>段考模擬</span></button>
+    </nav>
+    <div class="topright"><span id="progressTag" class="progress-tag">探索進度 0 / 6</span><button id="ttsButton" class="iconbtn" title="朗讀本頁主要文字" aria-label="朗讀目前單元">🔊</button></div>
+  </header>
+  <div class="shell">
+    <aside class="sidebar" id="sidebar" aria-label="第三章課程目錄">
+      <div class="sidebar-top"><span class="chapter-label">CHAPTER 03</span><h2>山川壯麗的<br>大地</h2><p>從一次搖晃，走到臺灣的高山。</p></div>
+      <div class="side-heading">主線任務</div>
+      <div id="unitNav" class="unit-nav"></div>
+      <div class="side-heading">我的學習工具</div>
+      <div class="side-tools">
+        <button data-view="review">⚡ 一眼總整理</button>
+        <button data-view="challenge">🎮 ABCD 四級挑戰</button>
+        <button data-view="exam">📝 段考 A／B 卷</button>
+        <button id="resetProgress" class="muted-button">↻ 重設本章進度</button>
+      </div>
+      <div class="side-foot"><p>其他章節功能仍可使用</p><a href="legacy/index.html">開啟既有完整學期網站 ↗</a></div>
+    </aside>
+    <main id="main" tabindex="-1" aria-live="polite"></main>
+  </div>
+</div>
+<dialog id="conceptDialog" class="concept-dialog" aria-labelledby="guideTitle">
+ <div class="guide-shell">
+  <header class="guide-head">
+   <div><span class="guide-eyebrow" id="guideCounter">圖解教學</span><h2 id="guideTitle">看圖理解</h2><p id="guideSummary"></p></div>
+   <button type="button" class="guide-close" id="guideExit" aria-label="關閉圖解，回到原課程">✕ <span>返回課程</span></button>
+  </header>
+  <div class="guide-body">
+   <section class="guide-picture" aria-label="可操作的專屬地科示意圖">
+    <div class="guide-picture-title"><b>🔬 這張圖真的可以操作</b><span>按上方頁籤、滑桿或按鈕試試</span></div>
+    <div id="guideLab"></div>
+   </section>
+   <section class="guide-content" id="guideContent" aria-label="圖像思考的三步驟">
+    <div class="guide-steps" id="guideSteps"></div>
+    <div class="guide-stage"><div class="guide-mini-kicker">老師帶你看圖</div><h3 id="guideStageHeading"></h3><p class="guide-stage-lead" id="guideStageLead"></p><p class="guide-stage-copy" id="guideStageCopy"></p><div id="guideReveal"></div><div id="guideMemory"></div></div>
+    <div class="guide-actions"><button id="guideBack" type="button" class="guide-nav secondary">← 上一步</button><button id="guideNext" type="button" class="guide-nav primary">下一步 →</button></div>
+   </section>
+  </div>
+  <footer class="guide-foot"><button id="guidePrevConcept" type="button">← 上一張圖解</button><small>每張圖都以「觀察 → 推理 → 變化題」重組。圖示為教學模型，非真實比例。</small><button id="guideNextConcept" type="button">下一張圖解 →</button></footer>
+ </div>
+</dialog>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="content.js"></script>
+<script src="visuals.js"></script>
+<script src="questions.js"></script>
+<script src="concept-guide.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
