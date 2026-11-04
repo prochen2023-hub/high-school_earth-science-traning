@@ -2,30 +2,36 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#081728">
-<title>地科秘笈 v4.11｜第三章・山川壯麗的大地</title>
+<title>地科秘笈 v4.13｜第三、四章完整圖像互動版</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Ctext y='66' font-size='62'%3E🌎%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="atlas-embedded.css">
+<link rel="stylesheet" href="weather.css">
+<link rel="stylesheet" href="ch3-gallery.css">
 </head>
 <body>
 <div class="site">
   <header class="topbar">
     <button class="iconbtn mobile-only" id="menuToggle" aria-label="開啟學習選單">☰</button>
-    <div class="brand" role="banner"><span class="globe">🌎</span><div><strong>地科秘笈</strong><small>高中一年級　・　v4.11</small></div></div>
+    <div class="brand" role="banner"><span class="globe">🌎</span><div><strong>地科秘笈</strong><small>高中一年級　・　v4.13</small></div></div>
     <nav class="toplinks" aria-label="網站導覽">
       <button data-view="home">⌂ <span>章節首頁</span></button>
-      <button data-view="review">✦ <span>30秒救命</span></button>
+      <button data-view="review">✦ <span>30秒救命</span></button><button data-ch3-hub type="button">🖼️ <span>第三章圖像學堂</span></button>
       <button data-view="challenge">◈ <span>闖關挑戰</span></button>
-      <button data-view="exam">▤ <span>第三章練習</span></button><a class="top-guide-link" href="taiwan-atlas.html#geology">🗺️ <span>臺灣地質圖鑑</span></a><a class="top-guide-link" href="guides/index.html">🔎 <span>38 張圖解</span></a>
+      <button data-view="exam">▤ <span>第三章練習</span></button><button type="button" data-weather-nav="home">☁️ <span>第四章大氣探險</span></button><button type="button" data-weather-nav="exam">🏆 <span>第二次段考</span></button><a class="top-guide-link" href="#atlas-geology" data-atlas-open="geology">🗺️ <span>臺灣地質圖鑑</span></a><a class="top-guide-link" href="guides/index.html">🔎 <span>38 張圖解</span></a>
     </nav>
     <div class="topright"><span id="progressTag" class="progress-tag">探索進度 0 / 6</span><button id="ttsButton" class="iconbtn" title="朗讀本頁主要文字" aria-label="朗讀目前單元">🔊</button></div>
   </header>
   <div class="shell">
     <aside class="sidebar" id="sidebar" aria-label="第三章課程目錄">
       <div class="sidebar-top"><span class="chapter-label">CHAPTER 03</span><h2>山川壯麗的<br>大地</h2><p>從一次搖晃，走到臺灣的高山。</p></div>
-      <div class="side-heading">主線任務</div>
+      <div class="side-heading">第三章｜主線任務</div>
       <div id="unitNav" class="unit-nav"></div>
+      <div class="side-heading">第三章｜名師圖卡總覽</div><div class="side-tools"><button type="button" data-ch3-hub>🖼️ 第三章 6 組圖像教學</button></div>
+      <div class="side-heading">第四章｜風起雲湧的大氣</div>
+      <div class="side-tools"><button data-weather-nav="home">☁️ 大氣篇學習地圖</button><button data-weather-nav="a1">4-1 大氣垂直結構</button><button data-weather-nav="a2">4-2 水循環與天氣</button><button data-weather-nav="a3">4-3 大氣水平運動</button><button data-weather-nav="a4">4-4 判讀天氣圖</button><button data-weather-nav="exam">📝 第二次段考 A / B 卷</button></div>
       <div class="side-heading">我的學習工具</div>
-      <div class="side-tools"><a class="side-guide-link" style="background:#a25b20;border-color:#f5d381" href="taiwan-atlas.html#geology">🗺️ 新版臺灣地質・海底圖鑑 ↗</a></div>
+      <div class="side-tools"><a class="side-guide-link" style="background:#a25b20;border-color:#f5d381" href="#atlas-geology" data-atlas-open="geology">🗺️ 新版臺灣地質・海底圖鑑 →</a></div>
       <div class="side-tools"><a class="side-guide-link" href="guides/index.html">📚 38 張圖解總目錄 ↗</a></div>
       <div class="side-tools">
         <button data-view="review">⚡ 一眼總整理</button>
@@ -43,6 +49,99 @@
 <script src="visuals.js"></script>
 <script src="questions.js"></script>
 
+
+<template id="atlasInlineTemplate">
+<div class="atlas-scope" id="embeddedAtlas">
+  <div class="embedded-atlas-breadcrumb"><strong>🗺️ 第三章｜臺灣地質完整圖像教學</strong><div><button type="button" data-unit="taiwan">← 回臺灣板塊課程</button><button type="button" data-unit="rocks">岩石課程</button><button type="button" data-view="home">章節首頁</button></div></div>
+<section class="hero">
+<div class="hero-copy"><p class="eyebrow">第三章精修 · 真實地理 × 岩石標本 × 立體機制</p><h1>臺灣為什麼長這樣？<br/><em>從海底，追到山頂。</em></h1>
+<p class="hero-sub">先找到臺灣周圍的海溝、海槽和海盆；再看島上被擠壓抬升的岩石，最後回到你能在臺灣看到的真實岩石標本。地圖不是拿來背顏色，而是讓你推理<strong>「地形、岩性、板塊運動」</strong>之間的關係。</p>
+<div class="chips"><span>✓ 不貼整張課本</span><span>✓ 真實地形底圖</span><span>✓ 11 張岩石實物照片</span><span>✓ 不同主題不同圖</span></div>
+<div class="hero-cta"><a class="cta" href="#atlasNav">開始看圖找線索 ↓</a><a class="cta outline" href="https://geologycloud.tw/map/Stratum/zh-tw" rel="noopener noreferrer" target="_blank">參考官方地質雲 ↗</a></div>
+</div>
+<div class="hero-image"><img alt="海洋板塊隱沒、海溝、增積岩體和火山弧立體藝術化示意圖" src="assets/atlas/subduction-3d.webp"/><span class="image-note">立體機制視覺化｜非實測剖面與比例圖；地函大部分仍為固態</span></div>
+</section>
+<section aria-label="建議學習順序" class="learning-path"><b>五步驟學習</b><span>① 找臺灣在哪</span><i>→</i><span>② 認地質帶</span><i>→</i><span>③ 看海底地形</span><i>→</i><span>④ 看岩石實物</span><i>→</i><span>⑤ 判圖變化題</span></section>
+<nav aria-label="圖像學習模組" class="atlas-nav" id="atlasNav" role="tablist">
+<button aria-selected="true" class="tab active" data-tab="geology" role="tab" type="button">🗺️ 臺灣地質分區</button>
+<button aria-selected="false" class="tab" data-tab="seafloor" role="tab" type="button">🌊 周邊海底地形</button>
+<button aria-selected="false" class="tab" data-tab="mechanism" role="tab" type="button">🌋 立體隱沒剖面</button>
+<button aria-selected="false" class="tab" data-tab="specimens" role="tab" type="button">🪨 真實岩石標本</button>
+<button aria-selected="false" class="tab" data-tab="practice" role="tab" type="button">🎯 判圖實戰</button>
+</nav>
+<div id="atlasMain">
+<section class="tab-pane active" data-pane="geology" id="geology">
+<div class="pane-heading"><span class="chapter-no">01 / 05</span><div><h2>先看懂臺灣地質帶：為什麼岩石東西不同？</h2><p>與其一次背八個名詞，不如先抓住大方向：西部主要看到較年輕的沉積岩；往中央走，變質作用與構造變形更明顯；東部海岸山脈又有島弧火山岩的故事。</p></div></div>
+<div class="comparison-key"><div>① <b>海岸平原</b>的地層鬆散、年輕</div><div>② <b>西部麓山</b>有砂頁岩、礫岩</div><div>③ <b>中央山脈</b>見板岩、片岩與大理岩</div><div>④ <b>海岸山脈</b>帶有島弧岩石印記</div></div>
+<div class="atlas-layout"><div class="map-card"><header><b>臺灣地質帶：點右邊地區，看分布亮起</b><button class="zoom" data-zoom="#zoneMap" type="button">⛶ 放大看圖</button></header><img alt="依實際臺灣海岸線製作的概念化地質帶位置圖，數字 1 到 8 對應右側可點選圖例" id="zoneMap" loading="eager" src="assets/atlas/taiwan-zones.webp"/><p class="map-disclaimer">圖中地質帶邊界已為高一教學簡化，<strong>並非官方精密地層界線</strong>；精細資料可從下方官方地質圖查看。</p></div>
+<div class="atlas-detail"><h3>選一個地質區，岩石跟著對上</h3><div class="regions" id="regionBtns">
+<button class="region active" data-region="1"><span style="--sw:#f3d75c">1</span>西部海岸平原</button>
+<button class="region" data-region="2"><span style="--sw:#e79a68">2</span>西部麓山帶</button>
+<button class="region" data-region="3"><span style="--sw:#b9a5f3">3</span>雪山山脈地質帶</button>
+<button class="region" data-region="4"><span style="--sw:#7d92b7">4</span>脊樑山脈西翼（廬山板岩帶）</button>
+<button class="region" data-region="5"><span style="--sw:#63c7a9">5</span>脊樑山脈東翼（大南澳變質岩帶）</button>
+<button class="region" data-region="6"><span style="--sw:#f6e1ae">6</span>花東縱谷構造帶</button>
+<button class="region" data-region="7"><span style="--sw:#e97cbb">7</span>海岸山脈</button>
+<button class="region" data-region="8"><span style="--sw:#e76560">8</span>北部火山地帶</button>
+</div><article aria-live="polite" class="detail-box" id="regionInfo"></article></div></div>
+<div class="source-strip"><b>可以查更精細的地質圖：</b><a href="https://geologycloud.tw/map/Stratum/zh-tw" rel="noopener noreferrer" target="_blank">地調所「地質雲」地質圖 ↗</a><a href="https://www.geotech.org.tw/upload/column_zone_file/373_20200423160208235.pdf" rel="noopener noreferrer" target="_blank">何春蓀（1987）「臺灣地質分區」 ↗</a><span>本站概化圖將真實海岸線與地質分區概念分層呈現；遇到地層邊界精細判斷，應以官方地圖為準。</span></div>
+</section>
+<section class="tab-pane" data-pane="seafloor" id="seafloor">
+<div class="pane-heading"><span class="chapter-no">02 / 05</span><div><h2>地圖往海上一推，海溝、海槽、海盆全都連起來</h2><p>臺灣不是孤立的高山島；北方連著琉球隱沒帶及沖繩海槽，南方與馬尼拉海溝、呂宋島弧相連，東側海水下還有很深的海盆與陡峭的海底坡地。</p></div></div>
+<div class="atlas-layout"><div class="map-card bathy"><header><b>有經緯度的臺灣周圍海底地形總覽</b><button class="zoom" data-zoom="#seaMap" type="button">⛶ 放大看圖</button></header><img alt="臺灣與海峽、沖繩海槽、琉球海溝、馬尼拉海溝及花東海盆的地形底圖" id="seaMap" loading="lazy" src="assets/atlas/taiwan-seafloor.webp"/><p class="map-disclaimer">地形背景為 ETOPO1 概覽解析度；紅色虛線是教學位置提示，不是精密板塊界線或海底測線。</p></div>
+<div class="atlas-detail"><h3>這些海底地形到底差在哪裡？</h3><div class="feature-list" id="seaBtns">
+<button class="feature active" data-feature="trench">海溝 Trench</button><button class="feature" data-feature="trough">海槽 Trough</button>
+<button class="feature" data-feature="basin">海盆 Basin</button><button class="feature" data-feature="arc">島弧 Island arc</button>
+<button class="feature" data-feature="prism">增積岩體 Prism</button><button class="feature" data-feature="shelf">大陸棚 Shelf</button>
+<button class="feature" data-feature="slope">大陸坡 Slope</button><button class="feature" data-feature="canyon">海底峽谷 Canyon</button>
+<button class="feature" data-feature="ridge">中洋脊 Mid-ocean ridge</button><button class="feature" data-feature="forearc">弧前／弧後盆地</button>
+</div><article aria-live="polite" class="detail-box" id="seaInfo"></article></div></div>
+<div class="three-lessons"><article><b>北側關鍵</b><h3>琉球海溝 ≠ 沖繩海槽</h3><p>琉球海溝是隱沒帶的海溝；沖繩海槽位於琉球島弧後方，與張裂作用相關。兩者名稱接近，成因與構造位置不同。</p></article><article><b>南側關鍵</b><h3>馬尼拉海溝與呂宋島弧</h3><p>南方的歐亞板塊海洋岩石圈向東隱沒，海溝在隱沒起點附近；呂宋島弧位於其東方，是火山島弧系統的一部分。</p></article><article><b>臺灣本島</b><h3>為什麼東部海岸那麼陡？</h3><p>東臺灣靠近活動板塊邊界與深水盆地，岸外的海底坡度與臺灣西部淺海棚區明顯不同。</p></article></div>
+<div class="source-strip"><b>延伸看專業海底地形：</b><a href="https://basin.earth.ncu.edu.tw/DataMap/Taiwan.htm" rel="noopener noreferrer" target="_blank">中央大學臺灣地質、海底地形與構造圖 ↗</a><a href="https://commons.wikimedia.org/wiki/File:Taiwan_tectonics.png" rel="noopener noreferrer" target="_blank">Wikimedia 具座標的地形構造圖 ↗</a></div>
+</section>
+<section class="tab-pane" data-pane="mechanism" id="mechanism">
+<div class="pane-heading"><span class="chapter-no">03 / 05</span><div><h2>把整個隱沒帶切開：你看到的不只有「板塊往下鑽」</h2><p>從海洋往大陸看：海溝在前面，增積岩體像被推皺的地毯，板塊一路向下形成傾斜地震帶，部分熔融與岩漿上升才可能形成火山弧。</p></div></div>
+<div class="cinema"><div class="cinema-photo"><img alt="以立體視覺呈現海溝、增積岩體、隱沒板塊、火山弧及震源帶的示意剖面" id="cinemaImg" src="assets/atlas/subduction-3d.webp"/><button class="zoom cinema-zoom" data-zoom="#cinemaImg">⛶ 放大圖</button></div><div class="cinema-caution"><b>重要科學說明：</b>此為藝術化剖面，以強烈的發光效果幫助辨認熱源及地震帶；地函大部分仍是固態，不能把橘色部分當成地下充滿液態岩漿，深度和地形比例也不是實測。</div></div>
+<div class="mechanism-steps" id="mechanismSteps"><button class="step active" data-step="0"><b>01</b> 海洋岩石圈變冷變密</button><button class="step" data-step="1"><b>02</b> 海溝與增積岩體</button><button class="step" data-step="2"><b>03</b> 震源隨板塊變深</button><button class="step" data-step="3"><b>04</b> 流體促進局部熔融</button><button class="step" data-step="4"><b>05</b> 火山弧與造山</button></div>
+<article aria-live="polite" class="spotlight" id="mechanismInfo"></article>
+<div class="two-mechanisms"><article><span class="flag north">臺灣東北｜琉球系統</span><h3>菲律賓海板塊向北隱沒</h3><p>海溝位於臺灣東北外海，往北進入歐亞板塊一側之下，與琉球島弧、沖繩海槽構成相互關聯但不相同的構造單元。</p><div class="move-arrows"><span>菲律賓海板塊</span><b>↗ 向北隱沒</b><span>歐亞板塊側</span></div></article><article><span class="flag south">臺灣南方｜馬尼拉系統</span><h3>歐亞板塊的海洋岩石圈向東隱沒</h3><p>南海所在的歐亞板塊一側，向東隱沒到菲律賓海板塊的呂宋島弧之下；地表可見馬尼拉海溝與呂宋弧系統。</p><div class="move-arrows"><span>歐亞板塊（南海側）</span><b>↗ 向東隱沒</b><span>菲律賓海板塊側</span></div></article></div>
+<div class="source-strip"><b>真正的臺灣立體構造專業圖：</b><a href="https://commons.wikimedia.org/wiki/File:Taiwan_tectonics_block_diagram.png" rel="noopener noreferrer" target="_blank">臺灣立體板塊模型・Mikenorton / CC BY-SA 4.0 ↗</a><span>與本站藝術化剖面對照，可以看見臺灣具有北南方向不同的隱沒系統。</span></div>
+</section>
+<section class="tab-pane" data-pane="specimens" id="specimens">
+<div class="pane-heading"><span class="chapter-no">04 / 05</span><div><h2>真正的岩石標本：先看顆粒、片理、層理，再找臺灣產地</h2><p>這一區用你提供教材中的<strong>岩石實物照片局部裁切</strong>（不是 AI 畫的假石頭），分辨外觀後，再把「哪裡能看到這種岩石」連回臺灣地質區。</p></div></div>
+<div class="sample-note">照片為<strong>岩石種類的實物標本示例</strong>，不是臺灣指定產地的現地採樣照片；「臺灣哪裡有」是另依區域地質資料標示，請勿誤以為每張標本照片都採自該地。</div>
+<section class="rock-locality"><div class="rock-locality-art"><div class="rock-locality-head"><b>真實地理位置：岩石分布對照圖</b><button class="zoom" data-zoom="#localityMap">⛶ 放大</button></div><img alt="岩石在臺灣相關地質地點的位置，金門馬祖澎湖與本島均依真實海岸線定位" id="localityMap" loading="lazy" src="assets/atlas/rock-localities.webp"/></div><div class="locality-side"><h3>一邊認岩石，一邊找臺灣的位置</h3><p>標號是臺灣能找到相關岩石或典型地景的地區示例；照片本身不是這些地點的採集證明。</p><div class="locality-labels"><span>① 澎湖・玄武岩</span><span>② 金門・花崗質岩</span><span>③ 馬祖・花崗岩</span><span>④ 苗栗火炎山・礫岩</span><span>⑤ 野柳・砂岩</span><span>⑥ 大屯山・安山岩</span><span>⑦ 廬山・板岩</span><span>⑧ 太魯閣・片岩／大理岩</span><span>⑨ 海岸山脈・島弧火山岩</span><span>⑩ 龜山島・火山岩</span></div><div class="locality-hint">觀念：<strong>西部沉積 → 中央變質 → 東部與北部火山</strong>；但地質帶並不是從西往東一條完全均質的彩色直線。</div></div></section>
+<div class="rock-controls"><div class="filter-set" id="rockFilters"><button class="filter active" data-filter="all">全部標本</button><button class="filter" data-filter="igneous">火成岩</button><button class="filter" data-filter="sedimentary">沉積岩</button><button class="filter" data-filter="metamorphic">變質岩</button></div><label>搜尋岩石或地點 <input autocomplete="off" id="rockSearch" placeholder="例如：太魯閣、玄武岩、砂岩…"/></label></div>
+<div class="rock-grid" id="rockGrid"></div>
+<div aria-live="polite" class="rock-detail" hidden="" id="rockDetail"></div>
+<div class="memory-note"><h3>不用死背，每種岩石只問自己三件事</h3><div><span>① 我看到什麼紋理？</span><span>② 它靠哪個地質過程形成？</span><span>③ 臺灣哪個地質帶有相似岩性？</span></div></div>
+</section>
+<section class="tab-pane" data-pane="practice" id="practice">
+<div class="pane-heading"><span class="chapter-no">05 / 05</span><div><h2>看圖再解題：這才是第三章的真正學習成果</h2><p>題目參考你提供的第三章判圖範圍，重新設計地質分區、岩石樣本、海底構造與隱沒判讀題。這裡是單章實戰；<strong>正式第二次段考 A／B 卷應再整合第四章大氣篇</strong>，不會只拿第三章冒充完整段考。</p></div></div>
+<div class="practice-layout"><div class="practice-image"><img alt="本題對應的判圖素材" id="practiceFigure" src="assets/atlas/taiwan-zones.webp"/><button class="zoom" data-zoom="#practiceFigure">⛶ 放大題圖</button></div><article class="practice-card"><div class="practice-top"><span id="practiceCount">題目 1 / 8</span><span id="practiceScore">目前答對 0 題</span></div><h3 id="practiceQuestion"></h3><div class="practice-options" id="practiceOptions"></div><div class="practice-feedback" id="practiceFeedback">先觀察左側圖片，再選答案。</div><button class="cta" id="practiceNext" type="button">下一題 →</button></article></div>
+<div class="exam-note"><h3>第二次段考真正應涵蓋的內容</h3><p>第三章：地震波、地球分層、岩石、板塊、大陸漂移、臺灣地質；第四章：氣壓與分層、水循環、飽和與露點、成雲降雨、風與科氏力、天氣圖與鋒面。這兩章會分配圖表判讀、情境素養與數值題，另出 A／B 兩卷。<strong>本版先修正地質圖與岩石教學，不以未完成的大氣章假裝完整段考。</strong></p></div>
+</section>
+<section class="source-library" id="library"><h2>資料來源、使用範圍與學習提醒</h2><div class="sources">
+<a href="https://geologycloud.tw/map/Stratum/zh-tw" rel="noopener noreferrer" target="_blank">經濟部地質調查及礦業管理中心｜地質雲・基本地質圖 ↗</a>
+<a href="https://www.geotech.org.tw/upload/column_zone_file/373_20200423160208235.pdf" rel="noopener noreferrer" target="_blank">何春蓀（1987）｜臺灣地質分區與地質概論 ↗</a>
+<a href="https://basin.earth.ncu.edu.tw/DataMap/Taiwan.htm" rel="noopener noreferrer" target="_blank">國立中央大學｜臺灣地質、海底地形與活動構造圖 ↗</a>
+<a href="https://www.ntsec.edu.tw/liveSupply/detail.aspx?a=6829&amp;cat=6841&amp;lid=19268&amp;p=1" rel="noopener noreferrer" target="_blank">國立臺灣科學教育館｜臺灣周邊海底地形與構造 ↗</a>
+<a href="https://commons.wikimedia.org/wiki/File:Taiwan_tectonics_block_diagram.png" rel="noopener noreferrer" target="_blank">Mikenorton｜臺灣立體板塊模型，CC BY-SA 4.0 ↗</a>
+<a href="https://www.ysnp.gov.tw/StaticPage/Geology" rel="noopener noreferrer" target="_blank">玉山國家公園｜地質分區與岩石 ↗</a>
+<a href="https://www.penghu.gov.tw/ch/home.jsp?id=10009" rel="noopener noreferrer" target="_blank">澎湖縣政府｜玄武岩地質 ↗</a>
+<a href="https://matsu-nsa.gov.tw/zh-TW/know-matsu/2" rel="noopener noreferrer" target="_blank">馬祖國家風景區｜離島花崗岩 ↗</a>
+</div><p>海底地形底圖使用 Basemap 隨附 ETOPO1 overview，為實際地形資料的概覽層級，非高解析航測成果。地質帶彩色覆蓋圖是根據主要分區概念製作的<strong>示意圖</strong>；所有真實海岸與地理位置以經緯度為基準，細部地質界線請查官方地質雲。岩石照片來自使用者提供之教材實物照片裁切，並非生成影像或已驗證臺灣產地標本；公開發布若需擴大使用，請確認原始照片授權，或替換成開放授權專業標本。</p></section>
+</div>
+<dialog class="lightbox" id="zoomDialog"><button aria-label="關閉放大圖" class="lightbox-close" type="button">✕ 關閉</button><img alt="放大觀看的圖像" id="zoomImage"/><p>手機可雙指縮放；桌面可使用滑鼠捲動瀏覽圖片。按 Esc 可關閉。</p></dialog>
+</div>
+</template>
+<script src="atlas-integrated.js"></script>
+<script src="ch3-gallery.js"></script>
 <script src="app.js"></script>
+<script src="weather.js"></script>
+<dialog class="ch3-dialog" id="ch3ZoomDialog" aria-label="第三章圖卡放大檢視">
+ <div class="ch3-dialog-head"><b>🔎 圖卡放大｜可上下左右捲動</b><button class="ch3-dialog-close" type="button" onclick="document.getElementById('ch3ZoomDialog').close()">✕ 關閉</button></div>
+ <div class="ch3-zoom-scroll"><div class="ch3-zoom-inner"></div><p>按 Esc 關閉；手機上可在圖內滑動檢視細節。</p></div>
+</dialog>
 </body>
 </html>

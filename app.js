@@ -15,27 +15,39 @@ function refreshNav(){
  document.querySelectorAll('[data-view]').forEach(btn=>btn.classList.toggle('active',view!=='lesson'&&btn.dataset.view===view));
  document.querySelectorAll('[data-unit]').forEach(btn=>btn.onclick=()=>go('lesson',btn.dataset.unit));
  document.querySelectorAll('[data-view]').forEach(btn=>btn.onclick=()=>go(btn.dataset.view));
+ document.querySelectorAll('[data-atlas-open]').forEach(a=>a.onclick=e=>{e.preventDefault();go('atlas',a.dataset.atlasOpen)});
+ document.querySelectorAll('[data-ch3-hub]').forEach(b=>b.onclick=()=>go('gallery'));
  document.querySelectorAll('#resetProgress').forEach(btn=>btn.onclick=()=>{if(confirm('要清除第三章已完成的學習記錄嗎？')){completed.clear();STORE.setItem(KEY,'[]');refreshNav();toastMsg('進度已清除')} });
 }
 function go(dest,id){if(typeof guideClose==='function')guideClose();if(examTimer){clearInterval(examTimer);examTimer=null}if('speechSynthesis' in window)window.speechSynthesis.cancel();voiceActive=false;
  view=dest;lessonId=dest==='lesson'?id:null;
  side.classList.remove('open');document.getElementById('menuToggle').setAttribute('aria-expanded','false');
- if(dest==='lesson')renderLesson(unitById(id));else if(dest==='review')renderReview();else if(dest==='challenge')renderChallenge();else if(dest==='exam')renderExamHome();else if(dest==='today')startRound('today');else renderHome();
- refreshNav();window.scrollTo({top:0,behavior:'instant'});document.title=`地科秘笈 v4.11｜${dest==='lesson'?unitById(id).name:'第三章 山川壯麗的大地'}`;
+ if(dest==='lesson')renderLesson(unitById(id));else if(dest==='review')renderReview();else if(dest==='challenge')renderChallenge();else if(dest==='exam')renderExamHome();else if(dest==='atlas')renderAtlas(id||'geology');else if(dest==='gallery')renderGalleryHub();else if(dest==='today')startRound('today');else renderHome();
+ refreshNav();window.scrollTo({top:0,behavior:'instant'});document.title=`地科秘笈 v4.13｜${dest==='lesson'?unitById(id).name:'第三章 山川壯麗的大地'}`;
+}
+function renderAtlas(tab='geology'){
+  const tpl=document.getElementById('atlasInlineTemplate');
+  if(!tpl){main.innerHTML='<p>圖像資料未完整載入，請確認 atlas-integrated.js 等檔案已上傳。</p>';return;}
+  main.replaceChildren(tpl.content.cloneNode(true));
+  window.initializeAtlas(tab);
+  bindLinks();
 }
 function sectionTitle(num,title,aside=''){return `<div class="block-heading"><span class="num">${num}</span><h2>${title}</h2>${aside?`<span class="aside">${aside}</span>`:''}</div>`}
 function previewCard(u){return `<button class="unit-card" data-unit="${u.id}"><div class="photo" style="background-image:url('${u.image}')"><span class="number">${u.n}</span><span class="unit-emoji">${u.emoji}</span></div><div class="words"><h3>${u.name}</h3><p>${u.title}</p><div class="foot"><span>▶ 進入完整圖解與實驗</span><span class="status">${completed.has(u.id)?'✓ 已學過':'未完成'}</span></div></div></button>`}
+function renderGalleryHub(){ main.innerHTML=window.renderCh3GalleryHome();bindLinks();refreshNav(); }
 function renderHome(){
  main.innerHTML=`
  <section class="hero"><div class="inner"><span class="eyebrow">THE EARTH IS ALIVE · CH.03</span><h1>地球不是靜止的。<br>它一直在動。</h1><p class="lead">地震從哪裡來？科學家沒挖到地核卻知道它是液態？大陸真的會漂移？臺灣的山又怎麼長出來？這一章，我們把六個疑問串成一個可以親手探索的故事。</p><p class="hero-tag">不是背更多，而是終於看懂。</p><div class="hero-actions"><button class="action gold" data-unit="quake">▶ 從第一個疑問開始</button><button class="action outline" data-view="review">⚡ 先看全章地圖</button></div></div><span class="hero-counter">全章互動 × 臺灣真實標本 × 實際地形底圖 · 全離線</span></section>
  ${sectionTitle('01','六個任務，走完一整章','課本 p.66–99 全章對照')}
  <div class="unit-grid">${UNITS.map(previewCard).join('')}</div>
- <section class="atlas-feature"><div class="atlas-feature-top"><div><b class="atlas-kicker">NEW · 突破原來的簡易地圖</b><h2>臺灣地質 × 海底地形 × 真正岩石標本</h2><p>以臺灣真實海岸與海底地形為底，分別查看地質帶、深海構造、立體隱沒及岩石實物照片。每一張圖都有自己的教學任務。</p></div><a href="taiwan-atlas.html#geology" class="atlas-mainlink">開啟完整圖像學院 ↗</a></div><div class="atlas-feature-grid"><a href="taiwan-atlas.html#geology"><img src="assets/atlas/taiwan-zones.webp" alt="臺灣地質帶的實際海岸線圖" loading="lazy"><span>① 地質帶精細對照</span></a><a href="taiwan-atlas.html#seafloor"><img src="assets/atlas/taiwan-seafloor.webp" alt="臺灣周邊海溝、海槽、海底地形地圖" loading="lazy"><span>② 海溝海槽分清楚</span></a><a href="taiwan-atlas.html#mechanism"><img src="assets/atlas/subduction-3d.webp" alt="立體隱沒機制" loading="lazy"><span>③ 立體隱沒的地質作用</span></a><a href="taiwan-atlas.html#specimens"><img src="assets/atlas/rock-marble.webp" alt="大理岩真實岩石標本照片" loading="lazy"><span>④ 11 張真實岩石樣本</span></a></div></section>
+    <section class="ch3-home-showcase"><span class="eyebrow" style="color:#9ee6ff">NEW · v4.13 圖像課</span><h2>第三章四張全新名師圖卡，直接帶你進入六組圖解</h2><p>每節不只貼一張總覽：可以切換觀察鏡頭、放大中文圖說、先看線索再推原因，還有一題老師變化題。真實岩石標本與臺灣海底地形資料也保留。</p><div class="ch3-home-tiles">${[['earth-master.webp','地球分層與地震波','interior'],['plate-master.webp','板塊三種運動與隱沒','plate'],['rock-master.webp','岩石分類與岩石循環','rocks'],['taiwan-master.webp','臺灣地質與周邊海底','taiwan']].map(([im,txt,id])=>`<button type="button" data-unit="${id}"><img src="assets/chapter3/${im}" loading="lazy" alt="${txt}，點擊前往教學"><span>${txt} ↗</span></button>`).join('')}</div><button class="ch3-home-cta" data-ch3-hub type="button">🖼️ 進入第三章完整圖像學堂 →</button></section>
+ <section class="atlas-feature"><div class="atlas-feature-top"><div><b class="atlas-kicker">NEW · 突破原來的簡易地圖</b><h2>臺灣地質 × 海底地形 × 真正岩石標本</h2><p>以臺灣真實海岸與海底地形為底，分別查看地質帶、深海構造、立體隱沒及岩石實物照片。每一張圖都有自己的教學任務。</p></div><a href="#atlas-geology" data-atlas-open="geology" class="atlas-mainlink">開啟完整圖像學院 ↗</a></div><div class="atlas-feature-grid"><a href="#atlas-geology" data-atlas-open="geology"><img src="assets/atlas/taiwan-zones.webp" alt="臺灣地質帶的實際海岸線圖" loading="lazy"><span>① 地質帶精細對照</span></a><a href="#atlas-seafloor" data-atlas-open="seafloor"><img src="assets/atlas/taiwan-seafloor.webp" alt="臺灣周邊海溝、海槽、海底地形地圖" loading="lazy"><span>② 海溝海槽分清楚</span></a><a href="#atlas-mechanism" data-atlas-open="mechanism"><img src="assets/atlas/subduction-3d.webp" alt="立體隱沒機制" loading="lazy"><span>③ 立體隱沒的地質作用</span></a><a href="#atlas-specimens" data-atlas-open="specimens"><img src="assets/atlas/rock-marble.webp" alt="大理岩真實岩石標本照片" loading="lazy"><span>④ 11 張真實岩石樣本</span></a></div></section>
+ <section class="atlas-feature"><div class="atlas-feature-top"><div><b class="atlas-kicker">NEW · CHAPTER 04 · 第四章完整升級</b><h2>第四章：風起雲湧的大氣｜圖像互動課</h2><p>大氣垂直結構 → 水循環與天氣 → 風與三力 → 天氣圖鋒面。四張高規格教學主圖、即時圖形互動、32 題新編練習，與第二次段考 A／B 卷已在同一主網站。</p></div><button type="button" class="atlas-mainlink" data-weather-nav="home">開啟第四章學習地圖 →</button></div><div class="atlas-feature-grid">${[['layers','大氣垂直結構','a1'],['water','水氣與成雲','a2'],['wind','風與氣壓','a3'],['forecast','天氣圖與鋒面','a4']].map(([f,t,id])=>`<button type="button" data-weather-nav="${id}" style="background:#0c2941;color:#d7f3ff;text-align:left;border:1px solid #5484a5;border-radius:14px;overflow:hidden;cursor:pointer"><img src="assets/weather/${f}.webp" alt="${t}視覺導學圖" loading="lazy" style="height:150px;width:100%;object-fit:cover;object-position:top"><span style="display:block;padding:9px 12px;font-weight:800">${t} →</span></button>`).join('')}</div></section>
  ${sectionTitle('02','這六件事其實只是一條線','從現象到機制，再回到生活')}
  <div class="flow-board">${[['💥','震源破裂'],['〰️','地震波傳遞'],['🌍','發現地球分層'],['🪨','岩石形成改變'],['🌋','板塊持續運動'],['🇹🇼','解釋臺灣']].map(([e,t])=>`<div class="flow-tile"><span>${e}</span><b>${t}</b></div>`).join('')}</div>
  ${sectionTitle('03','學生可以選自己的進度','每一節都有圖、互動和錯誤觀念整理')}
  <div class="feature-row"><button class="feature" data-view="review"><span class="badge-emoji">⚡</span><span>30 秒救命<br><small>考前一眼串起來</small></span></button><button class="feature" data-view="today"><span class="badge-emoji">⏱</span><span>8 分鐘快速練<br><small>一次只練 5 題</small></span></button><button class="feature" data-view="challenge"><span class="badge-emoji">🎮</span><span>ABCD 四級闖關<br><small>基礎到素養</small></span></button><button class="feature" data-view="exam"><span class="badge-emoji">📝</span><span>第三章練習 A／B<br><small>兩份單章練習</small></span></button></div>
- <div class="update-note"><strong>🎯 你現在看到的是 v4.11</strong>：請找「🔎 開啟圖解與互動 ↗」及每張卡的縮圖；如果仍看到「✓ 用圖理解」，代表瀏覽器或 GitHub Pages 還是舊版。<a href="guides/index.html">直接看 38 張圖解總目錄 →</a></div>
+ <div class="update-note"><strong>🎯 你現在看到的是 v4.13 第三、四章圖像整合版</strong>：請找「🔎 開啟圖解與互動 ↗」及每張卡的縮圖；如果仍看到「✓ 用圖理解」，代表瀏覽器或 GitHub Pages 還是舊版。<a href="guides/index.html">直接看 38 張圖解總目錄 →</a></div>
  <p class="tiny section-space">設計原則：第 3 章內容以你提供的課本頁面作為範圍依據；圖像改採實際地形底圖、立體藝術示意及使用者提供的實物標本局部照片；精細地質界線須參考官方地圖，並參考中央氣象署、USGS 與臺灣地質資料核對科學概念。</p>`;
  bindLinks();
 }
@@ -47,22 +59,24 @@ function renderLesson(u){if(!u)return renderHome();
  ${sectionTitle('1','先從生活裡提出一個問題','勇敢猜，不用先會')}
  ${scenarioHtml(u)}
  <div class="bigline">🧠 這節的故事只有一條：${rich(u.line)}</div>
- ${(['taiwan','plate','rocks'].includes(u.id)) ? `<section class="atlas-lesson-portal"><div><b>🎓 必看：臺灣地質與海底構造真圖鑑</b><h2>${u.id==='rocks'?'11 張真實岩石標本，不再看假石頭':u.id==='taiwan'?'從臺灣地質帶走到海底，岩石和板塊一次串起來':'精緻立體隱沒：海溝、增積岩體、火山弧、深淺震帶'}</h2><p>這裡用實際地形底圖、來源可查的學術資料和真正的岩石實物照片，讓每一種概念都有不同的圖像證據。</p><a href="taiwan-atlas.html#${u.id==='rocks'?'specimens':u.id==='plate'?'mechanism':'geology'}" class="action">▶ 進入新版完整圖像教學 ↗</a></div><img src="${u.id==='rocks'?'assets/atlas/rock-granite.webp':u.id==='plate'?'assets/atlas/subduction-3d.webp':'assets/atlas/taiwan-seafloor.webp'}" alt="${u.name}新版圖像學習" loading="lazy"></section>` : ''}
- ${sectionTitle('2','圖上自己動手，眼睛先懂','可反覆調參數、切換情境')}
+ ${sectionTitle('2','名師看圖理解：先看、再推、最後用題目確認','每張圖卡都能放大、切換、揭曉答案')}
+ ${window.renderCh3Visual(u.id)}
+ ${(['taiwan','plate','rocks'].includes(u.id)) ? `<section class="atlas-lesson-portal"><div><b>🎓 必看：臺灣地質與海底構造真圖鑑</b><h2>${u.id==='rocks'?'11 張真實岩石標本，不再看假石頭':u.id==='taiwan'?'從臺灣地質帶走到海底，岩石和板塊一次串起來':'精緻立體隱沒：海溝、增積岩體、火山弧、深淺震帶'}</h2><p>這裡用實際地形底圖、來源可查的學術資料和真正的岩石實物照片，讓每一種概念都有不同的圖像證據。</p><a href="#atlas-${u.id==='rocks'?'specimens':u.id==='plate'?'mechanism':'geology'}" data-atlas-open="${u.id==='rocks'?'specimens':u.id==='plate'?'mechanism':'geology'}" class="action">▶ 進入新版完整圖像教學 ↗</a></div><img src="${u.id==='rocks'?'assets/atlas/rock-granite.webp':u.id==='plate'?'assets/atlas/subduction-3d.webp':'assets/atlas/taiwan-seafloor.webp'}" alt="${u.name}新版圖像學習" loading="lazy"></section>` : ''}
+ ${sectionTitle('3','圖上自己動手，眼睛先懂','可反覆調參數、切換情境')}
  <div class="lab-panel"><div class="lab-header"><div><h3>🔬 ${u.labTitle}</h3><p>${u.labIntro}</p></div><span class="pill dark">SVG 原創 · 離線可動</span></div><div id="lab"></div></div>
- ${sectionTitle('3','把實驗結果接回正式知識','每張卡都能開啟對應圖解')}
+ ${sectionTitle('4','把實驗結果接回正式知識','每張卡都能開啟對應圖解')}
  <div class="guide-invite">✅ <b>真正可點的獨立圖解頁：</b>每張卡都有新的圖像預覽，點卡片或「開啟圖解與互動 ↗」即可看到操作、觀察、推理與答案。<a class="guide-list-link" href="guides/index.html">直接瀏覽全章 38 張圖解 ↗</a></div>
  <div class="three">${u.concepts.map((c,i)=>`<a class="concept-card" href="guides/${u.id}-${String(i+1).padStart(2,'0')}.html" aria-label="開啟${c.title}的獨立圖解課堂" style="--concept-color:${u.accent}"><div class="concept-preview"><img src="assets/previews/${u.id}-${String(i+1).padStart(2,'0')}.webp" alt="${c.title}互動圖像預覽" loading="lazy"></div><span class="chip">${c.tag}</span><div class="concept-icon">${({pin:'📍',depth:'📏',wave:'〰️',surface:'🏠',clock:'⏱',rings:'◎',layers:'🌍',boundary:'◍',crust:'🪨',igneous:'🔥',sedimentary:'🏞',metamorphic:'💎',cycle:'🔁',puzzle:'🧩',ridge:'🌊',magnetic:'🧲',plates:'🧭',div:'↔️',sub:'↘️',coll:'⛰️',trans:'⇆',volcano:'🌋',density:'⚖️',tw:'🇹🇼',rockmap:'🗺️'})[c.visual]||'🧩'}</div><span class="micro">${c.key}</span><h3>${c.title}</h3><p>${rich(c.text)}</p><div class="inspect"><span>課本概念 ${i+1}／${u.concepts.length}</span><span class="inspect-action">🔎 開啟圖解與互動 ↗</span></div></a>`).join('')}</div>
- ${sectionTitle('4','老師最想提醒你的三種陷阱','先拆掉容易答錯的誤解')}
+ ${sectionTitle('5','老師最想提醒你的三種陷阱','先拆掉容易答錯的誤解')}
  <div class="trap-grid">${u.traps.map(([a,b])=>`<div class="trap"><div class="bad">✕ 「${a}」</div><div class="good">✔ ${b}</div></div>`).join('')}</div>
- ${sectionTitle('5','圖表題先看哪裡？','考試不會只問定義')}
+ ${sectionTitle('6','圖表題先看哪裡？','考試不會只問定義')}
  <div class="eyes">${u.eyes.map((e,i)=>`<div class="eye"><span>${String(i+1).padStart(2,'0')}</span><div>${rich(e)}</div></div>`).join('')}</div>
  <div class="memory"><h3>⚡ 30 秒救命口訣</h3><div class="words">${u.memory}</div><div class="faded">口訣只是提示，必須能用剛剛的圖自己解釋，才是真正記住。</div></div>
- ${sectionTitle('6','剛學完，立刻試一題','答案後會說明理由')}
+ ${sectionTitle('7','剛學完，立刻試一題','答案後會說明理由')}
  <div class="quiz-card" id="miniQuiz"></div>
  <div class="source-bar"><b>知識核對來源：</b>${u.sources.map(([t,l])=>`<a href="${l}" target="_blank" rel="noopener noreferrer">${t} ↗</a>`).join('')}<span>｜教學圖由本站重新設計</span></div>
  <div class="lesson-end"><p>${completed.has(u.id)?'✅ 你已標記學過這節。':'這節理解了嗎？先勾完成，再前往下一關。'}</p><div class="actions"><button class="action secondary" id="markDone">${completed.has(u.id)?'✓ 已完成':'✓ 我已理解這一節'}</button>${next?`<button class="action" data-unit="${next.id}">下一關：${next.name} →</button>`:`<button class="action" data-view="challenge">打開整章闖關 →</button>`}</div></div>`;
- bindLinks();mountLab(u.lab,document.getElementById('lab'));
+ bindLinks();window.mountCh3Visual(u.id);mountLab(u.lab,document.getElementById('lab'));
  document.querySelectorAll('[data-hook]').forEach(b=>b.onclick=()=>{
   const ans=+b.dataset.hook;
   document.querySelectorAll('[data-hook]').forEach(bb=>{const i=+bb.dataset.hook;bb.disabled=true;bb.classList.toggle('correct',i===u.answer);bb.classList.toggle('wrong',i===ans&&i!==u.answer)});
@@ -118,7 +132,7 @@ function finishRound(){if(examTimer){clearInterval(examTimer);examTimer=null}if(
  document.getElementById('resultRetry').onclick=()=>mode==='exam'?startRound('exam',quiz.level):startRound(mode,quiz.level,quiz.unit);
  document.getElementById('resultHome').onclick=()=>go('home');bindLinks();window.scrollTo(0,0);
 }
-function bindLinks(){main.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));main.querySelectorAll('[data-unit]').forEach(b=>b.onclick=()=>go('lesson',b.dataset.unit));}
+function bindLinks(){main.querySelectorAll('[data-ch3-hub]').forEach(b=>b.onclick=()=>go('gallery'));main.querySelectorAll('[data-atlas-open]').forEach(a=>a.onclick=e=>{e.preventDefault();go('atlas',a.dataset.atlasOpen)});main.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>go(b.dataset.view));main.querySelectorAll('[data-unit]').forEach(b=>b.onclick=()=>go('lesson',b.dataset.unit));}
 document.getElementById('menuToggle').addEventListener('click',()=>{const yes=side.classList.toggle('open');document.getElementById('menuToggle').setAttribute('aria-expanded',String(yes))});
 document.getElementById('ttsButton').onclick=()=>{
  if(!('speechSynthesis' in window)){toastMsg('此瀏覽器暫不支援語音朗讀');return}
@@ -129,5 +143,5 @@ document.getElementById('ttsButton').onclick=()=>{
 };
 refreshNav();
 const initialLesson = window.location.hash.match(/^#lesson=(quake|interior|rocks|drift|plate|taiwan)$/);
-if(initialLesson){go('lesson',initialLesson[1])}else{renderHome();bindLinks()}
-window.addEventListener('hashchange',()=>{const m=location.hash.match(/^#lesson=(quake|interior|rocks|drift|plate|taiwan)$/);if(m)go('lesson',m[1]);});
+if(initialLesson){go('lesson',initialLesson[1])}else if(/^#atlas-(geology|seafloor|mechanism|specimens|practice)$/.test(location.hash)){go('atlas',location.hash.slice(7))}else{renderHome();bindLinks()}
+window.addEventListener('hashchange',()=>{const m=location.hash.match(/^#lesson=(quake|interior|rocks|drift|plate|taiwan)$/);if(m)go('lesson',m[1]);else if(/^#atlas-(geology|seafloor|mechanism|specimens|practice)$/.test(location.hash)&&view!=='atlas')go('atlas',location.hash.slice(7));});

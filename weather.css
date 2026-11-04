@@ -1,0 +1,55 @@
+/* 第四章大氣篇：所有樣式限定於 .wx，避免影響第三章既有介面 */
+.wx{color:#e7f4ff;font-family:system-ui,"Noto Sans TC","Microsoft JhengHei",sans-serif;line-height:1.72;padding-bottom:50px}
+.wx *{box-sizing:border-box}.wx button,.wx input,.wx select{font:inherit}
+.wx .wx-hero{position:relative;isolation:isolate;overflow:hidden;border-radius:24px;background:linear-gradient(135deg,#0b427e 0%,#12315b 55%,#08192d 100%);padding:32px;border:1px solid #3e78a4;box-shadow:0 18px 44px #00152988}
+.wx .wx-hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 88% 20%,#45c7ff55,transparent 36%);z-index:-1}
+.wx .wx-eyebrow{font-weight:800;letter-spacing:.11em;color:#7fe6ff;font-size:.88rem}
+.wx .wx-hero h1{font-size:clamp(2.1rem,4.5vw,3.35rem);line-height:1.2;margin:12px 0;color:white}
+.wx .wx-hero p{font-size:1.05rem;color:#d5e9f8;max-width:850px}.wx .wx-hero b{color:#ffdb80}
+.wx .wx-hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+.wx button.wx-go,.wx .wx-go{display:inline-block;border:0;border-radius:13px;padding:12px 18px;background:#ffd56b;color:#1e3047;font-weight:900;cursor:pointer;text-decoration:none;box-shadow:0 8px 20px #0003}
+.wx button.wx-go.secondary{background:#175b91;color:white;border:1px solid #579bd2}
+.wx button.wx-go:hover,.wx button.wx-tab:hover{filter:brightness(1.13)}
+.wx .wx-breadcrumb{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 20px}.wx .wx-breadcrumb button{border:1px solid #345a77;border-radius:999px;background:#102f4d;color:#e8faff;padding:7px 12px;cursor:pointer}
+.wx .wx-cardgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:18px 0}
+.wx .wx-card{background:#102b48;border:1px solid #355976;border-radius:18px;overflow:hidden;box-shadow:0 10px 25px #0003}
+.wx .wx-card-pad{padding:22px}.wx .wx-card h2,.wx .wx-card h3{color:#fff;margin:0 0 12px}.wx .wx-card p,.wx .wx-card li{color:#cee2ee}.wx .wx-card strong,.wx .wx-card b{color:#ffe0a0}
+.wx .wx-figure{background:#0a1b30;border:1px solid #375d7d;border-radius:15px;overflow:hidden;position:relative}.wx .wx-figure img{display:block;width:100%;height:auto;object-fit:contain}
+.wx .wx-figure.narrow{max-height:620px;overflow:auto;scrollbar-color:#3a729a #122940}.wx .wx-figure.narrow img{max-width:100%;height:auto}
+.wx .wx-pic-label{position:absolute;left:12px;top:12px;border:1px solid #8ab5cf;background:#081f38cc;color:#fff;font-weight:800;padding:4px 10px;border-radius:10px;font-size:.83rem}
+.wx .wx-miniimg{max-height:340px;object-fit:cover;object-position:top;width:100%;border-bottom:1px solid #3d6783}
+.wx .wx-chapter-card button{margin-bottom:8px}.wx .wx-chapter-card .wx-card-pad{padding:18px 22px 22px}
+.wx .wx-chapter-card h2{font-size:1.4rem}.wx .wx-chapter-card .wx-small{font-size:.91rem;color:#8bc8e9}
+.wx .wx-section-head{margin:34px 0 18px;padding-left:14px;border-left:5px solid #ffcf72}
+.wx .wx-section-head h2{font-size:1.55rem;line-height:1.35;color:#fff;margin:3px 0}.wx .wx-section-head p{color:#b8d3e7;margin:2px 0}
+.wx .wx-focus{border-radius:16px;border:1px solid #a87943;background:linear-gradient(120deg,#54402588,#192e43);padding:16px 19px;margin:18px 0}.wx .wx-focus b{color:#ffe09a}
+.wx .wx-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.wx .wx-step{padding:15px;border:1px solid #4f7c98;border-radius:15px;background:#143c59}.wx .wx-step em{display:block;font-size:1.5rem;font-style:normal}.wx .wx-step b{display:block;color:#fff}
+.wx .wx-switches{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.wx .wx-tab{border:1px solid #5986a4;border-radius:999px;background:#183a55;color:#f5fbff;padding:9px 13px;cursor:pointer}.wx .wx-tab[aria-pressed=true],.wx .wx-tab.active{background:#ffe08c;border-color:#ffe08c;color:#172c43;font-weight:900}
+.wx .wx-field{display:flex;flex-direction:column;gap:7px;color:#cfe7f8;font-weight:700}.wx .wx-field input[type=range]{width:100%;accent-color:#ffca57}.wx .wx-field output{color:#ffda84;font-size:1.1rem}
+.wx .wx-statrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.wx .wx-stat{background:#0b2036;border:1px solid #345979;border-radius:13px;padding:13px;text-align:center}.wx .wx-stat small{display:block;color:#abd0e6}.wx .wx-stat strong{display:block;color:#f9dc83;font-size:1.35rem}
+.wx .wx-svg{width:100%;height:auto;display:block;border-radius:14px;background:#e7f2ff}
+.wx .wx-try{font-weight:700;background:#0b223c;border-radius:12px;border:1px dashed #7bbde3;padding:13px;margin:12px 0}.wx .wx-try strong{color:#ffca77}
+.wx .wx-table{width:100%;border-collapse:collapse;color:#dbedf9;font-size:.95rem}.wx .wx-table th{color:#1e3551;background:#bce7fb}.wx .wx-table td,.wx .wx-table th{border:1px solid #436581;padding:9px;text-align:left;vertical-align:top}.wx .wx-table tr:nth-child(even) td{background:#193d58}
+.wx .wx-table-wrap{overflow-x:auto}.wx .wx-note{padding:12px 15px;border-radius:13px;border-left:4px solid #66d2ca;background:#123e4a;color:#cef4e9;margin:12px 0}
+.wx .wx-trap{padding:13px 16px;border-left:4px solid #ff937f;border-radius:12px;background:#50302b6c;margin:13px 0;color:#ffe6e1}
+.wx .wx-cards3{display:grid;grid-template-columns:repeat(3,1fr);gap:11px}.wx .wx-smallcard{padding:15px;background:#173b55;border:1px solid #3e7493;border-radius:13px}.wx .wx-smallcard b{color:#ffdb89}
+.wx .wx-question{padding:18px;background:#0e2d48;border:1px solid #4c809f;border-radius:18px;margin:12px 0}.wx .wx-question h3{margin:4px 0 12px;font-size:1.1rem}
+.wx .wx-optlist{display:grid;gap:8px}.wx .wx-opt{background:#173f60;color:#f0f8ff;border:1px solid #5485a3;border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer}.wx .wx-opt:hover{background:#215a80}.wx .wx-opt[aria-pressed=true]{background:#ffe08a;color:#173551;font-weight:900;border-color:#ffe08a}.wx .wx-opt.correct{border:2px solid #6bebbc;background:#164e44}.wx .wx-opt.wrong{border:2px solid #ff9696;background:#5d2d39}
+.wx .wx-answer{background:#123c47;border:1px solid #3b937d;border-radius:12px;padding:11px;margin:12px 0;color:#e6fff5}
+.wx .wx-exam-meta{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0;color:#d3ecff}.wx .wx-exam-meta span{background:#103351;border:1px solid #527b9c;padding:8px 13px;border-radius:999px}.wx .wx-exam-meta b{color:#ffd47b}
+.wx .wx-title-label{display:inline-block;padding:5px 9px;border-radius:8px;background:#8c462c;color:#fff;font-weight:800;font-size:.82rem}
+.wx .wx-home-bottom{display:flex;flex-wrap:wrap;gap:12px;margin-top:25px}
+.wx .wx-fine{font-size:.86rem;color:#a8cce1}.wx .wx-image-caveat{font-size:.88rem;color:#bdcede;padding:10px 14px;background:#0b2239;border-radius:0 0 14px 14px}
+.wx .wx-exam-sticky{position:sticky;top:0;z-index:4;background:#0b2b4b;border:1px solid #4679a0;border-radius:12px;padding:10px 14px;display:flex;justify-content:space-between;align-items:center}
+.wx .wx-prog{height:7px;background:#21475d;border-radius:9px;overflow:hidden}.wx .wx-prog i{display:block;height:100%;background:#fed16c;transition:width .3s}
+.wx .wx-example{padding:14px 16px;border:1px solid #426683;background:#16374e;border-radius:14px}
+.wx .wx-shareprint{background:#0d3247;padding:14px;border-radius:15px;color:#b6d6ea;font-size:.91rem}
+@media(max-width:950px){.wx .wx-cardgrid{grid-template-columns:1fr}.wx .wx-steps{grid-template-columns:repeat(2,1fr)}.wx .wx-cards3{grid-template-columns:1fr}}
+@media(max-width:580px){.wx .wx-hero{padding:22px}.wx .wx-hero h1{font-size:2rem}.wx .wx-card-pad{padding:16px}.wx .wx-steps{grid-template-columns:1fr 1fr}.wx .wx-statrow{grid-template-columns:1fr}.wx .wx-cardgrid{gap:12px}.wx .wx-hero-cta{flex-direction:column}.wx .wx-hero-cta button{width:100%}.wx .wx-svg{min-width:290px}}
+/* 高對比統一底色：修正主網站淺色背景使章節標題不易閱讀的問題 */
+.wx{background:linear-gradient(180deg,#0b2441 0%,#0a1f38 100%);border:1px solid #315979;border-radius:24px;padding:20px;min-height:75vh}
+.wx .wx-section-head{background:#12314d;border-radius:0 14px 14px 0;padding:14px 18px;border-left-color:#ffd37a}
+.wx .wx-section-head .wx-eyebrow{color:#8fe3ff}
+.wx .wx-card-pad h3,.wx .wx-card-pad h2{line-height:1.45}
+.wx .wx-note,.wx .wx-try,.wx .wx-focus{font-size:1rem}
+@media(max-width:580px){.wx{padding:12px;border-radius:14px}.wx .wx-section-head{padding:12px}.wx .wx-section-head h2{font-size:1.3rem}}

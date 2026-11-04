@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 730" role="img" aria-label="震源、震央、地震波走時與測站判讀整合圖">
+<defs>
+ <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#08233f"/><stop offset="1" stop-color="#135184"/></linearGradient>
+ <linearGradient id="earth" x2="0" y2="1"><stop stop-color="#d9b681"/><stop offset=".52" stop-color="#bc7a50"/><stop offset="1" stop-color="#573856"/></linearGradient>
+ <linearGradient id="card" x2="0" y2="1"><stop stop-color="#eef9ff"/><stop offset="1" stop-color="#d2edff"/></linearGradient>
+ <filter id="shadow"><feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#00112e" flood-opacity=".24"/></filter>
+ <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#fae48d"/></marker>
+</defs>
+<rect width="1280" height="730" fill="url(#sky)" rx="32"/>
+<rect x="22" y="22" width="1236" height="74" rx="20" fill="#103a66" stroke="#6cc8fa" stroke-width="2"/>
+<text x="50" y="74" font-size="36" fill="white" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">地震偵探：從地下破裂，到測站收到的兩個訊號</text>
+<rect x="22" y="112" width="650" height="587" rx="22" fill="#d4f1fc" filter="url(#shadow)"/>
+<path d="M30 270 Q130 245 235 260 Q345 209 460 255 Q550 235 664 256 L664 691 L30 691 Z" fill="url(#earth)"/>
+<path d="M30 270 Q130 245 235 260 Q345 209 460 255 Q550 235 664 256" fill="none" stroke="#2d794e" stroke-width="9"/>
+<path d="M193 470 Q240 426 300 480 L386 403" fill="none" stroke="#54354c" stroke-width="10"/>
+<circle cx="300" cy="480" r="17" fill="#fa515c" stroke="#ffdd78" stroke-width="8"/>
+<circle cx="300" cy="480" r="67" fill="none" stroke="#ffdf8c" stroke-width="4" opacity=".8" stroke-dasharray="12 12"/>
+<circle cx="300" cy="480" r="129" fill="none" stroke="#ffdf8c" stroke-width="3" opacity=".6" stroke-dasharray="12 12"/>
+<path d="M300 480 L300 244" fill="none" stroke="#fff2a3" stroke-width="5" stroke-dasharray="10 8"/>
+<circle cx="300" cy="244" r="12" fill="#2c8ae9" stroke="white" stroke-width="5"/>
+<text x="324" y="237" fill="#0d3a64" font-size="29" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">震央（地表投影）</text>
+<text x="324" y="499" fill="white" font-size="29" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">震源（地下破裂）</text>
+<rect x="370" y="310" width="255" height="76" fill="#fff3d0" rx="15"/>
+<text x="391" y="342" fill="#71402b" font-size="25" font-weight="700" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">兩者的垂直距離</text>
+<text x="391" y="374" fill="#cc3a39" font-size="27" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">＝震源深度</text>
+<rect x="52" y="575" width="578" height="82" rx="15" fill="#113a62"/>
+<text x="70" y="612" font-size="25" fill="white" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">先看上下：地下「源」，地表「央」</text>
+<text x="70" y="645" font-size="23" fill="#aee5fc" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">深度不能用地面水平距離代替。</text>
+<rect x="692" y="112" width="566" height="279" rx="22" fill="url(#card)" filter="url(#shadow)"/>
+<text x="715" y="157" font-size="28" fill="#0d3a64" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">P 波先到；S 波後到</text>
+<path d="M725 212 Q746 182 766 212 T807 212 T848 212 T889 212 T930 212" fill="none" stroke="#1a77c2" stroke-width="8"/>
+<path d="M725 300 Q746 236 766 300 T807 300 T848 300 T889 300 T930 300" fill="none" stroke="#d64a67" stroke-width="8"/>
+<text x="971" y="220" font-size="26" fill="#14629e" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">P 波（快）</text>
+<text x="971" y="313" font-size="26" fill="#b02e50" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">S 波（慢）</text>
+<rect x="692" y="407" width="566" height="292" rx="22" fill="url(#card)" filter="url(#shadow)"/>
+<text x="715" y="452" font-size="28" fill="#0d3a64" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">走時圖：差得越多，通常距離越遠</text>
+<path d="M752 645V494M752 645H1195" stroke="#365b74" stroke-width="5"/>
+<path d="M752 645 L1162 568" fill="none" stroke="#1a77c2" stroke-width="7"/>
+<path d="M752 645 L1162 503" fill="none" stroke="#d64a67" stroke-width="7"/>
+<path d="M1060 587 L1060 538" stroke="#d18d20" stroke-width="6"/>
+<circle cx="1060" cy="587" r="8" fill="#1a77c2"/><circle cx="1060" cy="538" r="8" fill="#d64a67"/>
+<text x="1080" y="542" font-size="21" fill="#714f1b" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">P−S 時差</text>
+<text x="783" y="489" font-size="20" fill="#365b74" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">到達時間</text>
+<text x="1113" y="683" font-size="20" fill="#365b74" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">測站距離</text>
+<text x="28" y="719" font-size="16" fill="#a1cbe6" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">原創概念示意｜波速、深度與走時不按實際比例；曲線用以說明大小關係。</text>
+</svg>

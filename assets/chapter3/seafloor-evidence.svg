@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 730" role="img" aria-label="中洋脊海底擴張，兩側海底岩石年齡與磁條帶對稱">
+<defs>
+ <linearGradient id="bg" x2="0" y2="1"><stop stop-color="#071a38"/><stop offset="1" stop-color="#0b4171"/></linearGradient>
+ <linearGradient id="ocean" x2="0" y2="1"><stop stop-color="#86d6f6"/><stop offset="1" stop-color="#174d9c"/></linearGradient>
+ <linearGradient id="rock" x2="0" y2="1"><stop stop-color="#ba9c75"/><stop offset=".5" stop-color="#ad6956"/><stop offset="1" stop-color="#493a67"/></linearGradient>
+ <filter id="s"><feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#001022" flood-opacity=".3"/></filter>
+ <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="10" markerHeight="10" orient="auto"><path d="M0 0 10 5 0 10Z" fill="#fff0aa"/></marker>
+</defs>
+<rect width="1280" height="730" rx="30" fill="url(#bg)"/>
+<text x="58" y="66" font-size="40" font-weight="800" fill="white" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">海底擴張有證據：不是只靠「大陸看起來拼得上」</text>
+<rect x="30" y="94" width="1220" height="412" rx="26" fill="#102d5a" stroke="#73b7f7" stroke-width="2" filter="url(#s)"/>
+<rect x="60" y="158" width="1160" height="166" rx="10" fill="url(#ocean)"/>
+<path d="M60 330 L370 340 L490 316 L570 254 L640 284 L710 254 L790 316 L910 340 L1220 330 L1220 490 L60 490Z" fill="url(#rock)"/>
+<path d="M60 330 L370 340 L490 316 L570 254 L640 284 L710 254 L790 316 L910 340 L1220 330" fill="none" stroke="#f4cba1" stroke-width="8"/>
+<path d="M630 370 Q615 338 630 317 L640 269 L649 317 Q665 338 650 370" fill="#ff743a" stroke="#ffc264" stroke-width="5"/>
+<path d="M610 220L543 220M670 220L737 220" stroke="#fff0aa" stroke-width="9" marker-end="url(#arrow)"/>
+<text x="590" y="195" font-size="25" fill="white" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">中洋脊</text>
+<text x="140" y="394" font-size="26" fill="#fff0aa" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">越遠越老</text>
+<text x="955" y="394" font-size="26" fill="#fff0aa" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">越遠越老</text>
+<text x="515" y="445" font-size="25" fill="white" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">岩漿冷卻形成新海洋地殼</text>
+<rect x="30" y="526" width="1220" height="174" rx="22" fill="#eef9ff" filter="url(#s)"/>
+<text x="56" y="565" font-size="31" fill="#16466d" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">海底磁條帶：以中洋脊為中心，兩側近似對稱</text>
+<g id="stripes"></g>
+<rect x="600" y="588" width="80" height="61" rx="9" fill="#eb6479"/>
+<text x="606" y="626" font-size="20" fill="white" font-weight="800" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">新海底</text>
+<text x="63" y="681" font-size="20" fill="#234d6d" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">磁極反轉使岩石留下不同磁性帶；條帶寬度會隨擴張速率與時間而不同。</text>
+<script type="application/ecmascript"><![CDATA[
+  // static SVG decorative stripes; no runtime dependency.
+]]></script>
+<g>
+ <rect x="75" y="589" width="75" height="60" fill="#4d6da1"/><rect x="150" y="589" width="60" height="60" fill="#f0b85e"/>
+ <rect x="210" y="589" width="80" height="60" fill="#4d6da1"/><rect x="290" y="589" width="70" height="60" fill="#f0b85e"/>
+ <rect x="360" y="589" width="60" height="60" fill="#4d6da1"/><rect x="420" y="589" width="100" height="60" fill="#f0b85e"/>
+ <rect x="520" y="589" width="80" height="60" fill="#4d6da1"/>
+ <rect x="680" y="589" width="80" height="60" fill="#4d6da1"/>
+ <rect x="760" y="589" width="100" height="60" fill="#f0b85e"/><rect x="860" y="589" width="60" height="60" fill="#4d6da1"/>
+ <rect x="920" y="589" width="70" height="60" fill="#f0b85e"/><rect x="990" y="589" width="80" height="60" fill="#4d6da1"/>
+ <rect x="1070" y="589" width="60" height="60" fill="#f0b85e"/><rect x="1130" y="589" width="75" height="60" fill="#4d6da1"/>
+</g>
+<text x="31" y="720" font-size="16" fill="#9fc9e6" font-family="Noto Sans CJK TC,Microsoft JhengHei,sans-serif">課程用示意，非特定洋脊的實測磁異常資料；實際年齡、擴張速率與條帶寬度需由資料判讀。</text>
+</svg>

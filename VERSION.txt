@@ -1,5 +1,3 @@
-version=4.11
-release=第三章臺灣地質・海底地形・立體隱沒・實物標本優先精修
-entry=index.html
-new_atlas=taiwan-atlas.html
-second_exam_status=待第三章與大氣第四章完成整合後再製作
+v4.13
+第三章名師圖像全面整合版（六組圖像教學、全新科學證據圖、保留第三四章課程及測驗）
+入口：index.html
