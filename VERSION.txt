@@ -1,7 +1,5 @@
-version=4.10
-release=高中一年級地科秘笈_圖解真連結
-cards=38
-standalone_guide_html=38
-standalone_guide_index=guides/index.html
+version=4.11
+release=第三章臺灣地質・海底地形・立體隱沒・實物標本優先精修
 entry=index.html
-verify_on_screen=左上角 v4.10、圖卡有 SVG 預覽、卡片標籤是「🔎 開啟圖解與互動 ↗」
+new_atlas=taiwan-atlas.html
+second_exam_status=待第三章與大氣第四章完成整合後再製作
