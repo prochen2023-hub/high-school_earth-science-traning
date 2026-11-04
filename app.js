@@ -17,11 +17,11 @@ function refreshNav(){
  document.querySelectorAll('[data-view]').forEach(btn=>btn.onclick=()=>go(btn.dataset.view));
  document.querySelectorAll('#resetProgress').forEach(btn=>btn.onclick=()=>{if(confirm('要清除第三章已完成的學習記錄嗎？')){completed.clear();STORE.setItem(KEY,'[]');refreshNav();toastMsg('進度已清除')} });
 }
-function go(dest,id){if(examTimer){clearInterval(examTimer);examTimer=null}if('speechSynthesis' in window)window.speechSynthesis.cancel();voiceActive=false;
+function go(dest,id){if(typeof guideClose==='function')guideClose();if(examTimer){clearInterval(examTimer);examTimer=null}if('speechSynthesis' in window)window.speechSynthesis.cancel();voiceActive=false;
  view=dest;lessonId=dest==='lesson'?id:null;
  side.classList.remove('open');document.getElementById('menuToggle').setAttribute('aria-expanded','false');
  if(dest==='lesson')renderLesson(unitById(id));else if(dest==='review')renderReview();else if(dest==='challenge')renderChallenge();else if(dest==='exam')renderExamHome();else if(dest==='today')startRound('today');else renderHome();
- refreshNav();window.scrollTo({top:0,behavior:'instant'});document.title=`地科秘笈 v4.8｜${dest==='lesson'?unitById(id).name:'第三章 山川壯麗的大地'}`;
+ refreshNav();window.scrollTo({top:0,behavior:'instant'});document.title=`地科秘笈 v4.9｜${dest==='lesson'?unitById(id).name:'第三章 山川壯麗的大地'}`;
 }
 function sectionTitle(num,title,aside=''){return `<div class="block-heading"><span class="num">${num}</span><h2>${title}</h2>${aside?`<span class="aside">${aside}</span>`:''}</div>`}
 function previewCard(u){return `<button class="unit-card" data-unit="${u.id}"><div class="photo" style="background-image:url('${u.image}')"><span class="number">${u.n}</span><span class="unit-emoji">${u.emoji}</span></div><div class="words"><h3>${u.name}</h3><p>${u.title}</p><div class="foot"><span>▶ 進入完整圖解與實驗</span><span class="status">${completed.has(u.id)?'✓ 已學過':'未完成'}</span></div></div></button>`}
@@ -47,8 +47,9 @@ function renderLesson(u){if(!u)return renderHome();
  <div class="bigline">🧠 這節的故事只有一條：${rich(u.line)}</div>
  ${sectionTitle('2','圖上自己動手，眼睛先懂','可反覆調參數、切換情境')}
  <div class="lab-panel"><div class="lab-header"><div><h3>🔬 ${u.labTitle}</h3><p>${u.labIntro}</p></div><span class="pill dark">SVG 原創 · 離線可動</span></div><div id="lab"></div></div>
- ${sectionTitle('3','把實驗結果接回正式知識','每個知識點：白話 → 名詞 → 考點')}
- <div class="three">${u.concepts.map((c,i)=>`<article class="concept-card" style="--concept-color:${u.accent}"><span class="chip">${c.tag}</span><div class="concept-icon">${({pin:'📍',depth:'📏',wave:'〰️',surface:'🏠',clock:'⏱',rings:'◎',layers:'🌍',boundary:'◍',crust:'🪨',igneous:'🔥',sedimentary:'🏞',metamorphic:'💎',cycle:'🔁',puzzle:'🧩',ridge:'🌊',magnetic:'🧲',plates:'🧭',div:'↔️',sub:'↘️',coll:'⛰️',trans:'⇆',volcano:'🌋',density:'⚖️',tw:'🇹🇼',rockmap:'🗺️'})[c.visual]||'🧩'}</div><span class="micro">${c.key}</span><h3>${c.title}</h3><p>${rich(c.text)}</p><div class="inspect"><span>課本概念 ${i+1}／${u.concepts.length}</span><span>✓ 用圖理解</span></div></article>`).join('')}</div>
+ ${sectionTitle('3','把實驗結果接回正式知識','每張卡都能開啟對應圖解')}
+ <div class="guide-invite">🔎 <b>請點下面任一張知識卡的「看圖理解」：</b>先看線索、再推原因，最後用一題驗證；一共 ${u.concepts.length} 個圖解入口。</div>
+ <div class="three">${u.concepts.map((c,i)=>`<article class="concept-card" role="button" tabindex="0" aria-label="開啟${c.title}的互動圖解" style="--concept-color:${u.accent}"><span class="chip">${c.tag}</span><div class="concept-icon">${({pin:'📍',depth:'📏',wave:'〰️',surface:'🏠',clock:'⏱',rings:'◎',layers:'🌍',boundary:'◍',crust:'🪨',igneous:'🔥',sedimentary:'🏞',metamorphic:'💎',cycle:'🔁',puzzle:'🧩',ridge:'🌊',magnetic:'🧲',plates:'🧭',div:'↔️',sub:'↘️',coll:'⛰️',trans:'⇆',volcano:'🌋',density:'⚖️',tw:'🇹🇼',rockmap:'🗺️'})[c.visual]||'🧩'}</div><span class="micro">${c.key}</span><h3>${c.title}</h3><p>${rich(c.text)}</p><div class="inspect"><span>課本概念 ${i+1}／${u.concepts.length}</span><button type="button" class="inspect-action" aria-label="開啟${c.title}看圖理解互動頁">🔍 看圖理解 ↗</button></div></article>`).join('')}</div>
  ${sectionTitle('4','老師最想提醒你的三種陷阱','先拆掉容易答錯的誤解')}
  <div class="trap-grid">${u.traps.map(([a,b])=>`<div class="trap"><div class="bad">✕ 「${a}」</div><div class="good">✔ ${b}</div></div>`).join('')}</div>
  ${sectionTitle('5','圖表題先看哪裡？','考試不會只問定義')}
@@ -58,7 +59,7 @@ function renderLesson(u){if(!u)return renderHome();
  <div class="quiz-card" id="miniQuiz"></div>
  <div class="source-bar"><b>知識核對來源：</b>${u.sources.map(([t,l])=>`<a href="${l}" target="_blank" rel="noopener noreferrer">${t} ↗</a>`).join('')}<span>｜教學圖由本站重新設計</span></div>
  <div class="lesson-end"><p>${completed.has(u.id)?'✅ 你已標記學過這節。':'這節理解了嗎？先勾完成，再前往下一關。'}</p><div class="actions"><button class="action secondary" id="markDone">${completed.has(u.id)?'✓ 已完成':'✓ 我已理解這一節'}</button>${next?`<button class="action" data-unit="${next.id}">下一關：${next.name} →</button>`:`<button class="action" data-view="challenge">打開整章闖關 →</button>`}</div></div>`;
- bindLinks();mountLab(u.lab,document.getElementById('lab'));
+ bindLinks();mountLab(u.lab,document.getElementById('lab'));bindConceptGuideCards(u);
  document.querySelectorAll('[data-hook]').forEach(b=>b.onclick=()=>{
   const ans=+b.dataset.hook;
   document.querySelectorAll('[data-hook]').forEach(bb=>{const i=+bb.dataset.hook;bb.disabled=true;bb.classList.toggle('correct',i===u.answer);bb.classList.toggle('wrong',i===ans&&i!==u.answer)});
@@ -123,4 +124,4 @@ document.getElementById('ttsButton').onclick=()=>{
  if(!text){toastMsg('沒有可朗讀的內容');return}
  const u=new SpeechSynthesisUtterance(text);u.lang='zh-TW';u.rate=.94;u.onend=()=>voiceActive=false;u.onerror=()=>voiceActive=false;speechSynthesis.cancel();speechSynthesis.speak(u);voiceActive=true;toastMsg('開始朗讀這一頁')
 };
-refreshNav();renderHome();bindLinks();
+setupConceptGuides();validateConceptGuides();refreshNav();renderHome();bindLinks();
