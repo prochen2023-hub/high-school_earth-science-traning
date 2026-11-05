@@ -24,7 +24,7 @@ function go(dest,id){if(typeof guideClose==='function')guideClose();if(examTimer
  window.activateChapter?.(dest==='home'?'all':'ch3');
  side.classList.remove('open');document.getElementById('menuToggle').setAttribute('aria-expanded','false');
  if(dest==='chapter3')renderChapter3Home();else if(dest==='lesson')renderLesson(unitById(id));else if(dest==='review')renderReview();else if(dest==='challenge')renderChallenge();else if(dest==='exam')renderExamHome();else if(dest==='atlas')renderAtlas(id||'geology');else if(dest==='gallery')renderGalleryHub();else if(dest==='today')startRound('today');else renderHome();
- refreshNav();window.scrollTo({top:0,behavior:'instant'});document.title=`地科秘笈 v4.16｜${dest==='lesson'?unitById(id).name:'第三章 山川壯麗的大地'}`;
+ refreshNav();window.scrollTo({top:0,behavior:'instant'});document.title=`地科秘笈 v4.17｜${dest==='lesson'?unitById(id).name:'第三章 山川壯麗的大地'}`;
 }
 function renderAtlas(tab='geology'){
   const tpl=document.getElementById('atlasInlineTemplate');
