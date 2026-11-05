@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+<defs>
+ <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#06172e"/><stop offset=".55" stop-color="#0b3550"/><stop offset="1" stop-color="#14233b"/></linearGradient>
+ <radialGradient id="hot"><stop stop-color="#fff1a0"/><stop offset=".28" stop-color="#ff9c42"/><stop offset=".68" stop-color="#d94b2c"/><stop offset="1" stop-color="#502536"/></radialGradient>
+ <radialGradient id="ocean"><stop stop-color="#4cc9e8"/><stop offset=".6" stop-color="#176a9b"/><stop offset="1" stop-color="#08243f"/></radialGradient>
+ <linearGradient id="rock" x2="0" y2="1"><stop stop-color="#b98a62"/><stop offset=".5" stop-color="#76533f"/><stop offset="1" stop-color="#293f4d"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="20"/></filter>
+</defs>
+<rect width="1600" height="900" fill="url(#bg)"/>
+<g fill="#d8edff" opacity=".7">{}</g>
+<g fill="#d8edff" opacity=".72">'''+''.join(f'<circle cx="{(i*173)%1600}" cy="{(i*97)%900}" r="{1+(i%3)}"/>' for i in range(60))+'''</g>
+<text x="90" y="105" fill="#f8d58b" font-size="27" font-family="sans-serif" letter-spacing="7">EARTH HISTORY · 4.6 BILLION YEARS</text>
+<text x="90" y="175" fill="#fff" font-size="64" font-weight="700" font-family="sans-serif">一顆星球，如何走到今天？</text>
+<!-- early molten Earth -->
+<circle cx="340" cy="505" r="205" fill="#ff6b32" opacity=".28" filter="url(#glow)"/>
+<circle cx="340" cy="505" r="176" fill="url(#hot)" stroke="#ffb45c" stroke-width="5"/>
+<path d="M220 440 Q280 390 350 425 T470 430 M190 545 Q270 500 350 550 T490 535 M270 640 Q330 600 405 630" fill="none" stroke="#ffd27b" stroke-width="16" stroke-linecap="round" opacity=".7"/>
+<g fill="#ffe2a3"><circle cx="230" cy="340" r="12"/><circle cx="430" cy="320" r="8"/><circle cx="490" cy="550" r="11"/><circle cx="280" cy="680" r="7"/></g>
+<text x="175" y="755" fill="#ffd99c" font-size="30" font-family="sans-serif">早期地球｜高溫、撞擊、熔融</text>
+<!-- transition arrow -->
+<path d="M555 505 C650 420 700 420 790 505" fill="none" stroke="#f4d17f" stroke-width="7" stroke-dasharray="14 13"/>
+<path d="M770 480 L800 505 L770 530" fill="none" stroke="#f4d17f" stroke-width="7"/>
+<!-- blue Earth -->
+<circle cx="1000" cy="505" r="190" fill="#4ed5ef" opacity=".2" filter="url(#glow)"/>
+<circle cx="1000" cy="505" r="166" fill="url(#ocean)" stroke="#9deaff" stroke-width="5"/>
+<path d="M925 380 Q965 350 1010 382 L1040 425 1000 460 960 450 930 485 890 450Z" fill="#6ea66c"/>
+<path d="M1050 490 Q1110 460 1160 500 L1130 550 1080 570 1045 540Z" fill="#6ea66c"/>
+<path d="M865 550 Q940 520 1005 565 T1130 590" fill="none" stroke="#b5f4ff" stroke-width="14" opacity=".8"/>
+<g fill="#e5ffff" opacity=".85"><path d="M850 380 Q920 330 960 370 Q930 410 885 405Z"/><path d="M1030 350 Q1090 330 1130 380 Q1090 405 1050 390Z"/><path d="M940 620 Q1000 590 1060 620 Q1030 655 970 650Z"/></g>
+<text x="865" y="755" fill="#b9f1ff" font-size="30" font-family="sans-serif">海洋、大氣與早期生命</text>
+<!-- geological layers -->
+<path d="M1260 400 L1590 400 L1590 900 L1260 900Z" fill="url(#rock)"/>
+<path d="M1260 450 Q1400 420 1590 460 L1590 515 Q1400 485 1260 515Z" fill="#d4a77a"/>
+<path d="M1260 535 Q1400 505 1590 545 L1590 610 Q1400 575 1260 605Z" fill="#a66f54"/>
+<path d="M1260 625 Q1400 600 1590 640 L1590 710 Q1400 675 1260 700Z" fill="#6f8d86"/>
+<path d="M1260 720 Q1400 690 1590 735 L1590 810 Q1400 780 1260 805Z" fill="#475d68"/>
+<g fill="none" stroke="#e8c79d" stroke-width="7" opacity=".8"><path d="M1320 560 q40 -45 80 0 q-40 45 -80 0Z"/><path d="M1440 670 q35 -35 70 0 q-35 35 -70 0Z"/><path d="M1350 760 q25 -25 50 0 q-25 25 -50 0Z"/></g>
+<text x="1285" y="355" fill="#f6d7a2" font-size="28" font-family="sans-serif">岩層保存時間證據</text>
+<text x="90" y="850" fill="#d9edff" font-size="22" font-family="sans-serif">從星雲吸積、地球分異，到岩層與化石：地球歷史是一條可以用證據重建的時間線。</text>
+</svg>

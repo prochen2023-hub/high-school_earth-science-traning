@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900">
+<defs><linearGradient id="space" x2="1" y2="1"><stop stop-color="#030b20"/><stop offset=".5" stop-color="#09264b"/><stop offset="1" stop-color="#07152f"/></linearGradient><radialGradient id="sun"><stop stop-color="#fff8c0"/><stop offset=".35" stop-color="#ffb44b"/><stop offset="1" stop-color="#ed552b"/></radialGradient><radialGradient id="earth"><stop stop-color="#4be3f1"/><stop offset=".48" stop-color="#187dbb"/><stop offset="1" stop-color="#08264c"/></radialGradient><radialGradient id="planet"><stop stop-color="#f5d4a1"/><stop offset="1" stop-color="#8d5d43"/></radialGradient><filter id="halo"><feGaussianBlur stdDeviation="24"/></filter></defs>
+<rect width="1600" height="900" fill="url(#space)"/>
+<g fill="#e5f2ff">'''+''.join(f'<circle cx="{(i*149)%1600}" cy="{(i*83)%900}" r="{1+(i%4)*.5}" opacity="{.3+(i%6)*.1}"/>' for i in range(140))+'''</g>
+<ellipse cx="810" cy="470" rx="650" ry="280" fill="none" stroke="#2c75a8" stroke-width="3" stroke-dasharray="9 13" opacity=".7"/>
+<ellipse cx="810" cy="470" rx="510" ry="210" fill="none" stroke="#4e9ec8" stroke-width="2" opacity=".6"/>
+<ellipse cx="810" cy="470" rx="360" ry="145" fill="none" stroke="#78c5dc" stroke-width="2" opacity=".5"/>
+<circle cx="790" cy="455" r="120" fill="#ff9d45" opacity=".25" filter="url(#halo)"/><circle cx="790" cy="455" r="85" fill="url(#sun)"/>
+<circle cx="1100" cy="455" r="38" fill="#9e9a8b"/><path d="M1070 440 Q1100 420 1128 447 Q1108 473 1080 470Z" fill="#c5c0b0" opacity=".6"/>
+<circle cx="1260" cy="310" r="60" fill="url(#earth)" stroke="#6fdcf0" stroke-width="3"/><path d="M1225 280 Q1250 255 1270 282 L1260 315 1230 320Z" fill="#68a66c"/><path d="M1270 335 Q1300 320 1310 350 L1280 370Z" fill="#6ba76c"/>
+<circle cx="1370" cy="620" r="30" fill="url(#planet)"/><ellipse cx="1370" cy="620" rx="57" ry="15" fill="none" stroke="#d6c49e" stroke-width="8" transform="rotate(-18 1370 620)"/>
+<circle cx="470" cy="330" r="52" fill="#bd8d61"/><path d="M425 320 Q470 285 515 328" fill="none" stroke="#e5c59a" stroke-width="8" opacity=".6"/>
+<circle cx="590" cy="650" r="24" fill="#c47c4b"/><circle cx="1000" cy="660" r="18" fill="#7daac4"/>
+<!-- galaxy spiral -->
+<g transform="translate(260 190) rotate(-22)"><ellipse rx="130" ry="50" fill="#5c86ca" opacity=".18"/><path d="M0 0 C55 -90 170 -70 180 0 C190 75 80 105 20 60 C-40 15 -15 -40 45 -45 C95 -50 120 10 75 35 C40 52 5 22 22 0" fill="none" stroke="#b5c9ff" stroke-width="10" opacity=".7"/><circle r="23" fill="#fff2c2"/></g>
+<text x="90" y="100" fill="#ffdc8c" font-size="28" font-family="sans-serif" letter-spacing="7">OUR COSMIC ADDRESS</text><text x="90" y="165" fill="#fff" font-size="62" font-weight="700" font-family="sans-serif">從地球出發，認識整個宇宙</text>
+<g font-family="sans-serif" fill="#dff5ff"><text x="90" y="760" font-size="26">地球 → 太陽系 → 銀河系 → 本星系群 → 可觀測宇宙</text><text x="90" y="812" font-size="19" opacity=".8">示意圖非比例｜行星軌道、大小與距離為教學視覺化</text></g>
+</svg>
