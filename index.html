@@ -2,44 +2,48 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#081728">
-<title>地科秘笈 v4.14｜第三、四章完整圖像互動版</title>
+<title>地科秘笈 v4.15｜第三、四章完整圖像互動版</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Ctext y='66' font-size='62'%3E🌎%3C/text%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 <link rel="stylesheet" href="atlas-embedded.css">
 <link rel="stylesheet" href="weather.css">
 <link rel="stylesheet" href="ch3-gallery.css">
+<link rel="stylesheet" href="enrichment.css">
 </head>
 <body>
 <div class="site">
   <header class="topbar">
     <button class="iconbtn mobile-only" id="menuToggle" aria-label="開啟學習選單">☰</button>
-    <div class="brand" role="banner"><span class="globe">🌎</span><div><strong>地科秘笈</strong><small>高中一年級　・　v4.14</small></div></div>
+    <div class="brand" role="banner"><span class="globe">🌎</span><div><strong>地科秘笈</strong><small>高中一年級　・　v4.15</small></div></div>
     <nav class="toplinks" aria-label="網站導覽">
-      <button data-view="home">⌂ <span>章節首頁</span></button>
-      <button data-view="review">✦ <span>30秒救命</span></button><button data-ch3-hub type="button">🖼️ <span>第三章圖像學堂</span></button>
-      <button data-view="challenge">◈ <span>闖關挑戰</span></button>
-      <button data-view="exam">▤ <span>第三章練習</span></button><button type="button" data-weather-nav="home">☁️ <span>第四章大氣探險</span></button><button type="button" data-weather-nav="exam">🏆 <span>第二次段考</span></button><a class="top-guide-link" href="#atlas-geology" data-atlas-open="geology">🗺️ <span>臺灣地質圖鑑</span></a><a class="top-guide-link" href="guides/index.html">🔎 <span>38 張圖解</span></a>
+      <button data-view="home">🏠 <span>雙章首頁</span></button>
+      <button data-view="chapter3">⛰️ <span>第三章・大地</span></button>
+      <button data-weather-nav="home">☁️ <span>第四章・大氣</span></button>
+      <button data-weather-nav="exam">📝 <span>第二次段考 A／B</span></button>
+      <button data-view="review">⚡ <span>地質速記</span></button>
     </nav>
     <div class="topright"><span id="progressTag" class="progress-tag">探索進度 0 / 6</span><button id="ttsButton" class="iconbtn" title="朗讀本頁主要文字" aria-label="朗讀目前單元">🔊</button></div>
   </header>
   <div class="shell">
-    <aside class="sidebar" id="sidebar" aria-label="第三章課程目錄">
-      <div class="sidebar-top"><span class="chapter-label">CHAPTER 03</span><h2>山川壯麗的<br>大地</h2><p>從一次搖晃，走到臺灣的高山。</p></div>
-      <div class="side-heading">第三章｜主線任務</div>
-      <div id="unitNav" class="unit-nav"></div>
-      <div class="side-heading">第三章｜名師圖卡總覽</div><div class="side-tools"><button type="button" data-ch3-hub>🖼️ 第三章 6 組圖像教學</button></div>
-      <div class="side-heading">第四章｜風起雲湧的大氣</div>
-      <div class="side-tools"><button data-weather-nav="home">☁️ 大氣篇學習地圖</button><button data-weather-nav="a1">4-1 大氣垂直結構</button><button data-weather-nav="a2">4-2 水循環與天氣</button><button data-weather-nav="a3">4-3 大氣水平運動</button><button data-weather-nav="a4">4-4 判讀天氣圖</button><button data-weather-nav="exam">📝 第二次段考 A / B 卷</button></div>
-      <div class="side-heading">我的學習工具</div>
-      <div class="side-tools"><a class="side-guide-link" style="background:#a25b20;border-color:#f5d381" href="#atlas-geology" data-atlas-open="geology">🗺️ 新版臺灣地質・海底圖鑑 →</a></div>
-      <div class="side-tools"><a class="side-guide-link" href="guides/index.html">📚 38 張圖解總目錄 ↗</a></div>
-      <div class="side-tools">
-        <button data-view="review">⚡ 一眼總整理</button>
-        <button data-view="challenge">🎮 ABCD 四級挑戰</button>
-        <button data-view="exam">📝 第三章 A／B 練習</button>
-        <button id="resetProgress" class="muted-button">↻ 重設本章進度</button>
+    <aside class="sidebar" id="sidebar" aria-label="第三、四章平行課程導覽">
+      <div class="sidebar-top"><span class="chapter-label">CHAPTER 03 + 04</span><h2>兩章並列<br>慢慢學會</h2><p>選一章開始，用圖像推理。</p></div>
+      <div class="side-heading">選擇完整章節</div>
+      <div class="parallel-chapter-nav">
+        <button class="chapter-side-pick" data-view="chapter3"><span>⛰️ CH.03</span><b>山川壯麗的大地</b><small>6 個任務｜地震・岩石・板塊・臺灣</small></button>
+        <button class="chapter-side-pick" data-weather-nav="home"><span>☁️ CH.04</span><b>風起雲湧的大氣</b><small>4 個任務｜氣壓・雲雨・風・鋒面</small></button>
       </div>
-      <div class="side-foot"><p>其他章節功能仍可使用</p><a href="legacy/index.html">開啟既有完整學期網站 ↗</a></div>
+      <div class="ch3-side-section">
+        <div class="side-heading">第三章｜課程與圖解</div>
+        <div id="unitNav" class="unit-nav"></div>
+        <div class="side-tools"><button type="button" data-ch3-hub>🖼️ 6 組地質圖像學堂</button><a class="side-guide-link" href="#atlas-geology" data-atlas-open="geology">🗺️ 臺灣地質與海底圖鑑</a><button data-view="review">⚡ 地質觀念整理</button><button data-view="challenge">🎮 地質 ABCD 闖關</button><button data-view="exam">📝 第三章單章練習</button></div>
+      </div>
+      <div class="ch4-side-section">
+        <div class="side-heading">第四章｜課程與圖解</div>
+        <div class="side-tools"><button data-weather-nav="a1">4-1 大氣的垂直結構</button><button data-weather-nav="a2">4-2 水循環與天氣變化</button><button data-weather-nav="a3">4-3 大氣的水平運動</button><button data-weather-nav="a4">4-4 判讀天氣圖</button><button data-weather-nav="home">🖼️ 大氣全章學習地圖</button></div>
+      </div>
+      <div class="side-heading">兩章共同資源</div>
+      <div class="side-tools"><button class="shared-exam-button" data-weather-nav="exam">📝 第二次段考｜第三＋四章</button><button data-view="home">🏠 返回雙章首頁</button><a class="side-guide-link" href="guides/index.html">📚 第三章 38 張原有圖解</a></div>
+      <div class="side-foot"><button id="resetProgress" class="muted-button">↻ 清除第三章學習紀錄</button><button id="resetWeatherProgress" class="muted-button">↻ 清除第四章學習紀錄</button><p>另存有舊版學期課程</p><a href="legacy/index.html">舊版完整學期網站 ↗</a></div>
     </aside>
     <main id="main" tabindex="-1" aria-live="polite"></main>
   </div>
@@ -135,9 +139,19 @@
 <dialog class="lightbox" id="zoomDialog"><button aria-label="關閉放大圖" class="lightbox-close" type="button">✕ 關閉</button><img alt="放大觀看的圖像" id="zoomImage"/><p>手機可雙指縮放；桌面可使用滑鼠捲動瀏覽圖片。按 Esc 可關閉。</p></dialog>
 </div>
 </template>
+<script>
+window.activateChapter = function(which){
+  document.body.dataset.activeChapter=which;
+  const info={all:['CHAPTER 03 + 04','兩章並列<br>慢慢學會','選一章開始，用圖像推理。'],ch3:['CHAPTER 03','山川壯麗的<br>大地','從地震走到臺灣的高山。'],ch4:['CHAPTER 04','風起雲湧的<br>大氣','從高山氣壓走到颱風與鋒面。']}[which]||[];
+  const h=document.querySelector('.sidebar-top');
+  if(h&&info.length) h.innerHTML='<span class="chapter-label">'+info[0]+'</span><h2>'+info[1]+'</h2><p>'+info[2]+'</p>';
+  document.querySelectorAll('.parallel-chapter-nav .chapter-side-pick').forEach(b=>{b.classList.toggle('current',which==='ch3'?b.hasAttribute('data-view'):which==='ch4'?b.hasAttribute('data-weather-nav'):false)})
+};
+</script>
 <script src="atlas-integrated.js"></script>
 <script src="ch3-gallery.js"></script>
 <script src="app.js"></script>
+<script src="enrichment.js"></script>
 <script src="weather-gallery.js"></script>
 <script src="weather.js"></script>
 <dialog class="ch3-dialog" id="ch3ZoomDialog" aria-label="第三章圖卡放大檢視">
