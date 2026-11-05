@@ -53,3 +53,42 @@
 .wx .wx-card-pad h3,.wx .wx-card-pad h2{line-height:1.45}
 .wx .wx-note,.wx .wx-try,.wx .wx-focus{font-size:1rem}
 @media(max-width:580px){.wx{padding:12px;border-radius:14px}.wx .wx-section-head{padding:12px}.wx .wx-section-head h2{font-size:1.3rem}}
+/* v4.14｜高清劇情圖卡：各節內嵌、非外跳連結 */
+.wx .wx-atlas{margin:26px 0 36px;border-radius:22px;border:1px solid #4e8db1;background:linear-gradient(150deg,#0f3758,#0b243e 63%,#0a2137);overflow:hidden;box-shadow:0 18px 38px #0004}
+.wx .wx-atlas-intro{padding:23px 24px 15px;background:radial-gradient(circle at 91% 3%,#208bc15a,transparent 45%)}
+.wx .wx-atlas-intro span{display:inline-block;font-weight:900;letter-spacing:.07em;color:#8ae4ff;font-size:.85rem}
+.wx .wx-atlas-intro h2{color:white;line-height:1.32;margin:8px 0;font-size:clamp(1.4rem,2.7vw,2rem)}
+.wx .wx-atlas-intro p{margin:0;color:#c4e1f5}
+.wx .wx-atlas-tabs{display:flex;gap:9px;overflow-x:auto;padding:11px 22px 14px;scrollbar-color:#4d9fc6 #0d2b45}
+.wx .wx-atlas-tab{flex:0 0 auto;max-width:255px;padding:10px 13px;border:1px solid #6e9eb7;border-radius:13px;background:#163a59;color:#e6f6ff;text-align:left;cursor:pointer;line-height:1.45;font-weight:750}
+.wx .wx-atlas-tab.active,.wx .wx-atlas-tab[aria-pressed=true]{background:#ffe4a2;color:#19364e;border-color:#ffd57e}
+.wx .wx-atlas-layout{display:grid;grid-template-columns:minmax(0,1.26fr) minmax(0,.74fr);gap:0;border-top:1px solid #47738f}
+.wx .wx-atlas-figure{margin:0;background:#071c2e;min-width:0;align-self:start}
+.wx .wx-atlas-frame img{width:100%;height:auto;display:block;aspect-ratio:1448/1086;object-fit:contain}
+.wx .wx-atlas-figure figcaption{padding:10px 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px;color:#d5eaff;font-size:.86rem}
+.wx .wx-atlas-tag{background:#1d617f;border-radius:999px;padding:4px 9px;font-weight:800}
+.wx .wx-atlas-counter{font-variant-numeric:tabular-nums}
+.wx .wx-atlas-zoom{margin-left:auto;border:1px solid #9bcaf2;background:#174568;color:#fff;border-radius:10px;padding:8px 11px;cursor:pointer;font-weight:750}
+.wx .wx-atlas-teach{padding:17px;display:grid;align-content:start;gap:12px;border-left:1px solid #376585}
+.wx .wx-atlas-teach h3{color:#fff;margin:0 0 3px;font-size:1.15rem}
+.wx .wx-atlas-point{background:#123b59;border:1px solid #376f91;padding:11px 13px;border-radius:13px}
+.wx .wx-atlas-point b{color:#ffe29b}.wx .wx-atlas-point p{color:#d6ebf8;margin:5px 0 0;font-size:.96rem;line-height:1.65}
+.wx .wx-atlas-point.question{background:#1b3652}
+.wx .wx-atlas-reveal,.wx .wx-atlas-next{border:0;border-radius:12px;background:#ffe09a;color:#17344f;cursor:pointer;padding:9px 13px;font-weight:900;margin-top:12px}
+.wx .wx-atlas-answer{color:#bff9d9!important;border-top:1px solid #5e928a;padding-top:9px}
+.wx .wx-atlas-warning{background:#432f32;border-left:4px solid #ffc0a0;padding:10px 13px;border-radius:10px}
+.wx .wx-atlas-warning b{color:#ffd2ac}.wx .wx-atlas-warning p{color:#ffe4db;font-size:.88rem;margin:5px 0 0;line-height:1.5}
+.wx .wx-atlas-next{background:#2e89b8;color:#fff;margin:0;justify-self:start}
+.wx .wx-atlas-footnote{padding:10px 22px 17px;font-size:.82rem;color:#b7d0e2;margin:0}
+.wx .wx-atlas-footnote a{color:#a6e6ff;text-decoration:underline}
+.wx-enhanced-dialog{position:fixed;inset:3vh 3vw;border:1px solid #7cb7df;border-radius:14px;background:#091d30;color:#fff;max-width:94vw;max-height:94vh;width:1150px;padding:15px;overflow:auto}
+.wx-enhanced-dialog::backdrop{background:#00101dde}.wx-enhanced-dialog img{width:100%;height:auto;display:block;border-radius:10px;object-fit:contain}
+.wx-enhanced-head{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:12px;font-weight:850}.wx-enhanced-head button{padding:9px 14px;border:1px solid #89c2e7;background:#175781;color:#fff;border-radius:9px;cursor:pointer}
+@media(max-width:900px){.wx .wx-atlas-layout{grid-template-columns:1fr}.wx .wx-atlas-teach{border-left:0;border-top:1px solid #47738f;grid-template-columns:repeat(2,minmax(0,1fr))}.wx .wx-atlas-teach h3{grid-column:1/-1}.wx .wx-atlas-warning{grid-column:1/-1}}
+@media(max-width:580px){.wx .wx-atlas-intro{padding:19px 15px 10px}.wx .wx-atlas-tabs{padding:9px 12px 12px}.wx .wx-atlas-tab{max-width:220px;font-size:.9rem}.wx .wx-atlas-teach{display:grid;grid-template-columns:1fr;padding:12px}.wx .wx-atlas-warning{grid-column:1}.wx .wx-atlas-footnote{padding:12px 15px;font-size:.8rem}.wx-enhanced-dialog{inset:2vh 2vw;max-width:96vw;max-height:96vh;padding:8px}}
+/* 手機放大模式保持接近圖片原始解析度，避免細小中文被縮成無法閱讀。 */
+.wx .wx-atlas{scroll-margin-top:110px}
+@media(max-width:580px){
+ .wx-enhanced-dialog img{width:1200px;max-width:none;min-height:0;height:auto}
+ .wx-enhanced-dialog .wx-enhanced-head{position:sticky;left:0;top:0;z-index:3;background:#091d30;padding:6px 0}
+}
